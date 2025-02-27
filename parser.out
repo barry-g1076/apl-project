@@ -1,0 +1,559 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> statement
+Rule 1     statement -> book_statement
+Rule 2     statement -> status_statement
+Rule 3     statement -> show_statement
+Rule 4     statement -> select_statement
+Rule 5     statement -> sort_statement
+Rule 6     statement -> fetch_statement
+Rule 7     statement -> reserve_statement
+Rule 8     statement -> region_statement
+Rule 9     statement -> speech_statement
+Rule 10    statement -> list_statement
+Rule 11    statement -> pay_statement
+Rule 12    statement -> cancel_statement
+Rule 13    book_statement -> BOOK NUMBER TICKETS FOR EVENT ON DATE
+Rule 14    status_statement -> STATUS BOOKING_ID
+Rule 15    show_statement -> SHOW AVAILABLE TICKETS
+Rule 16    select_statement -> SELECT TICKET_ID
+Rule 17    sort_statement -> SORT TICKETS BY PRICE
+Rule 18    fetch_statement -> FETCH TICKETS FROM API API_URL
+Rule 19    reserve_statement -> RESERVE TICKETS FOR EVENT
+Rule 20    region_statement -> SHOW AVAILABLE TICKETS IN REGION
+Rule 21    speech_statement -> READ OUT MY BOOKING DETAILS
+Rule 22    speech_statement -> READ AVAILABLE TICKETS FOR EVENT
+Rule 23    list_statement -> LIST EVENTS
+Rule 24    pay_statement -> PAY BOOKING_ID USING PAYMENT_METHOD
+Rule 25    cancel_statement -> CANCEL BOOKING_ID
+
+Terminals, with rules where they appear
+
+API                  : 18
+API_URL              : 18
+AVAILABLE            : 15 20 22
+BOOK                 : 13
+BOOKING              : 21
+BOOKING_ID           : 14 24 25
+BY                   : 17
+CANCEL               : 25
+DATE                 : 13
+DETAILS              : 21
+EVENT                : 13 19 22
+EVENTS               : 23
+FETCH                : 18
+FOR                  : 13 19 22
+FROM                 : 18
+IN                   : 20
+LIST                 : 23
+MY                   : 21
+NUMBER               : 13
+ON                   : 13
+OUT                  : 21
+PAY                  : 24
+PAYMENT_METHOD       : 24
+PRICE                : 17
+READ                 : 21 22
+REGION               : 20
+RESERVE              : 19
+SELECT               : 16
+SHOW                 : 15 20
+SORT                 : 17
+STATUS               : 14
+TICKETS              : 13 15 17 18 19 20 22
+TICKET_ID            : 16
+USING                : 24
+error                : 
+
+Nonterminals, with rules where they appear
+
+book_statement       : 1
+cancel_statement     : 12
+fetch_statement      : 6
+list_statement       : 10
+pay_statement        : 11
+region_statement     : 8
+reserve_statement    : 7
+select_statement     : 4
+show_statement       : 3
+sort_statement       : 5
+speech_statement     : 9
+statement            : 0
+status_statement     : 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . book_statement
+    (2) statement -> . status_statement
+    (3) statement -> . show_statement
+    (4) statement -> . select_statement
+    (5) statement -> . sort_statement
+    (6) statement -> . fetch_statement
+    (7) statement -> . reserve_statement
+    (8) statement -> . region_statement
+    (9) statement -> . speech_statement
+    (10) statement -> . list_statement
+    (11) statement -> . pay_statement
+    (12) statement -> . cancel_statement
+    (13) book_statement -> . BOOK NUMBER TICKETS FOR EVENT ON DATE
+    (14) status_statement -> . STATUS BOOKING_ID
+    (15) show_statement -> . SHOW AVAILABLE TICKETS
+    (16) select_statement -> . SELECT TICKET_ID
+    (17) sort_statement -> . SORT TICKETS BY PRICE
+    (18) fetch_statement -> . FETCH TICKETS FROM API API_URL
+    (19) reserve_statement -> . RESERVE TICKETS FOR EVENT
+    (20) region_statement -> . SHOW AVAILABLE TICKETS IN REGION
+    (21) speech_statement -> . READ OUT MY BOOKING DETAILS
+    (22) speech_statement -> . READ AVAILABLE TICKETS FOR EVENT
+    (23) list_statement -> . LIST EVENTS
+    (24) pay_statement -> . PAY BOOKING_ID USING PAYMENT_METHOD
+    (25) cancel_statement -> . CANCEL BOOKING_ID
+
+    BOOK            shift and go to state 14
+    STATUS          shift and go to state 15
+    SHOW            shift and go to state 16
+    SELECT          shift and go to state 17
+    SORT            shift and go to state 18
+    FETCH           shift and go to state 19
+    RESERVE         shift and go to state 20
+    READ            shift and go to state 21
+    LIST            shift and go to state 22
+    PAY             shift and go to state 23
+    CANCEL          shift and go to state 24
+
+    statement                      shift and go to state 1
+    book_statement                 shift and go to state 2
+    status_statement               shift and go to state 3
+    show_statement                 shift and go to state 4
+    select_statement               shift and go to state 5
+    sort_statement                 shift and go to state 6
+    fetch_statement                shift and go to state 7
+    reserve_statement              shift and go to state 8
+    region_statement               shift and go to state 9
+    speech_statement               shift and go to state 10
+    list_statement                 shift and go to state 11
+    pay_statement                  shift and go to state 12
+    cancel_statement               shift and go to state 13
+
+state 1
+
+    (0) S' -> statement .
+
+
+
+state 2
+
+    (1) statement -> book_statement .
+
+    $end            reduce using rule 1 (statement -> book_statement .)
+
+
+state 3
+
+    (2) statement -> status_statement .
+
+    $end            reduce using rule 2 (statement -> status_statement .)
+
+
+state 4
+
+    (3) statement -> show_statement .
+
+    $end            reduce using rule 3 (statement -> show_statement .)
+
+
+state 5
+
+    (4) statement -> select_statement .
+
+    $end            reduce using rule 4 (statement -> select_statement .)
+
+
+state 6
+
+    (5) statement -> sort_statement .
+
+    $end            reduce using rule 5 (statement -> sort_statement .)
+
+
+state 7
+
+    (6) statement -> fetch_statement .
+
+    $end            reduce using rule 6 (statement -> fetch_statement .)
+
+
+state 8
+
+    (7) statement -> reserve_statement .
+
+    $end            reduce using rule 7 (statement -> reserve_statement .)
+
+
+state 9
+
+    (8) statement -> region_statement .
+
+    $end            reduce using rule 8 (statement -> region_statement .)
+
+
+state 10
+
+    (9) statement -> speech_statement .
+
+    $end            reduce using rule 9 (statement -> speech_statement .)
+
+
+state 11
+
+    (10) statement -> list_statement .
+
+    $end            reduce using rule 10 (statement -> list_statement .)
+
+
+state 12
+
+    (11) statement -> pay_statement .
+
+    $end            reduce using rule 11 (statement -> pay_statement .)
+
+
+state 13
+
+    (12) statement -> cancel_statement .
+
+    $end            reduce using rule 12 (statement -> cancel_statement .)
+
+
+state 14
+
+    (13) book_statement -> BOOK . NUMBER TICKETS FOR EVENT ON DATE
+
+    NUMBER          shift and go to state 25
+
+
+state 15
+
+    (14) status_statement -> STATUS . BOOKING_ID
+
+    BOOKING_ID      shift and go to state 26
+
+
+state 16
+
+    (15) show_statement -> SHOW . AVAILABLE TICKETS
+    (20) region_statement -> SHOW . AVAILABLE TICKETS IN REGION
+
+    AVAILABLE       shift and go to state 27
+
+
+state 17
+
+    (16) select_statement -> SELECT . TICKET_ID
+
+    TICKET_ID       shift and go to state 28
+
+
+state 18
+
+    (17) sort_statement -> SORT . TICKETS BY PRICE
+
+    TICKETS         shift and go to state 29
+
+
+state 19
+
+    (18) fetch_statement -> FETCH . TICKETS FROM API API_URL
+
+    TICKETS         shift and go to state 30
+
+
+state 20
+
+    (19) reserve_statement -> RESERVE . TICKETS FOR EVENT
+
+    TICKETS         shift and go to state 31
+
+
+state 21
+
+    (21) speech_statement -> READ . OUT MY BOOKING DETAILS
+    (22) speech_statement -> READ . AVAILABLE TICKETS FOR EVENT
+
+    OUT             shift and go to state 32
+    AVAILABLE       shift and go to state 33
+
+
+state 22
+
+    (23) list_statement -> LIST . EVENTS
+
+    EVENTS          shift and go to state 34
+
+
+state 23
+
+    (24) pay_statement -> PAY . BOOKING_ID USING PAYMENT_METHOD
+
+    BOOKING_ID      shift and go to state 35
+
+
+state 24
+
+    (25) cancel_statement -> CANCEL . BOOKING_ID
+
+    BOOKING_ID      shift and go to state 36
+
+
+state 25
+
+    (13) book_statement -> BOOK NUMBER . TICKETS FOR EVENT ON DATE
+
+    TICKETS         shift and go to state 37
+
+
+state 26
+
+    (14) status_statement -> STATUS BOOKING_ID .
+
+    $end            reduce using rule 14 (status_statement -> STATUS BOOKING_ID .)
+
+
+state 27
+
+    (15) show_statement -> SHOW AVAILABLE . TICKETS
+    (20) region_statement -> SHOW AVAILABLE . TICKETS IN REGION
+
+    TICKETS         shift and go to state 38
+
+
+state 28
+
+    (16) select_statement -> SELECT TICKET_ID .
+
+    $end            reduce using rule 16 (select_statement -> SELECT TICKET_ID .)
+
+
+state 29
+
+    (17) sort_statement -> SORT TICKETS . BY PRICE
+
+    BY              shift and go to state 39
+
+
+state 30
+
+    (18) fetch_statement -> FETCH TICKETS . FROM API API_URL
+
+    FROM            shift and go to state 40
+
+
+state 31
+
+    (19) reserve_statement -> RESERVE TICKETS . FOR EVENT
+
+    FOR             shift and go to state 41
+
+
+state 32
+
+    (21) speech_statement -> READ OUT . MY BOOKING DETAILS
+
+    MY              shift and go to state 42
+
+
+state 33
+
+    (22) speech_statement -> READ AVAILABLE . TICKETS FOR EVENT
+
+    TICKETS         shift and go to state 43
+
+
+state 34
+
+    (23) list_statement -> LIST EVENTS .
+
+    $end            reduce using rule 23 (list_statement -> LIST EVENTS .)
+
+
+state 35
+
+    (24) pay_statement -> PAY BOOKING_ID . USING PAYMENT_METHOD
+
+    USING           shift and go to state 44
+
+
+state 36
+
+    (25) cancel_statement -> CANCEL BOOKING_ID .
+
+    $end            reduce using rule 25 (cancel_statement -> CANCEL BOOKING_ID .)
+
+
+state 37
+
+    (13) book_statement -> BOOK NUMBER TICKETS . FOR EVENT ON DATE
+
+    FOR             shift and go to state 45
+
+
+state 38
+
+    (15) show_statement -> SHOW AVAILABLE TICKETS .
+    (20) region_statement -> SHOW AVAILABLE TICKETS . IN REGION
+
+    $end            reduce using rule 15 (show_statement -> SHOW AVAILABLE TICKETS .)
+    IN              shift and go to state 46
+
+
+state 39
+
+    (17) sort_statement -> SORT TICKETS BY . PRICE
+
+    PRICE           shift and go to state 47
+
+
+state 40
+
+    (18) fetch_statement -> FETCH TICKETS FROM . API API_URL
+
+    API             shift and go to state 48
+
+
+state 41
+
+    (19) reserve_statement -> RESERVE TICKETS FOR . EVENT
+
+    EVENT           shift and go to state 49
+
+
+state 42
+
+    (21) speech_statement -> READ OUT MY . BOOKING DETAILS
+
+    BOOKING         shift and go to state 50
+
+
+state 43
+
+    (22) speech_statement -> READ AVAILABLE TICKETS . FOR EVENT
+
+    FOR             shift and go to state 51
+
+
+state 44
+
+    (24) pay_statement -> PAY BOOKING_ID USING . PAYMENT_METHOD
+
+    PAYMENT_METHOD  shift and go to state 52
+
+
+state 45
+
+    (13) book_statement -> BOOK NUMBER TICKETS FOR . EVENT ON DATE
+
+    EVENT           shift and go to state 53
+
+
+state 46
+
+    (20) region_statement -> SHOW AVAILABLE TICKETS IN . REGION
+
+    REGION          shift and go to state 54
+
+
+state 47
+
+    (17) sort_statement -> SORT TICKETS BY PRICE .
+
+    $end            reduce using rule 17 (sort_statement -> SORT TICKETS BY PRICE .)
+
+
+state 48
+
+    (18) fetch_statement -> FETCH TICKETS FROM API . API_URL
+
+    API_URL         shift and go to state 55
+
+
+state 49
+
+    (19) reserve_statement -> RESERVE TICKETS FOR EVENT .
+
+    $end            reduce using rule 19 (reserve_statement -> RESERVE TICKETS FOR EVENT .)
+
+
+state 50
+
+    (21) speech_statement -> READ OUT MY BOOKING . DETAILS
+
+    DETAILS         shift and go to state 56
+
+
+state 51
+
+    (22) speech_statement -> READ AVAILABLE TICKETS FOR . EVENT
+
+    EVENT           shift and go to state 57
+
+
+state 52
+
+    (24) pay_statement -> PAY BOOKING_ID USING PAYMENT_METHOD .
+
+    $end            reduce using rule 24 (pay_statement -> PAY BOOKING_ID USING PAYMENT_METHOD .)
+
+
+state 53
+
+    (13) book_statement -> BOOK NUMBER TICKETS FOR EVENT . ON DATE
+
+    ON              shift and go to state 58
+
+
+state 54
+
+    (20) region_statement -> SHOW AVAILABLE TICKETS IN REGION .
+
+    $end            reduce using rule 20 (region_statement -> SHOW AVAILABLE TICKETS IN REGION .)
+
+
+state 55
+
+    (18) fetch_statement -> FETCH TICKETS FROM API API_URL .
+
+    $end            reduce using rule 18 (fetch_statement -> FETCH TICKETS FROM API API_URL .)
+
+
+state 56
+
+    (21) speech_statement -> READ OUT MY BOOKING DETAILS .
+
+    $end            reduce using rule 21 (speech_statement -> READ OUT MY BOOKING DETAILS .)
+
+
+state 57
+
+    (22) speech_statement -> READ AVAILABLE TICKETS FOR EVENT .
+
+    $end            reduce using rule 22 (speech_statement -> READ AVAILABLE TICKETS FOR EVENT .)
+
+
+state 58
+
+    (13) book_statement -> BOOK NUMBER TICKETS FOR EVENT ON . DATE
+
+    DATE            shift and go to state 59
+
+
+state 59
+
+    (13) book_statement -> BOOK NUMBER TICKETS FOR EVENT ON DATE .
+
+    $end            reduce using rule 13 (book_statement -> BOOK NUMBER TICKETS FOR EVENT ON DATE .)
+
