@@ -1,110 +1,73 @@
 import ply.lex as lex
 
-
-# List of token names
-tokens = (
-    "BOOK",
-    "STATUS",
-    "SHOW",
-    "SELECT",
-    "SORT",
-    "FETCH",
-    "READ",
-    "RESERVE",
-    "LIST",
-    "PAY",
-    "CANCEL",
-    "API",
+# Reserved keywords
+reserved = {
+    "book": "BOOK",
+    "status": "STATUS",
+    "show": "SHOW",
+    "select": "SELECT",
+    "sort": "SORT",
+    "fetch": "FETCH",
+    "read": "READ",
+    "reserve": "RESERVE",
+    "reservations": "RESERVATIONS",
+    "list": "LIST",
+    "pay": "PAY",
+    "cancel": "CANCEL",
+    "canceled": "CANCELED",
+    "confirmed": "CONFIRMED",
+    "for": "FOR",
+    "on": "ON",
+    "using": "USING",
+    "by": "BY",
+    "of": "OF",
+    "api": "API",
+    "region": "REGION",
+    "from": "FROM",
+    "in": "IN",
+    "tickets": "TICKETS",
+    "ticket": "TICKET",
+    "available": "AVAILABLE",
+    "events": "EVENTS",
+    "paid": "PAID",
+    "out": "OUT",
+    "my": "MY",
+    "booking": "BOOKING",
+    "bookings": "BOOKINGS",
+    "details": "DETAILS",
+    "all": "ALL",
+}
+#    "event": "EVENT",
+# Token list
+tokens = [
     "NUMBER",
-    "DATE",
-    "EVENT",
+    "STRING",
     "BOOKING_ID",
     "TICKET_ID",
-    "REGION",
-    "API_URL",
     "PAYMENT_METHOD",
-    "FOR",
-    "ON",
-    "USING",
-    "FROM",
-    "IN",
-    "TICKETS",
-    "AVAILABLE",
-    "BY",
-    "PRICE",
-    "EVENTS",
-    "OUT",
-    "MY",
-    "BOOKING",
-    "DETAILS",
-)
+    "API_URL",
+    "DATE",
+    "ID",
+] + list(reserved.values())
 
-# Regular expression rules for simple tokens
-t_BOOK = r"BOOK"
-t_STATUS = r"STATUS"
-t_SHOW = r"SHOW"
-t_SELECT = r"SELECT"
-t_SORT = r"SORT"
-t_FETCH = r"FETCH"
-t_READ = r"READ"
-t_RESERVE = r"RESERVE"
-t_LIST = r"LIST"
-t_PAY = r"PAY"
-t_CANCEL = r"CANCEL"
-t_API = r"API"
-t_FOR = r"for"
-t_ON = r"on"
-t_USING = r"using"
-t_FROM = r"from"
-t_IN = r"in"
-t_TICKETS = r"tickets"
-t_AVAILABLE = r"AVAILABLE"
-t_BY = r"BY"
-t_PRICE = r"PRICE"
-t_OUT = r"OUT"
-t_MY = r"MY"
-t_BOOKING = r"BOOKING"
-t_DETAILS = r"DETAILS"
+# Lexer rules
 
 
-# Regular expressions for complex tokens
-def t_NUMBER(t):
-    r"\d+"
-    t.value = int(t.value)
+# Ignore whitespace and newlines
+t_ignore = " \t\n"
+
+
+def t_API_URL(t):
+    r"https?://[^\s]+"
     return t
-
-
-def t_DATE(t):
-    r'"\d{4}-\d{2}-\d{2}"'
-    t.value = t.value.strip('"')
-    return t
-
-
-def t_EVENT(t):
-    r"\"[a-zA-Z0-9\s]+\" "
-    t.value = t.value.strip('"')
-    return t
-
 
 def t_BOOKING_ID(t):
-    r"\#\d+"
+    r"booking_[a-zA-Z0-9_]+"
     return t
 
 
 def t_TICKET_ID(t):
-    r"\#\d+"
-    return t
-
-
-def t_REGION(t):
-    r"\"[a-zA-Z\s]+\" "
-    t.value = t.value.strip('"')
-    return t
-
-
-def t_API_URL(t):
-    r"\"https?://[^\s]+\" "
-    t.value = t.value.strip('"')
+    r"ticket_[a-zA-Z0-9_]+"
     return t
 
 
@@ -113,11 +76,38 @@ def t_PAYMENT_METHOD(t):
     return t
 
 
-# Ignored characters (spaces, tabs, newlines)
-t_ignore = " \t\n"
+# Token rules for strings, numbers, and IDs
+def t_DATE(t):
+    r"\d{4}-\d{2}-\d{2}"
+    return t
 
 
-# Error handling
+def t_ID(t):
+    r"[a-zA-Z_][a-zA-Z_0-9]*"
+    t.value = t.value.lower()
+    t.type = reserved.get(t.value, "ID")  # Check for reserved words
+    return t
+
+
+def t_NUMBER(t):
+    r"\d+\.\d+|\.\d+|\d+"  # Matches integers and floating-point numbers
+    t.value = float(t.value) if "." in t.value else int(t.value)
+    return t
+
+
+def t_STRING(t):
+    r'"[^"]+"|\'[^\']+\' '
+    t.value = t.value.strip("\"'")  # Remove quotes if present
+    return t
+
+
+def t_newline(t):
+    r"\n+"
+    t.lexer.lineno += len(t.value)
+    return None
+
+
+# Error handling for lexer
 def t_error(t):
     print(f"Illegal character '{t.value[0]}'")
     t.lexer.skip(1)
@@ -125,15 +115,21 @@ def t_error(t):
 
 # Build the lexer
 lexer = lex.lex()
-def mylex(inp):
-    lexer.input(inp)
-    
-    for token in lexer:
-        print ("Token:", token)
 
-# # Test the lexer
-# if __name__ == "__main__":
-#     data = 'BOOK 2 tickets for "Coldplay Concert" on "2025-07-15"'
-#     lexer.input(data)
-#     for tok in lexer:
-#         print(tok)
+if __name__ == "__main__":
+    data = """
+    BOOK 2 FOR "Coldplay Concert" ON "2025-07-15"
+    STATUS OF booking_12345
+    SHOW available tickets FOR "Coldplay Concert"
+    SHOW my reservations
+    SELECT ticket_67890
+    SORT tickets BY price
+    FETCH tickets FROM API https://api.example.com
+    RESERVE 3 FOR "Coldplay Concert" ON "2025-07-15"
+    LIST all events
+    PAY FOR booking_12345 USING CreditCard
+    CANCEL booking_12345
+    """
+    lexer.input(data)
+    for tok in lexer:
+        print(tok)
