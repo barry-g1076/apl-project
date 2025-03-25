@@ -1,7 +1,7 @@
 import ply.lex as lex
 
 
-# List of token names
+# List of token names - order matters for precedence
 tokens = (
     "BOOK",
     "STATUS",
@@ -17,7 +17,7 @@ tokens = (
     "API",
     "NUMBER",
     "DATE",
-    "EVENT",
+    "QUOTED_STRING",
     "BOOKING_ID",
     "TICKET_ID",
     "REGION",
@@ -37,6 +37,8 @@ tokens = (
     "MY",
     "BOOKING",
     "DETAILS",
+    "SEARCH",
+    "POLICIES",
 )
 
 # Regular expression rules for simple tokens
@@ -52,12 +54,12 @@ t_LIST = r"LIST"
 t_PAY = r"PAY"
 t_CANCEL = r"CANCEL"
 t_API = r"API"
-t_FOR = r"for"
-t_ON = r"on"
-t_USING = r"using"
-t_FROM = r"from"
-t_IN = r"in"
-t_TICKETS = r"tickets"
+t_FOR = r"FOR"
+t_ON = r"ON"
+t_USING = r"USING"
+t_FROM = r"FROM"
+t_IN = r"IN"
+t_TICKETS = r"TICKETS"
 t_AVAILABLE = r"AVAILABLE"
 t_BY = r"BY"
 t_PRICE = r"PRICE"
@@ -65,6 +67,8 @@ t_OUT = r"OUT"
 t_MY = r"MY"
 t_BOOKING = r"BOOKING"
 t_DETAILS = r"DETAILS"
+t_SEARCH = r"SEARCH"
+t_POLICIES = r"POLICIES"
 
 
 # Regular expressions for complex tokens
@@ -80,8 +84,14 @@ def t_DATE(t):
     return t
 
 
-def t_EVENT(t):
-    r"\"[a-zA-Z0-9\s]+\" "
+def t_QUOTED_STRING(t):
+    r'"[^"]*"'
+    t.value = t.value.strip('"')
+    return t
+
+
+def t_REGION(t):
+    r'"[^"]*"'
     t.value = t.value.strip('"')
     return t
 
@@ -96,14 +106,8 @@ def t_TICKET_ID(t):
     return t
 
 
-def t_REGION(t):
-    r"\"[a-zA-Z\s]+\" "
-    t.value = t.value.strip('"')
-    return t
-
-
 def t_API_URL(t):
-    r"\"https?://[^\s]+\" "
+    r'"https?://[^\s]+"'
     t.value = t.value.strip('"')
     return t
 
