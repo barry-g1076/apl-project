@@ -8,7 +8,6 @@ reserved = {
     "select": "SELECT",
     "sort": "SORT",
     "fetch": "FETCH",
-    "read": "READ",
     "reserve": "RESERVE",
     "reservations": "RESERVATIONS",
     "list": "LIST",
@@ -30,13 +29,15 @@ reserved = {
     "available": "AVAILABLE",
     "events": "EVENTS",
     "paid": "PAID",
-    "out": "OUT",
     "my": "MY",
     "booking": "BOOKING",
     "bookings": "BOOKINGS",
-    "details": "DETAILS",
     "all": "ALL",
 }
+
+    # "read": "READ",
+    # "out": "OUT",
+    # "details": "DETAILS",
 #    "event": "EVENT",
 # Token list
 tokens = [

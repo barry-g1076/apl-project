@@ -24,7 +24,6 @@ def p_command(p):
     | command sorting
     | fetching
     | command fetching
-    | speech
     | region
     | command region
     | reservation
@@ -46,7 +45,7 @@ def p_dummy(p):
     """dummy : ID"""
     pass  # Do nothing with this rule
 
-
+# *Done
 def p_booking(p):
     """booking : BOOK NUMBER TICKETS FOR STRING ON DATE"""
     if isinstance(p[2], float):
@@ -85,7 +84,7 @@ def p_booking_error(p):
     else:
         print(f"Invalid syntax for booking tickets (line {p.lineno(1)})")
 
-
+# *Done
 def p_status(p):
     """status : STATUS OF BOOKING BOOKING_ID
     | STATUS OF TICKETS"""
@@ -115,7 +114,7 @@ def p_status_error(p):
     else:
         print(f"Invalid syntax to retrieve status (line {p.lineno(1)})")
 
-
+# *Done
 def p_view(p):
     """view : SHOW AVAILABLE TICKETS FOR STRING
     | SHOW MY RESERVATIONS
@@ -180,17 +179,6 @@ def p_fetching(p):
 def p_fetching_(p):
     "fetching : FETCH TICKETS FROM API error"
     print(f"Expected the API url but got '{p[5].value}'")
-
-
-# * this may not be needed in the grammar so ignoring
-def p_speech(p):
-    """speech : READ OUT MY BOOKING DETAILS
-    | READ AVAILABLE TICKETS FOR STRING"""
-    if len(p) == 6:
-        p[0] = ("speech", p[5])
-    else:
-        p[0] = ("speech", "booking_details")
-
 
 def p_region(p):
     "region : SHOW AVAILABLE TICKETS IN REGION"

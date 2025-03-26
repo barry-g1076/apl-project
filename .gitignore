@@ -1,1 +1,8 @@
 .qodo
+__pycache__
+__pycache__/*
+__pycache__/book_lexer.cpython-313.pyc
+__pycache__/book_parser.cpython-313.pyc
+__pycache__/parsetab.cpython-313.pyc
+__pycache__/semantic_analyzer.cpython-313.pyc
+__pycache__/testcode.cpython-313.pyc
