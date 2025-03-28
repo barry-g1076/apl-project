@@ -45,9 +45,8 @@ def p_dummy(p):
     """dummy : ID"""
     pass  # Do nothing with this rule
 
-# *Done
 def p_booking(p):
-    """booking : BOOK NUMBER TICKETS FOR STRING ON DATE"""
+    """booking : BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL"""
     if isinstance(p[2], float):
         print(
             f"Warning: Fractional tickets ({p[2]}) are not allowed. Rounding to nearest integer."
@@ -55,36 +54,39 @@ def p_booking(p):
         p[2] = round(p[2])
     if not re.match(r"\d{4}-\d{2}-\d{2}", p[7]):
         print(f"Expected DATE in YYYY-MM-DD format but got '{p[7]}'")
-    p[0] = ("booking", p[2], p[5], p[7])
+    p[0] = ("booking", p[2], p[5], p[7], p[9])
 
 
 # Error handling for booking
 def p_booking_error(p):
-    """booking : BOOK NUMBER TICKETS FOR STRING ON
-    | BOOK error TICKETS FOR STRING ON DATE
-    | BOOK NUMBER TICKETS FOR STRING ON error
-    | BOOK NUMBER TICKETS FOR error ON DATE
-    | BOOK error TICKETS FOR error ON DATE"""
-    if len(p) == 8:
+    """booking : BOOK NUMBER TICKETS FOR STRING ON DATE FOR
+    | BOOK error TICKETS FOR STRING ON DATE FOR EMAIL
+    | BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL
+    | BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL
+    | BOOK error TICKETS FOR error ON DATE FOR EMAIL"""
+    if len(p) == 10:
         if not isinstance(p[2], int) and not isinstance(p[2], float):
             print(f"Expected a integer but got '{check_type(p[2].value)}'")
         elif not isinstance(p[5], str):
             print(f"Expected STRING for event name but got '{check_type(p[5].value)}'")
+        elif not re.match(r"\d{4}-\d{2}-\d{2}", p[7].value):
+            print(f"Expected DATE in YYYY-MM-DD format but got '{p[7].value}'")
         else:
-            print(f"Expected DATE in YYYY-MM-DD format but got '{p[7]}'")
-    elif len(p) == 7:
+            print(f"Email is missing")
+    elif len(p) == 9:
         if not isinstance(p[5], str):
             print(f"Expected STRING for event name but got '{check_type(p[5].value)}'")
         elif not isinstance(p[2], int):
             print(
                 f"Expected a integer for number of tickets but got '{check_type(p[2].value)}'"
             )
-        else:
+        elif not re.match(r"\d{4}-\d{2}-\d{2}", p[7]):
             print(f"The Event Date is missing")
+        else:
+            print(f"Email is missing")
     else:
         print(f"Invalid syntax for booking tickets (line {p.lineno(1)})")
 
-# *Done
 def p_status(p):
     """status : STATUS OF BOOKING BOOKING_ID
     | STATUS OF TICKETS"""
@@ -114,7 +116,6 @@ def p_status_error(p):
     else:
         print(f"Invalid syntax to retrieve status (line {p.lineno(1)})")
 
-# *Done
 def p_view(p):
     """view : SHOW AVAILABLE TICKETS FOR STRING
     | SHOW MY RESERVATIONS
@@ -181,7 +182,7 @@ def p_fetching_(p):
     print(f"Expected the API url but got '{p[5].value}'")
 
 def p_region(p):
-    "region : SHOW AVAILABLE TICKETS IN REGION"
+    "region : SHOW AVAILABLE TICKETS IN STRING"
     p[0] = ("region", p[5])
 
 
@@ -191,13 +192,13 @@ def p_region_error(p):
 
 
 def p_reservation(p):
-    "reservation : RESERVE NUMBER FOR STRING ON DATE"
+    "reservation : RESERVE NUMBER TICKETS FOR STRING ON DATE"
     if isinstance(p[2], float):
         print(
             f"Warning: Fractional tickets ({p[2]}) are not allowed. Rounding to nearest integer."
         )
         p[2] = round(p[2])
-    p[0] = ("reservation", p[2], p[4], p[6])
+    p[0] = ("reservation", p[2], p[5], p[7])
 
 
 def p_reservation_error(p):
@@ -233,23 +234,23 @@ def p_listing_error(p):
 
 
 def p_payment(p):
-    """payment : PAY FOR BOOKING BOOKING_ID USING PAYMENT_METHOD
+    """payment : PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD
     | CANCEL BOOKING BOOKING_ID"""
-    if len(p) == 7:
-        p[0] = ("payment", p[4], p[6])
+    if len(p) == 8:
+        p[0] = ("payment", p[5], p[7])
     else:
         p[0] = ("cancel", p[3])
 
 
 def p_payment_error(p):
-    """payment : PAY FOR BOOKING error USING PAYMENT_METHOD
-    | PAY FOR BOOKING BOOKING_ID USING error
+    """payment : PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD
+    | PAY FOR ALL BOOKINGS BOOKING_ID USING error
     | CANCEL BOOKING error"""
     if len(p) == 7:
-        if not re.match(r"booking_[a-zA-Z0-9_]+", p[4].value):
-            print(f"Expected the booking ID but got '{p[4].value}' ")
-        if not re.match(r"CreditCard|PayPal|Crypto", p[6]):
-            print(f"Expected a payment method but got '{p[6].value}' ")
+        if not re.match(r"booking_[a-zA-Z0-9_]+", p[5].value):
+            print(f"Expected the booking ID but got '{p[5].value}' ")
+        if not re.match(r"CreditCard|PayPal|Crypto", p[7]):
+            print(f"Expected a payment method but got '{p[7].value}' ")
         else:
             print(f"Error in Payment Syntax'")
     elif len(p) == 4:
@@ -261,7 +262,7 @@ def p_payment_error(p):
 
 # Error handling for parser
 def p_error(p):
-    print(f"Syntax error at (line {p.lineno}, col {p.lexpos}) {p.value}")
+    print(f"Syntax error at (line {p.lineno}, col {p.lexpos}) unexpected: '{p.value}'")
 
 
 # Build the parser
@@ -278,6 +279,7 @@ if __name__ == "__main__":
     #     continue
     testCode = testCode.strip()
     result = parser.parse(testCode)
+    # print(result)  # Output: 5
     sem = semantic_analyzer(result)
     if sem:
         print("Hi semantics working")

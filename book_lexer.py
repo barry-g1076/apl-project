@@ -49,6 +49,7 @@ tokens = [
     "API_URL",
     "DATE",
     "ID",
+    "EMAIL"
 ] + list(reserved.values())
 
 # Lexer rules
@@ -57,6 +58,9 @@ tokens = [
 # Ignore whitespace and newlines
 t_ignore = " \t\n"
 
+def t_EMAIL(t):
+    r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    return t
 
 def t_API_URL(t):
     r"https?://[^\s]+"
@@ -119,7 +123,7 @@ lexer = lex.lex()
 
 if __name__ == "__main__":
     data = """
-    BOOK 2 FOR "Coldplay Concert" ON "2025-07-15"
+    BOOK 2 FOR "Coldplay Concert" ON "2025-07-15" FOR jack@gmail.com
     STATUS OF booking_12345
     SHOW available tickets FOR "Coldplay Concert"
     SHOW my reservations

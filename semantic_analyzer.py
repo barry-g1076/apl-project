@@ -1,15 +1,23 @@
 import re
 from testcode import jsonEvent
 from datetime import date, datetime
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union, Any
 from book_printer import ColorErrorPrinter
 import uuid
 from dataclasses import dataclass
 from enum import Enum, auto
+import requests
 
 # Constants
 MAX_TICKETS_PER_USER = 5
-VALID_TICKET_STATUSES = {"booked", "confirmed", "pending", "canceled", "reservations","paid"}
+VALID_TICKET_STATUSES = {
+    "booked",
+    "confirmed",
+    "pending",
+    "canceled",
+    "reservations",
+    "paid",
+}
 
 
 # Data models
@@ -112,15 +120,31 @@ def check_ticket_availability(
 
 
 def check_user_ticket_limit(
-    event_name: str, ticket_no: int
+    event_name: str, ticket_no: int, email: str
 ) -> Tuple[bool, Optional[str]]:
-    """Check if user hasn't exceeded ticket limit for the event."""
-    user_tickets = USER_DATA.get(event_name, {}).get("ticketNo", 0)
-    if user_tickets + ticket_no > MAX_TICKETS_PER_USER:
+    """Check if user hasn't exceeded ticket limit for the specific event.
+    Checks the user's email first, then looks at their tickets for the specified event.
+    """
+
+    # Check if user exists in USER_DATA
+    if email not in USER_DATA:
+        return True, None
+
+    user_data = USER_DATA[email]
+
+    # Check if user has any tickets for this event
+    if event_name not in user_data:
+        return True, None
+
+    event_data = user_data[event_name]
+    current_tickets = event_data.get("ticketNo", 0)
+
+    if current_tickets + ticket_no > MAX_TICKETS_PER_USER:
         return (
             False,
-            f"Cannot book more than {MAX_TICKETS_PER_USER} tickets total for this event",
+            f"Cannot book more than {MAX_TICKETS_PER_USER} tickets for {event_name}",
         )
+
     return True, None
 
 
@@ -137,8 +161,16 @@ def semantic_analyzer(ast: List) -> bool:
                 results.append(handle_status(node[1]))
             elif node[0] == "view":
                 results.append(handle_view(node[1]))
-            else:
-                results.append(handle_status(node[1]))
+            elif node[0] == "fetching":
+                results.append(handle_fetch(node[1]))
+            elif node[0] == "region":
+                results.append(handle_region(node[1]))
+            elif node[0] == "reservation":
+                results.append(handle_reservation(node))
+            elif node[0] == "listing":
+                results.append(handle_listing())
+            elif node[0] == "payment" or node[0] == "cancel":
+                results.append(handle_payment(node))
         except Exception as e:
             printer.critical(f"Error processing command: {str(e)}")
             results.append(False)
@@ -152,7 +184,7 @@ def handle_booking(node: List) -> bool:
         return False
 
     try:
-        ticket_no, event_name, event_date_str = node[1], node[2], node[3]
+        ticket_no, event_name, event_date_str, email = node[1], node[2], node[3], node[4]
         ticket_no = int(ticket_no)
         event_date = datetime.strptime(event_date_str, "%Y-%m-%d").date()
     except (ValueError, IndexError) as e:
@@ -183,24 +215,37 @@ def handle_booking(node: List) -> bool:
         return False
 
     # Check user ticket limit
-    can_book, message = check_user_ticket_limit(event_name, ticket_no)
+    can_book, message = check_user_ticket_limit(event_name, ticket_no,email)
     if not can_book:
         printer.critical(message)
         return False
 
     # Process booking
-    return create_booking(event, event_name, ticket_no)
+    return create_booking(event, event_name, ticket_no,email)
 
 
-def create_booking(event: dict, event_name: str, ticket_no: int) -> bool:
-    """Create a new booking and update system state."""
+def create_booking(event: dict, event_name: str, ticket_no: int,email:str) -> bool:
+    """Create a new booking and update system state.
+    
+    Args:
+        event: The event dictionary containing ticket availability
+        event_name: Name of the event being booked
+        ticket_no: Number of tickets to book
+        email: Email of the user making the booking
+        
+    Returns:
+        bool: True if booking was successful, False otherwise
+    """
     try:
         # Update event tickets
         event["tickets_available"] -= ticket_no
+        
+        if email not in USER_DATA:
+            USER_DATA[email] = {}
 
         # Initialize user data if not exists
-        if event_name not in USER_DATA:
-            USER_DATA[event_name] = {"ticketNo": 0, "bookings": []}
+        if event_name not in USER_DATA[email]:
+            USER_DATA[email][event_name] = {"ticketNo": 0, "bookings": []}
 
         # Create booking
         booking_id = generate_id("booking")
@@ -220,8 +265,8 @@ def create_booking(event: dict, event_name: str, ticket_no: int) -> bool:
         USER_DATA[event_name]["bookings"].append(booking_details)
         USER_DATA[event_name]["ticketNo"] += ticket_no
 
-        printer.info(f"Successfully booked {ticket_no} tickets for {event_name}")
-        printer.debug(f"Booking details: {booking_details}")
+        printer.info(f"Successfully booked {ticket_no} tickets for event {event_name} for {email}")
+        # printer.info(f"Booking details: {booking_details}")
         return True
     except Exception as e:
         printer.critical(f"Failed to create booking: {str(e)}")
@@ -309,3 +354,298 @@ def print_tickets_by_status(status: str) -> bool:
         printer.info(f"No tickets found with status: {status}")
 
     return found_data
+
+
+def handle_fetch(url: str, timeout: float = 10.0) -> bool:
+    """
+    Fetch data from a URL and update the event data if successful.
+
+    Args:
+        url: The URL to fetch data from
+        timeout: Request timeout in seconds (default: 10.0)
+
+    Returns:
+        bool: True if fetch and update were successful, False otherwise
+    """
+    # Validate URL format
+    if not url.startswith(("http://", "https://")):
+        printer.critical(f"Invalid URL format: {url}")
+        return False
+
+    try:
+        response = requests.get(
+            url, timeout=timeout, headers={"Accept": "application/json"}
+        )
+        response.raise_for_status()  # Raises HTTPError for bad responses
+
+        data = response.json()
+
+        # Validate response data structure
+        if not validate_event_data(data):
+            printer.critical("Invalid data structure received from API")
+            return False
+
+        for event in data:
+            EVENT_DATA.append(event)
+            printer.info(
+                f"Successfully fetched and added event: {event.get('name', 'Unnamed event')}"
+            )
+        return True
+
+    except requests.exceptions.Timeout:
+        printer.critical(f"Request timed out after {timeout} seconds")
+    except requests.exceptions.HTTPError as e:
+        printer.critical(f"HTTP error occurred: {str(e)}")
+    except requests.exceptions.JSONDecodeError:
+        printer.critical("Invalid JSON response from server")
+    except requests.exceptions.RequestException as e:
+        printer.critical(f"Network error occurred: {str(e)}")
+    except Exception as e:
+        printer.critical(f"Unexpected error: {str(e)}")
+
+    return False
+
+
+def validate_event_data(data: Dict[str, Any]) -> bool:
+    """
+    Validate that the fetched data contains required event fields.
+
+    Args:
+        data: Dictionary containing event data
+
+    Returns:
+        bool: True if data is valid, False otherwise
+    """
+    required_fields = {"name", "date", "tickets_available"}
+
+    # If data is a list, validate each item
+    if isinstance(data, list):
+        return all(validate_event_data(item) for item in data)
+
+    # If data is not a dict, reject
+    if not isinstance(data, dict):
+        return False
+
+    # Check required fields
+    if not all(field in data for field in required_fields):
+        return False
+
+    try:
+        datetime.strptime(data["date"], "%Y-%m-%d")
+        if (
+            not isinstance(data["tickets_available"], int)
+            or data["tickets_available"] < 0
+        ):
+            return False
+    except (ValueError, KeyError):
+        return False
+
+    return True
+
+
+def handle_region(region: str) -> bool:
+    """
+    Handle the region of the event.
+    Args:
+    region: The region of the event.
+    Returns:
+    bool: True if the region is valid, False otherwise.
+    """
+    matching_events = [e for e in EVENT_DATA if region.lower() in e["location"].lower()]
+    if matching_events:
+        print(f"\nEvents in region '{region}':")
+        print("―" * 40)
+        for event in matching_events:
+            print(f"• Event: {event.get('name', 'Unnamed')}")
+            print(f"  Location: {event['location']}")
+            print(f"  Date: {event.get('date', 'N/A')}")
+            print(f"  Tickets: {event.get('tickets_available', 'N/A')}")
+            print("―" * 40)
+        return True
+    else:
+        printer.info(f"No events found in region: {region}")
+        return False
+
+
+def handle_reservation(node: List) -> bool:
+    """Process a reservation request with comprehensive validation."""
+    if len(node) < 4:
+        printer.critical("Invalid reservation data format")
+        return False
+
+    try:
+        ticket_no, event_name, event_date_str = node[1], node[2], node[3]
+        ticket_no = int(ticket_no)
+        event_date = datetime.strptime(event_date_str, "%Y-%m-%d").date()
+    except (ValueError, IndexError) as e:
+        printer.critical(f"Invalid reservation data format: {str(e)}")
+        return False
+
+    # Validate date
+    if not validate_event_date(event_date):
+        printer.critical("Event date cannot be in the past")
+        return False
+
+    # Validate ticket quantity
+    is_valid, message = validate_ticket_quantity(ticket_no)
+    if not is_valid:
+        printer.critical(message)
+        return False
+
+    # Find and validate event
+    event = find_event(event_name)
+    if not event:
+        printer.critical("Event not found")
+        return False
+
+    # Check ticket availability
+    is_available, message = check_ticket_availability(event, ticket_no)
+    if not is_available:
+        printer.critical(message)
+        return False
+
+    # Check user ticket limit
+    can_book, message = check_user_ticket_limit(event_name, ticket_no)
+    if not can_book:
+        printer.critical(message)
+        return False
+
+    # Process reservation
+    return create_reservation(event, event_name, ticket_no)
+
+
+def create_reservation(event: dict, event_name: str, ticket_no: int) -> bool:
+    """Create a new reservation and update system state."""
+    try:
+        # Update event tickets
+        event["tickets_available"] -= ticket_no
+
+        # Initialize user data if not exists
+        if event_name not in USER_DATA:
+            USER_DATA[event_name] = {"ticketNo": 0, "reservations": []}
+
+        # Create reservation
+        reservation_id = generate_id("reservation")
+        tickets = [
+            {"ticket_id": generate_id("ticket"), "status": "reserved"}
+            for _ in range(ticket_no)
+        ]
+
+        reservation_details = {
+            "reservation_id": reservation_id,
+            "tickets": tickets,
+            "status": "reserved",
+            "created_at": datetime.now().isoformat(),
+        }
+
+        # Update user data
+        USER_DATA[event_name]["reservations"].append(reservation_details)
+        USER_DATA[event_name]["ticketNo"] += ticket_no
+
+        printer.info(f"Successfully reserved {ticket_no} tickets for {event_name}")
+        printer.info(f"Reservation details: {reservation_details}")
+        return True
+    except Exception as e:
+        printer.critical(f"Failed to create reservation: {str(e)}")
+        return False
+
+
+def handle_listing() -> bool:
+    """Handle listing of all available events.
+
+    Returns:
+        bool: True if events were found and displayed, False if no events available
+    """
+    if not EVENT_DATA:
+        printer.info("No events available")
+        return False
+
+    for event in EVENT_DATA:
+        printer.info(
+            f"Event: {event['name']}\n"
+            f"Tickets available: {event['tickets_available']}\n"
+            "---"
+        )
+    return True
+
+
+def handle_payment(node) -> bool:
+    """Handle reservation of tickets for an event by processing payment and updating ticket status.
+
+    Args:
+        node: A tuple containing reservation data (payment_type, booking_id, ...)
+
+    Returns:
+        bool: True if reservation was successful, False otherwise
+    """
+    VALID_PAYMENT_TYPES = {"CreditCard", "PayPal", "Crypto"}
+
+    if len(node) < 3 and len(node) < 2:
+        printer.critical("Invalid node format - missing payment type or booking ID")
+        return False
+
+    if len(node) == 3:
+        booking_id, payment_type = node[1], node[2]
+
+        # Validate payment type
+        if payment_type not in VALID_PAYMENT_TYPES:
+            printer.critical(f"Invalid payment type: {payment_type}")
+            return False
+
+        # Search for booking across all events
+        booking_found = False
+        for event_name, event_data in USER_DATA.items():
+            for booking in event_data.get("bookings", []):
+                if booking.get("booking_id") == booking_id:
+                    booking_found = True
+                    success = _process_tickets(
+                        booking.get("tickets", []), event_name, "paid"
+                    )
+                    if not success:
+                        return False
+
+        if not booking_found:
+            printer.info(f"Booking ID {booking_id} not found")
+            return False
+    else:
+        booking_id = node[1]
+        for event_name, event_data in USER_DATA.items():
+            for booking in event_data.get("bookings", []):
+                if booking.get("booking_id") == booking_id:
+                    booking_found = True
+                    success = _process_tickets(
+                        booking.get("tickets", []), event_name, "cancel"
+                    )
+                    if not success:
+                        return False
+    return True
+
+
+def _process_tickets(tickets: list, event_name: str, status: str) -> bool:
+    """Process individual tickets for a booking.
+
+    Args:
+        tickets: List of ticket dictionaries
+        event_name: Name of the event for logging
+
+    Returns:
+        bool: True if all tickets were processed successfully
+    """
+    if not tickets:
+        printer.warning(f"No tickets found for booking in event {event_name}")
+        return False
+
+    success = True
+    for ticket in tickets:
+        if ticket.get("status") != status:
+            try:
+                ticket["status"] = status
+                printer.info(
+                    f"Ticket {ticket.get('ticket_id', 'UNKNOWN')} "
+                    f"for {event_name} has been {status}"
+                )
+            except Exception as e:
+                printer.error(f"Failed to process ticket: {str(e)}")
+                success = False
+
+    return success
