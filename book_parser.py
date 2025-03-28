@@ -56,7 +56,6 @@ def p_booking(p):
         print(f"Expected DATE in YYYY-MM-DD format but got '{p[7]}'")
     p[0] = ("booking", p[2], p[5], p[7], p[9])
 
-
 # Error handling for booking
 def p_booking_error(p):
     """booking : BOOK NUMBER TICKETS FOR STRING ON DATE FOR
@@ -88,31 +87,35 @@ def p_booking_error(p):
         print(f"Invalid syntax for booking tickets (line {p.lineno(1)})")
 
 def p_status(p):
-    """status : STATUS OF BOOKING BOOKING_ID
-    | STATUS OF TICKETS"""
-    if len(p) == 5:
-        p[0] = ("status", p[4])
+    """status : STATUS OF BOOKING BOOKING_ID FOR EMAIL
+    | STATUS OF TICKETS FOR EMAIL"""
+    if len(p) == 7:
+        p[0] = ("status", p[4],p[6])
     else:
-        p[0] = ("status", "tickets")
+        p[0] = ("status", "tickets",p[5])
 
 
 def p_status_error(p):
     """status : STATUS OF BOOKING error
+    | STATUS OF BOOKING BOOKING_ID FOR error
     | STATUS OF error
     | STATUS OF
     """
-    if len(p) == 5:
-        print(f"Expected a integer but got '{check_type(p[4].value)}'")
+    if len(p) == 7:
+        if re.match(r"booking_[a-zA-Z0-9_]+", p[4].value):
+            print(f"Expected a booking_id but got '{check_type(p[4].value)}'")
+        else:
+            print(f"Expected user email but got '{p[6].value}'")
     elif len(p) == 4:
         if p[3] != "TICKETS":
-            if isinstance(p[3].value, int):
-                print(f"Expected TICKETS but got '{p[3].value}'")
+            if isinstance(p[3].value, str):
+                print(f"Expected TICKETS keyword but got '{p[3].value}'")
             elif re.match(r"booking_[a-zA-Z0-9_]+", p[3].value):
                 print(
                     f"Are you try to get the status of a booking?\nuse STATUS OF BOOKING {p[3].value} instead."
                 )
             else:
-                print(f"Expected 'TICKETS' keyword but got '{p[3].value}'")
+                print(f"Expected user email but got '{p[3].value}'")
     else:
         print(f"Invalid syntax to retrieve status (line {p.lineno(1)})")
 
