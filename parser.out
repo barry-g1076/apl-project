@@ -1,9 +1,5 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    REGION
-
 Grammar
 
 Rule 0     S' -> command
@@ -13,119 +9,110 @@ Rule 3     command -> status
 Rule 4     command -> command status
 Rule 5     command -> view
 Rule 6     command -> command view
-Rule 7     command -> selection
-Rule 8     command -> command selection
-Rule 9     command -> sorting
-Rule 10    command -> command sorting
-Rule 11    command -> fetching
-Rule 12    command -> command fetching
-Rule 13    command -> region
-Rule 14    command -> command region
-Rule 15    command -> reservation
-Rule 16    command -> command reservation
-Rule 17    command -> listing
-Rule 18    command -> command listing
-Rule 19    command -> payment
-Rule 20    command -> command payment
-Rule 21    command -> dummy
-Rule 22    dummy -> ID
-Rule 23    booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL
-Rule 24    booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR
-Rule 25    booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL
-Rule 26    booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL
-Rule 27    booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL
-Rule 28    booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL
-Rule 29    status -> STATUS OF BOOKING BOOKING_ID
-Rule 30    status -> STATUS OF TICKETS
-Rule 31    status -> STATUS OF BOOKING error
-Rule 32    status -> STATUS OF error
-Rule 33    status -> STATUS OF
-Rule 34    view -> SHOW AVAILABLE TICKETS FOR STRING
-Rule 35    view -> SHOW MY RESERVATIONS
-Rule 36    view -> SHOW MY CONFIRMED BOOKINGS
-Rule 37    view -> SHOW MY PAID TICKETS
-Rule 38    view -> SHOW MY CANCELED BOOKINGS
-Rule 39    view -> SHOW AVAILABLE TICKETS FOR error
-Rule 40    view -> SHOW MY error
-Rule 41    view -> SHOW MY error BOOKINGS
-Rule 42    view -> SHOW MY error TICKETS
-Rule 43    selection -> SELECT TICKET TICKET_ID
-Rule 44    selection -> SELECT TICKET error
-Rule 45    sorting -> SORT TICKETS BY NUMBER
-Rule 46    sorting -> SORT TICKETS BY DATE
-Rule 47    sorting -> SORT TICKETS BY error
-Rule 48    fetching -> FETCH TICKETS FROM API API_URL
-Rule 49    fetching -> FETCH TICKETS FROM API error
-Rule 50    region -> SHOW AVAILABLE TICKETS IN STRING
-Rule 51    region -> SHOW AVAILABLE TICKETS error
-Rule 52    reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE
-Rule 53    reservation -> RESERVE error FOR STRING ON DATE
-Rule 54    reservation -> RESERVE NUMBER FOR error ON DATE
-Rule 55    reservation -> RESERVE NUMBER FOR STRING ON error
-Rule 56    listing -> LIST ALL EVENTS
-Rule 57    listing -> LIST error
-Rule 58    payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD
-Rule 59    payment -> CANCEL BOOKING BOOKING_ID
-Rule 60    payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD
-Rule 61    payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error
-Rule 62    payment -> CANCEL BOOKING error
+Rule 7     command -> fetching
+Rule 8     command -> command fetching
+Rule 9     command -> region
+Rule 10    command -> command region
+Rule 11    command -> reservation
+Rule 12    command -> command reservation
+Rule 13    command -> listing
+Rule 14    command -> command listing
+Rule 15    command -> payment
+Rule 16    command -> command payment
+Rule 17    command -> dummy
+Rule 18    dummy -> ID
+Rule 19    booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL
+Rule 20    booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR
+Rule 21    booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL
+Rule 22    booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL
+Rule 23    booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL
+Rule 24    booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL
+Rule 25    status -> STATUS OF BOOKING BOOKING_ID FOR EMAIL
+Rule 26    status -> STATUS OF TICKETS FOR EMAIL
+Rule 27    status -> STATUS OF BOOKING error
+Rule 28    status -> STATUS OF BOOKING BOOKING_ID FOR error
+Rule 29    status -> STATUS OF error
+Rule 30    status -> STATUS OF
+Rule 31    view -> SHOW AVAILABLE TICKETS FOR STRING
+Rule 32    view -> SHOW RESERVATIONS FOR EMAIL
+Rule 33    view -> SHOW CONFIRMED BOOKINGS FOR EMAIL
+Rule 34    view -> SHOW PAID TICKETS FOR EMAIL
+Rule 35    view -> SHOW CANCELED BOOKINGS FOR EMAIL
+Rule 36    view -> SHOW error
+Rule 37    view -> SHOW AVAILABLE TICKETS FOR error
+Rule 38    view -> SHOW error FOR EMAIL
+Rule 39    view -> SHOW error BOOKINGS FOR EMAIL
+Rule 40    view -> SHOW error TICKETS FOR EMAIL
+Rule 41    view -> SHOW RESERVATIONS FOR error
+Rule 42    view -> SHOW CONFIRMED BOOKINGS FOR error
+Rule 43    view -> SHOW CANCELED BOOKINGS FOR error
+Rule 44    view -> SHOW CANCELED TICKETS FOR error
+Rule 45    fetching -> FETCH TICKETS FROM API API_URL
+Rule 46    fetching -> FETCH TICKETS FROM API error
+Rule 47    region -> SHOW AVAILABLE TICKETS IN STRING
+Rule 48    region -> SHOW AVAILABLE TICKETS error
+Rule 49    reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE FOR EMAIL
+Rule 50    reservation -> RESERVE NUMBER FOR STRING ON DATE FOR
+Rule 51    reservation -> RESERVE error FOR STRING ON DATE FOR EMAIL
+Rule 52    reservation -> RESERVE NUMBER FOR error ON DATE FOR EMAIL
+Rule 53    reservation -> RESERVE NUMBER FOR STRING ON DATE FOR error
+Rule 54    reservation -> RESERVE NUMBER FOR STRING ON error FOR EMAIL
+Rule 55    listing -> LIST ALL EVENTS
+Rule 56    listing -> LIST error
+Rule 57    payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR EMAIL
+Rule 58    payment -> CANCEL BOOKING BOOKING_ID FOR EMAIL
+Rule 59    payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR
+Rule 60    payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD FOR EMAIL
+Rule 61    payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error FOR EMAIL
+Rule 62    payment -> CANCEL BOOKING error FOR EMAIL
 
 Terminals, with rules where they appear
 
-ALL                  : 56 58 60 61
-API                  : 48 49
-API_URL              : 48
-AVAILABLE            : 34 39 50 51
-BOOK                 : 23 24 25 26 27 28
-BOOKING              : 29 31 59 62
-BOOKINGS             : 36 38 41 58 60 61
-BOOKING_ID           : 29 58 59 61
-BY                   : 45 46 47
-CANCEL               : 59 62
-CANCELED             : 38
-CONFIRMED            : 36
-DATE                 : 23 24 25 27 28 46 52 53 54
-EMAIL                : 23 25 26 27 28
-EVENTS               : 56
-FETCH                : 48 49
-FOR                  : 23 23 24 24 25 25 26 26 27 27 28 28 34 39 52 53 54 55 58 60 61
-FROM                 : 48 49
-ID                   : 22
-IN                   : 50
-LIST                 : 56 57
-MY                   : 35 36 37 38 40 41 42
-NUMBER               : 23 24 26 27 45 52 54 55
-OF                   : 29 30 31 32 33
-ON                   : 23 24 25 26 27 28 52 53 54 55
-PAID                 : 37
-PAY                  : 58 60 61
-PAYMENT_METHOD       : 58 60
-REGION               : 
-RESERVATIONS         : 35
-RESERVE              : 52 53 54 55
-SELECT               : 43 44
-SHOW                 : 34 35 36 37 38 39 40 41 42 50 51
-SORT                 : 45 46 47
-STATUS               : 29 30 31 32 33
-STRING               : 23 24 25 26 34 50 52 53 55
-TICKET               : 43 44
-TICKETS              : 23 24 25 26 27 28 30 34 37 39 42 45 46 47 48 49 50 51 52
-TICKET_ID            : 43
-USING                : 58 60 61
-error                : 25 26 27 28 28 31 32 39 40 41 42 44 47 49 51 53 54 55 57 60 61 62
+ALL                  : 55 57 59 60 61
+API                  : 45 46
+API_URL              : 45
+AVAILABLE            : 31 37 47 48
+BOOK                 : 19 20 21 22 23 24
+BOOKING              : 25 27 28 58 62
+BOOKINGS             : 33 35 39 42 43 57 59 60 61
+BOOKING_ID           : 25 28 57 58 59 61
+CANCEL               : 58 62
+CANCELED             : 35 43 44
+CONFIRMED            : 33 42
+DATE                 : 19 20 21 23 24 49 50 51 52 53
+EMAIL                : 19 21 22 23 24 25 26 32 33 34 35 38 39 40 49 51 52 54 57 58 60 61 62
+EVENTS               : 55
+FETCH                : 45 46
+FOR                  : 19 19 20 20 21 21 22 22 23 23 24 24 25 26 28 31 32 33 34 35 37 38 39 40 41 42 43 44 49 49 50 50 51 51 52 52 53 53 54 54 57 57 58 59 59 60 60 61 61 62
+FROM                 : 45 46
+ID                   : 18
+IN                   : 47
+LIST                 : 55 56
+NUMBER               : 19 20 22 23 49 50 52 53 54
+OF                   : 25 26 27 28 29 30
+ON                   : 19 20 21 22 23 24 49 50 51 52 53 54
+PAID                 : 34
+PAY                  : 57 59 60 61
+PAYMENT_METHOD       : 57 59 60
+RESERVATIONS         : 32 41
+RESERVE              : 49 50 51 52 53 54
+SHOW                 : 31 32 33 34 35 36 37 38 39 40 41 42 43 44 47 48
+STATUS               : 25 26 27 28 29 30
+STRING               : 19 20 21 22 31 47 49 50 51 53 54
+TICKETS              : 19 20 21 22 23 24 26 31 34 37 40 44 45 46 47 48 49
+USING                : 57 59 60 61
+error                : 21 22 23 24 24 27 28 29 36 37 38 39 40 41 42 43 44 46 48 51 52 53 54 56 60 61 62
 
 Nonterminals, with rules where they appear
 
 booking              : 1 2
-command              : 2 4 6 8 10 12 14 16 18 20 0
-dummy                : 21
-fetching             : 11 12
-listing              : 17 18
-payment              : 19 20
-region               : 13 14
-reservation          : 15 16
-selection            : 7 8
-sorting              : 9 10
+command              : 2 4 6 8 10 12 14 16 0
+dummy                : 17
+fetching             : 7 8
+listing              : 13 14
+payment              : 15 16
+region               : 9 10
+reservation          : 11 12
 status               : 3 4
 view                 : 5 6
 
@@ -140,87 +127,83 @@ state 0
     (4) command -> . command status
     (5) command -> . view
     (6) command -> . command view
-    (7) command -> . selection
-    (8) command -> . command selection
-    (9) command -> . sorting
-    (10) command -> . command sorting
-    (11) command -> . fetching
-    (12) command -> . command fetching
-    (13) command -> . region
-    (14) command -> . command region
-    (15) command -> . reservation
-    (16) command -> . command reservation
-    (17) command -> . listing
-    (18) command -> . command listing
-    (19) command -> . payment
-    (20) command -> . command payment
-    (21) command -> . dummy
-    (23) booking -> . BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL
-    (24) booking -> . BOOK NUMBER TICKETS FOR STRING ON DATE FOR
-    (25) booking -> . BOOK error TICKETS FOR STRING ON DATE FOR EMAIL
-    (26) booking -> . BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL
-    (27) booking -> . BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL
-    (28) booking -> . BOOK error TICKETS FOR error ON DATE FOR EMAIL
-    (29) status -> . STATUS OF BOOKING BOOKING_ID
-    (30) status -> . STATUS OF TICKETS
-    (31) status -> . STATUS OF BOOKING error
-    (32) status -> . STATUS OF error
-    (33) status -> . STATUS OF
-    (34) view -> . SHOW AVAILABLE TICKETS FOR STRING
-    (35) view -> . SHOW MY RESERVATIONS
-    (36) view -> . SHOW MY CONFIRMED BOOKINGS
-    (37) view -> . SHOW MY PAID TICKETS
-    (38) view -> . SHOW MY CANCELED BOOKINGS
-    (39) view -> . SHOW AVAILABLE TICKETS FOR error
-    (40) view -> . SHOW MY error
-    (41) view -> . SHOW MY error BOOKINGS
-    (42) view -> . SHOW MY error TICKETS
-    (43) selection -> . SELECT TICKET TICKET_ID
-    (44) selection -> . SELECT TICKET error
-    (45) sorting -> . SORT TICKETS BY NUMBER
-    (46) sorting -> . SORT TICKETS BY DATE
-    (47) sorting -> . SORT TICKETS BY error
-    (48) fetching -> . FETCH TICKETS FROM API API_URL
-    (49) fetching -> . FETCH TICKETS FROM API error
-    (50) region -> . SHOW AVAILABLE TICKETS IN STRING
-    (51) region -> . SHOW AVAILABLE TICKETS error
-    (52) reservation -> . RESERVE NUMBER TICKETS FOR STRING ON DATE
-    (53) reservation -> . RESERVE error FOR STRING ON DATE
-    (54) reservation -> . RESERVE NUMBER FOR error ON DATE
-    (55) reservation -> . RESERVE NUMBER FOR STRING ON error
-    (56) listing -> . LIST ALL EVENTS
-    (57) listing -> . LIST error
-    (58) payment -> . PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD
-    (59) payment -> . CANCEL BOOKING BOOKING_ID
-    (60) payment -> . PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD
-    (61) payment -> . PAY FOR ALL BOOKINGS BOOKING_ID USING error
-    (62) payment -> . CANCEL BOOKING error
-    (22) dummy -> . ID
+    (7) command -> . fetching
+    (8) command -> . command fetching
+    (9) command -> . region
+    (10) command -> . command region
+    (11) command -> . reservation
+    (12) command -> . command reservation
+    (13) command -> . listing
+    (14) command -> . command listing
+    (15) command -> . payment
+    (16) command -> . command payment
+    (17) command -> . dummy
+    (19) booking -> . BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL
+    (20) booking -> . BOOK NUMBER TICKETS FOR STRING ON DATE FOR
+    (21) booking -> . BOOK error TICKETS FOR STRING ON DATE FOR EMAIL
+    (22) booking -> . BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL
+    (23) booking -> . BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL
+    (24) booking -> . BOOK error TICKETS FOR error ON DATE FOR EMAIL
+    (25) status -> . STATUS OF BOOKING BOOKING_ID FOR EMAIL
+    (26) status -> . STATUS OF TICKETS FOR EMAIL
+    (27) status -> . STATUS OF BOOKING error
+    (28) status -> . STATUS OF BOOKING BOOKING_ID FOR error
+    (29) status -> . STATUS OF error
+    (30) status -> . STATUS OF
+    (31) view -> . SHOW AVAILABLE TICKETS FOR STRING
+    (32) view -> . SHOW RESERVATIONS FOR EMAIL
+    (33) view -> . SHOW CONFIRMED BOOKINGS FOR EMAIL
+    (34) view -> . SHOW PAID TICKETS FOR EMAIL
+    (35) view -> . SHOW CANCELED BOOKINGS FOR EMAIL
+    (36) view -> . SHOW error
+    (37) view -> . SHOW AVAILABLE TICKETS FOR error
+    (38) view -> . SHOW error FOR EMAIL
+    (39) view -> . SHOW error BOOKINGS FOR EMAIL
+    (40) view -> . SHOW error TICKETS FOR EMAIL
+    (41) view -> . SHOW RESERVATIONS FOR error
+    (42) view -> . SHOW CONFIRMED BOOKINGS FOR error
+    (43) view -> . SHOW CANCELED BOOKINGS FOR error
+    (44) view -> . SHOW CANCELED TICKETS FOR error
+    (45) fetching -> . FETCH TICKETS FROM API API_URL
+    (46) fetching -> . FETCH TICKETS FROM API error
+    (47) region -> . SHOW AVAILABLE TICKETS IN STRING
+    (48) region -> . SHOW AVAILABLE TICKETS error
+    (49) reservation -> . RESERVE NUMBER TICKETS FOR STRING ON DATE FOR EMAIL
+    (50) reservation -> . RESERVE NUMBER FOR STRING ON DATE FOR
+    (51) reservation -> . RESERVE error FOR STRING ON DATE FOR EMAIL
+    (52) reservation -> . RESERVE NUMBER FOR error ON DATE FOR EMAIL
+    (53) reservation -> . RESERVE NUMBER FOR STRING ON DATE FOR error
+    (54) reservation -> . RESERVE NUMBER FOR STRING ON error FOR EMAIL
+    (55) listing -> . LIST ALL EVENTS
+    (56) listing -> . LIST error
+    (57) payment -> . PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR EMAIL
+    (58) payment -> . CANCEL BOOKING BOOKING_ID FOR EMAIL
+    (59) payment -> . PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR
+    (60) payment -> . PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD FOR EMAIL
+    (61) payment -> . PAY FOR ALL BOOKINGS BOOKING_ID USING error FOR EMAIL
+    (62) payment -> . CANCEL BOOKING error FOR EMAIL
+    (18) dummy -> . ID
 
-    BOOK            shift and go to state 13
-    STATUS          shift and go to state 14
-    SHOW            shift and go to state 15
-    SELECT          shift and go to state 16
-    SORT            shift and go to state 17
-    FETCH           shift and go to state 18
-    RESERVE         shift and go to state 19
-    LIST            shift and go to state 20
-    PAY             shift and go to state 21
-    CANCEL          shift and go to state 22
-    ID              shift and go to state 23
+    BOOK            shift and go to state 11
+    STATUS          shift and go to state 12
+    SHOW            shift and go to state 13
+    FETCH           shift and go to state 14
+    RESERVE         shift and go to state 15
+    LIST            shift and go to state 16
+    PAY             shift and go to state 17
+    CANCEL          shift and go to state 18
+    ID              shift and go to state 19
 
     command                        shift and go to state 1
     booking                        shift and go to state 2
     status                         shift and go to state 3
     view                           shift and go to state 4
-    selection                      shift and go to state 5
-    sorting                        shift and go to state 6
-    fetching                       shift and go to state 7
-    region                         shift and go to state 8
-    reservation                    shift and go to state 9
-    listing                        shift and go to state 10
-    payment                        shift and go to state 11
-    dummy                          shift and go to state 12
+    fetching                       shift and go to state 5
+    region                         shift and go to state 6
+    reservation                    shift and go to state 7
+    listing                        shift and go to state 8
+    payment                        shift and go to state 9
+    dummy                          shift and go to state 10
 
 state 1
 
@@ -228,75 +211,73 @@ state 1
     (2) command -> command . booking
     (4) command -> command . status
     (6) command -> command . view
-    (8) command -> command . selection
-    (10) command -> command . sorting
-    (12) command -> command . fetching
-    (14) command -> command . region
-    (16) command -> command . reservation
-    (18) command -> command . listing
-    (20) command -> command . payment
-    (23) booking -> . BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL
-    (24) booking -> . BOOK NUMBER TICKETS FOR STRING ON DATE FOR
-    (25) booking -> . BOOK error TICKETS FOR STRING ON DATE FOR EMAIL
-    (26) booking -> . BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL
-    (27) booking -> . BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL
-    (28) booking -> . BOOK error TICKETS FOR error ON DATE FOR EMAIL
-    (29) status -> . STATUS OF BOOKING BOOKING_ID
-    (30) status -> . STATUS OF TICKETS
-    (31) status -> . STATUS OF BOOKING error
-    (32) status -> . STATUS OF error
-    (33) status -> . STATUS OF
-    (34) view -> . SHOW AVAILABLE TICKETS FOR STRING
-    (35) view -> . SHOW MY RESERVATIONS
-    (36) view -> . SHOW MY CONFIRMED BOOKINGS
-    (37) view -> . SHOW MY PAID TICKETS
-    (38) view -> . SHOW MY CANCELED BOOKINGS
-    (39) view -> . SHOW AVAILABLE TICKETS FOR error
-    (40) view -> . SHOW MY error
-    (41) view -> . SHOW MY error BOOKINGS
-    (42) view -> . SHOW MY error TICKETS
-    (43) selection -> . SELECT TICKET TICKET_ID
-    (44) selection -> . SELECT TICKET error
-    (45) sorting -> . SORT TICKETS BY NUMBER
-    (46) sorting -> . SORT TICKETS BY DATE
-    (47) sorting -> . SORT TICKETS BY error
-    (48) fetching -> . FETCH TICKETS FROM API API_URL
-    (49) fetching -> . FETCH TICKETS FROM API error
-    (50) region -> . SHOW AVAILABLE TICKETS IN STRING
-    (51) region -> . SHOW AVAILABLE TICKETS error
-    (52) reservation -> . RESERVE NUMBER TICKETS FOR STRING ON DATE
-    (53) reservation -> . RESERVE error FOR STRING ON DATE
-    (54) reservation -> . RESERVE NUMBER FOR error ON DATE
-    (55) reservation -> . RESERVE NUMBER FOR STRING ON error
-    (56) listing -> . LIST ALL EVENTS
-    (57) listing -> . LIST error
-    (58) payment -> . PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD
-    (59) payment -> . CANCEL BOOKING BOOKING_ID
-    (60) payment -> . PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD
-    (61) payment -> . PAY FOR ALL BOOKINGS BOOKING_ID USING error
-    (62) payment -> . CANCEL BOOKING error
+    (8) command -> command . fetching
+    (10) command -> command . region
+    (12) command -> command . reservation
+    (14) command -> command . listing
+    (16) command -> command . payment
+    (19) booking -> . BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL
+    (20) booking -> . BOOK NUMBER TICKETS FOR STRING ON DATE FOR
+    (21) booking -> . BOOK error TICKETS FOR STRING ON DATE FOR EMAIL
+    (22) booking -> . BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL
+    (23) booking -> . BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL
+    (24) booking -> . BOOK error TICKETS FOR error ON DATE FOR EMAIL
+    (25) status -> . STATUS OF BOOKING BOOKING_ID FOR EMAIL
+    (26) status -> . STATUS OF TICKETS FOR EMAIL
+    (27) status -> . STATUS OF BOOKING error
+    (28) status -> . STATUS OF BOOKING BOOKING_ID FOR error
+    (29) status -> . STATUS OF error
+    (30) status -> . STATUS OF
+    (31) view -> . SHOW AVAILABLE TICKETS FOR STRING
+    (32) view -> . SHOW RESERVATIONS FOR EMAIL
+    (33) view -> . SHOW CONFIRMED BOOKINGS FOR EMAIL
+    (34) view -> . SHOW PAID TICKETS FOR EMAIL
+    (35) view -> . SHOW CANCELED BOOKINGS FOR EMAIL
+    (36) view -> . SHOW error
+    (37) view -> . SHOW AVAILABLE TICKETS FOR error
+    (38) view -> . SHOW error FOR EMAIL
+    (39) view -> . SHOW error BOOKINGS FOR EMAIL
+    (40) view -> . SHOW error TICKETS FOR EMAIL
+    (41) view -> . SHOW RESERVATIONS FOR error
+    (42) view -> . SHOW CONFIRMED BOOKINGS FOR error
+    (43) view -> . SHOW CANCELED BOOKINGS FOR error
+    (44) view -> . SHOW CANCELED TICKETS FOR error
+    (45) fetching -> . FETCH TICKETS FROM API API_URL
+    (46) fetching -> . FETCH TICKETS FROM API error
+    (47) region -> . SHOW AVAILABLE TICKETS IN STRING
+    (48) region -> . SHOW AVAILABLE TICKETS error
+    (49) reservation -> . RESERVE NUMBER TICKETS FOR STRING ON DATE FOR EMAIL
+    (50) reservation -> . RESERVE NUMBER FOR STRING ON DATE FOR
+    (51) reservation -> . RESERVE error FOR STRING ON DATE FOR EMAIL
+    (52) reservation -> . RESERVE NUMBER FOR error ON DATE FOR EMAIL
+    (53) reservation -> . RESERVE NUMBER FOR STRING ON DATE FOR error
+    (54) reservation -> . RESERVE NUMBER FOR STRING ON error FOR EMAIL
+    (55) listing -> . LIST ALL EVENTS
+    (56) listing -> . LIST error
+    (57) payment -> . PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR EMAIL
+    (58) payment -> . CANCEL BOOKING BOOKING_ID FOR EMAIL
+    (59) payment -> . PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR
+    (60) payment -> . PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD FOR EMAIL
+    (61) payment -> . PAY FOR ALL BOOKINGS BOOKING_ID USING error FOR EMAIL
+    (62) payment -> . CANCEL BOOKING error FOR EMAIL
 
-    BOOK            shift and go to state 13
-    STATUS          shift and go to state 14
-    SHOW            shift and go to state 15
-    SELECT          shift and go to state 16
-    SORT            shift and go to state 17
-    FETCH           shift and go to state 18
-    RESERVE         shift and go to state 19
-    LIST            shift and go to state 20
-    PAY             shift and go to state 21
-    CANCEL          shift and go to state 22
+    BOOK            shift and go to state 11
+    STATUS          shift and go to state 12
+    SHOW            shift and go to state 13
+    FETCH           shift and go to state 14
+    RESERVE         shift and go to state 15
+    LIST            shift and go to state 16
+    PAY             shift and go to state 17
+    CANCEL          shift and go to state 18
 
-    booking                        shift and go to state 24
-    status                         shift and go to state 25
-    view                           shift and go to state 26
-    selection                      shift and go to state 27
-    sorting                        shift and go to state 28
-    fetching                       shift and go to state 29
-    region                         shift and go to state 30
-    reservation                    shift and go to state 31
-    listing                        shift and go to state 32
-    payment                        shift and go to state 33
+    booking                        shift and go to state 20
+    status                         shift and go to state 21
+    view                           shift and go to state 22
+    fetching                       shift and go to state 23
+    region                         shift and go to state 24
+    reservation                    shift and go to state 25
+    listing                        shift and go to state 26
+    payment                        shift and go to state 27
 
 state 2
 
@@ -305,8 +286,6 @@ state 2
     BOOK            reduce using rule 1 (command -> booking .)
     STATUS          reduce using rule 1 (command -> booking .)
     SHOW            reduce using rule 1 (command -> booking .)
-    SELECT          reduce using rule 1 (command -> booking .)
-    SORT            reduce using rule 1 (command -> booking .)
     FETCH           reduce using rule 1 (command -> booking .)
     RESERVE         reduce using rule 1 (command -> booking .)
     LIST            reduce using rule 1 (command -> booking .)
@@ -322,8 +301,6 @@ state 3
     BOOK            reduce using rule 3 (command -> status .)
     STATUS          reduce using rule 3 (command -> status .)
     SHOW            reduce using rule 3 (command -> status .)
-    SELECT          reduce using rule 3 (command -> status .)
-    SORT            reduce using rule 3 (command -> status .)
     FETCH           reduce using rule 3 (command -> status .)
     RESERVE         reduce using rule 3 (command -> status .)
     LIST            reduce using rule 3 (command -> status .)
@@ -339,8 +316,6 @@ state 4
     BOOK            reduce using rule 5 (command -> view .)
     STATUS          reduce using rule 5 (command -> view .)
     SHOW            reduce using rule 5 (command -> view .)
-    SELECT          reduce using rule 5 (command -> view .)
-    SORT            reduce using rule 5 (command -> view .)
     FETCH           reduce using rule 5 (command -> view .)
     RESERVE         reduce using rule 5 (command -> view .)
     LIST            reduce using rule 5 (command -> view .)
@@ -351,270 +326,216 @@ state 4
 
 state 5
 
-    (7) command -> selection .
+    (7) command -> fetching .
 
-    BOOK            reduce using rule 7 (command -> selection .)
-    STATUS          reduce using rule 7 (command -> selection .)
-    SHOW            reduce using rule 7 (command -> selection .)
-    SELECT          reduce using rule 7 (command -> selection .)
-    SORT            reduce using rule 7 (command -> selection .)
-    FETCH           reduce using rule 7 (command -> selection .)
-    RESERVE         reduce using rule 7 (command -> selection .)
-    LIST            reduce using rule 7 (command -> selection .)
-    PAY             reduce using rule 7 (command -> selection .)
-    CANCEL          reduce using rule 7 (command -> selection .)
-    $end            reduce using rule 7 (command -> selection .)
+    BOOK            reduce using rule 7 (command -> fetching .)
+    STATUS          reduce using rule 7 (command -> fetching .)
+    SHOW            reduce using rule 7 (command -> fetching .)
+    FETCH           reduce using rule 7 (command -> fetching .)
+    RESERVE         reduce using rule 7 (command -> fetching .)
+    LIST            reduce using rule 7 (command -> fetching .)
+    PAY             reduce using rule 7 (command -> fetching .)
+    CANCEL          reduce using rule 7 (command -> fetching .)
+    $end            reduce using rule 7 (command -> fetching .)
 
 
 state 6
 
-    (9) command -> sorting .
+    (9) command -> region .
 
-    BOOK            reduce using rule 9 (command -> sorting .)
-    STATUS          reduce using rule 9 (command -> sorting .)
-    SHOW            reduce using rule 9 (command -> sorting .)
-    SELECT          reduce using rule 9 (command -> sorting .)
-    SORT            reduce using rule 9 (command -> sorting .)
-    FETCH           reduce using rule 9 (command -> sorting .)
-    RESERVE         reduce using rule 9 (command -> sorting .)
-    LIST            reduce using rule 9 (command -> sorting .)
-    PAY             reduce using rule 9 (command -> sorting .)
-    CANCEL          reduce using rule 9 (command -> sorting .)
-    $end            reduce using rule 9 (command -> sorting .)
+    BOOK            reduce using rule 9 (command -> region .)
+    STATUS          reduce using rule 9 (command -> region .)
+    SHOW            reduce using rule 9 (command -> region .)
+    FETCH           reduce using rule 9 (command -> region .)
+    RESERVE         reduce using rule 9 (command -> region .)
+    LIST            reduce using rule 9 (command -> region .)
+    PAY             reduce using rule 9 (command -> region .)
+    CANCEL          reduce using rule 9 (command -> region .)
+    $end            reduce using rule 9 (command -> region .)
 
 
 state 7
 
-    (11) command -> fetching .
+    (11) command -> reservation .
 
-    BOOK            reduce using rule 11 (command -> fetching .)
-    STATUS          reduce using rule 11 (command -> fetching .)
-    SHOW            reduce using rule 11 (command -> fetching .)
-    SELECT          reduce using rule 11 (command -> fetching .)
-    SORT            reduce using rule 11 (command -> fetching .)
-    FETCH           reduce using rule 11 (command -> fetching .)
-    RESERVE         reduce using rule 11 (command -> fetching .)
-    LIST            reduce using rule 11 (command -> fetching .)
-    PAY             reduce using rule 11 (command -> fetching .)
-    CANCEL          reduce using rule 11 (command -> fetching .)
-    $end            reduce using rule 11 (command -> fetching .)
+    BOOK            reduce using rule 11 (command -> reservation .)
+    STATUS          reduce using rule 11 (command -> reservation .)
+    SHOW            reduce using rule 11 (command -> reservation .)
+    FETCH           reduce using rule 11 (command -> reservation .)
+    RESERVE         reduce using rule 11 (command -> reservation .)
+    LIST            reduce using rule 11 (command -> reservation .)
+    PAY             reduce using rule 11 (command -> reservation .)
+    CANCEL          reduce using rule 11 (command -> reservation .)
+    $end            reduce using rule 11 (command -> reservation .)
 
 
 state 8
 
-    (13) command -> region .
+    (13) command -> listing .
 
-    BOOK            reduce using rule 13 (command -> region .)
-    STATUS          reduce using rule 13 (command -> region .)
-    SHOW            reduce using rule 13 (command -> region .)
-    SELECT          reduce using rule 13 (command -> region .)
-    SORT            reduce using rule 13 (command -> region .)
-    FETCH           reduce using rule 13 (command -> region .)
-    RESERVE         reduce using rule 13 (command -> region .)
-    LIST            reduce using rule 13 (command -> region .)
-    PAY             reduce using rule 13 (command -> region .)
-    CANCEL          reduce using rule 13 (command -> region .)
-    $end            reduce using rule 13 (command -> region .)
+    BOOK            reduce using rule 13 (command -> listing .)
+    STATUS          reduce using rule 13 (command -> listing .)
+    SHOW            reduce using rule 13 (command -> listing .)
+    FETCH           reduce using rule 13 (command -> listing .)
+    RESERVE         reduce using rule 13 (command -> listing .)
+    LIST            reduce using rule 13 (command -> listing .)
+    PAY             reduce using rule 13 (command -> listing .)
+    CANCEL          reduce using rule 13 (command -> listing .)
+    $end            reduce using rule 13 (command -> listing .)
 
 
 state 9
 
-    (15) command -> reservation .
+    (15) command -> payment .
 
-    BOOK            reduce using rule 15 (command -> reservation .)
-    STATUS          reduce using rule 15 (command -> reservation .)
-    SHOW            reduce using rule 15 (command -> reservation .)
-    SELECT          reduce using rule 15 (command -> reservation .)
-    SORT            reduce using rule 15 (command -> reservation .)
-    FETCH           reduce using rule 15 (command -> reservation .)
-    RESERVE         reduce using rule 15 (command -> reservation .)
-    LIST            reduce using rule 15 (command -> reservation .)
-    PAY             reduce using rule 15 (command -> reservation .)
-    CANCEL          reduce using rule 15 (command -> reservation .)
-    $end            reduce using rule 15 (command -> reservation .)
+    BOOK            reduce using rule 15 (command -> payment .)
+    STATUS          reduce using rule 15 (command -> payment .)
+    SHOW            reduce using rule 15 (command -> payment .)
+    FETCH           reduce using rule 15 (command -> payment .)
+    RESERVE         reduce using rule 15 (command -> payment .)
+    LIST            reduce using rule 15 (command -> payment .)
+    PAY             reduce using rule 15 (command -> payment .)
+    CANCEL          reduce using rule 15 (command -> payment .)
+    $end            reduce using rule 15 (command -> payment .)
 
 
 state 10
 
-    (17) command -> listing .
+    (17) command -> dummy .
 
-    BOOK            reduce using rule 17 (command -> listing .)
-    STATUS          reduce using rule 17 (command -> listing .)
-    SHOW            reduce using rule 17 (command -> listing .)
-    SELECT          reduce using rule 17 (command -> listing .)
-    SORT            reduce using rule 17 (command -> listing .)
-    FETCH           reduce using rule 17 (command -> listing .)
-    RESERVE         reduce using rule 17 (command -> listing .)
-    LIST            reduce using rule 17 (command -> listing .)
-    PAY             reduce using rule 17 (command -> listing .)
-    CANCEL          reduce using rule 17 (command -> listing .)
-    $end            reduce using rule 17 (command -> listing .)
+    BOOK            reduce using rule 17 (command -> dummy .)
+    STATUS          reduce using rule 17 (command -> dummy .)
+    SHOW            reduce using rule 17 (command -> dummy .)
+    FETCH           reduce using rule 17 (command -> dummy .)
+    RESERVE         reduce using rule 17 (command -> dummy .)
+    LIST            reduce using rule 17 (command -> dummy .)
+    PAY             reduce using rule 17 (command -> dummy .)
+    CANCEL          reduce using rule 17 (command -> dummy .)
+    $end            reduce using rule 17 (command -> dummy .)
 
 
 state 11
 
-    (19) command -> payment .
+    (19) booking -> BOOK . NUMBER TICKETS FOR STRING ON DATE FOR EMAIL
+    (20) booking -> BOOK . NUMBER TICKETS FOR STRING ON DATE FOR
+    (21) booking -> BOOK . error TICKETS FOR STRING ON DATE FOR EMAIL
+    (22) booking -> BOOK . NUMBER TICKETS FOR STRING ON error FOR EMAIL
+    (23) booking -> BOOK . NUMBER TICKETS FOR error ON DATE FOR EMAIL
+    (24) booking -> BOOK . error TICKETS FOR error ON DATE FOR EMAIL
 
-    BOOK            reduce using rule 19 (command -> payment .)
-    STATUS          reduce using rule 19 (command -> payment .)
-    SHOW            reduce using rule 19 (command -> payment .)
-    SELECT          reduce using rule 19 (command -> payment .)
-    SORT            reduce using rule 19 (command -> payment .)
-    FETCH           reduce using rule 19 (command -> payment .)
-    RESERVE         reduce using rule 19 (command -> payment .)
-    LIST            reduce using rule 19 (command -> payment .)
-    PAY             reduce using rule 19 (command -> payment .)
-    CANCEL          reduce using rule 19 (command -> payment .)
-    $end            reduce using rule 19 (command -> payment .)
+    NUMBER          shift and go to state 28
+    error           shift and go to state 29
 
 
 state 12
 
-    (21) command -> dummy .
+    (25) status -> STATUS . OF BOOKING BOOKING_ID FOR EMAIL
+    (26) status -> STATUS . OF TICKETS FOR EMAIL
+    (27) status -> STATUS . OF BOOKING error
+    (28) status -> STATUS . OF BOOKING BOOKING_ID FOR error
+    (29) status -> STATUS . OF error
+    (30) status -> STATUS . OF
 
-    BOOK            reduce using rule 21 (command -> dummy .)
-    STATUS          reduce using rule 21 (command -> dummy .)
-    SHOW            reduce using rule 21 (command -> dummy .)
-    SELECT          reduce using rule 21 (command -> dummy .)
-    SORT            reduce using rule 21 (command -> dummy .)
-    FETCH           reduce using rule 21 (command -> dummy .)
-    RESERVE         reduce using rule 21 (command -> dummy .)
-    LIST            reduce using rule 21 (command -> dummy .)
-    PAY             reduce using rule 21 (command -> dummy .)
-    CANCEL          reduce using rule 21 (command -> dummy .)
-    $end            reduce using rule 21 (command -> dummy .)
+    OF              shift and go to state 30
 
 
 state 13
 
-    (23) booking -> BOOK . NUMBER TICKETS FOR STRING ON DATE FOR EMAIL
-    (24) booking -> BOOK . NUMBER TICKETS FOR STRING ON DATE FOR
-    (25) booking -> BOOK . error TICKETS FOR STRING ON DATE FOR EMAIL
-    (26) booking -> BOOK . NUMBER TICKETS FOR STRING ON error FOR EMAIL
-    (27) booking -> BOOK . NUMBER TICKETS FOR error ON DATE FOR EMAIL
-    (28) booking -> BOOK . error TICKETS FOR error ON DATE FOR EMAIL
+    (31) view -> SHOW . AVAILABLE TICKETS FOR STRING
+    (32) view -> SHOW . RESERVATIONS FOR EMAIL
+    (33) view -> SHOW . CONFIRMED BOOKINGS FOR EMAIL
+    (34) view -> SHOW . PAID TICKETS FOR EMAIL
+    (35) view -> SHOW . CANCELED BOOKINGS FOR EMAIL
+    (36) view -> SHOW . error
+    (37) view -> SHOW . AVAILABLE TICKETS FOR error
+    (38) view -> SHOW . error FOR EMAIL
+    (39) view -> SHOW . error BOOKINGS FOR EMAIL
+    (40) view -> SHOW . error TICKETS FOR EMAIL
+    (41) view -> SHOW . RESERVATIONS FOR error
+    (42) view -> SHOW . CONFIRMED BOOKINGS FOR error
+    (43) view -> SHOW . CANCELED BOOKINGS FOR error
+    (44) view -> SHOW . CANCELED TICKETS FOR error
+    (47) region -> SHOW . AVAILABLE TICKETS IN STRING
+    (48) region -> SHOW . AVAILABLE TICKETS error
 
-    NUMBER          shift and go to state 34
-    error           shift and go to state 35
+    AVAILABLE       shift and go to state 31
+    RESERVATIONS    shift and go to state 32
+    CONFIRMED       shift and go to state 33
+    PAID            shift and go to state 34
+    CANCELED        shift and go to state 35
+    error           shift and go to state 36
 
 
 state 14
 
-    (29) status -> STATUS . OF BOOKING BOOKING_ID
-    (30) status -> STATUS . OF TICKETS
-    (31) status -> STATUS . OF BOOKING error
-    (32) status -> STATUS . OF error
-    (33) status -> STATUS . OF
+    (45) fetching -> FETCH . TICKETS FROM API API_URL
+    (46) fetching -> FETCH . TICKETS FROM API error
 
-    OF              shift and go to state 36
+    TICKETS         shift and go to state 37
 
 
 state 15
 
-    (34) view -> SHOW . AVAILABLE TICKETS FOR STRING
-    (35) view -> SHOW . MY RESERVATIONS
-    (36) view -> SHOW . MY CONFIRMED BOOKINGS
-    (37) view -> SHOW . MY PAID TICKETS
-    (38) view -> SHOW . MY CANCELED BOOKINGS
-    (39) view -> SHOW . AVAILABLE TICKETS FOR error
-    (40) view -> SHOW . MY error
-    (41) view -> SHOW . MY error BOOKINGS
-    (42) view -> SHOW . MY error TICKETS
-    (50) region -> SHOW . AVAILABLE TICKETS IN STRING
-    (51) region -> SHOW . AVAILABLE TICKETS error
+    (49) reservation -> RESERVE . NUMBER TICKETS FOR STRING ON DATE FOR EMAIL
+    (50) reservation -> RESERVE . NUMBER FOR STRING ON DATE FOR
+    (51) reservation -> RESERVE . error FOR STRING ON DATE FOR EMAIL
+    (52) reservation -> RESERVE . NUMBER FOR error ON DATE FOR EMAIL
+    (53) reservation -> RESERVE . NUMBER FOR STRING ON DATE FOR error
+    (54) reservation -> RESERVE . NUMBER FOR STRING ON error FOR EMAIL
 
-    AVAILABLE       shift and go to state 37
-    MY              shift and go to state 38
+    NUMBER          shift and go to state 38
+    error           shift and go to state 39
 
 
 state 16
 
-    (43) selection -> SELECT . TICKET TICKET_ID
-    (44) selection -> SELECT . TICKET error
+    (55) listing -> LIST . ALL EVENTS
+    (56) listing -> LIST . error
 
-    TICKET          shift and go to state 39
+    ALL             shift and go to state 40
+    error           shift and go to state 41
 
 
 state 17
 
-    (45) sorting -> SORT . TICKETS BY NUMBER
-    (46) sorting -> SORT . TICKETS BY DATE
-    (47) sorting -> SORT . TICKETS BY error
+    (57) payment -> PAY . FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR EMAIL
+    (59) payment -> PAY . FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR
+    (60) payment -> PAY . FOR ALL BOOKINGS error USING PAYMENT_METHOD FOR EMAIL
+    (61) payment -> PAY . FOR ALL BOOKINGS BOOKING_ID USING error FOR EMAIL
 
-    TICKETS         shift and go to state 40
+    FOR             shift and go to state 42
 
 
 state 18
 
-    (48) fetching -> FETCH . TICKETS FROM API API_URL
-    (49) fetching -> FETCH . TICKETS FROM API error
+    (58) payment -> CANCEL . BOOKING BOOKING_ID FOR EMAIL
+    (62) payment -> CANCEL . BOOKING error FOR EMAIL
 
-    TICKETS         shift and go to state 41
+    BOOKING         shift and go to state 43
 
 
 state 19
 
-    (52) reservation -> RESERVE . NUMBER TICKETS FOR STRING ON DATE
-    (53) reservation -> RESERVE . error FOR STRING ON DATE
-    (54) reservation -> RESERVE . NUMBER FOR error ON DATE
-    (55) reservation -> RESERVE . NUMBER FOR STRING ON error
+    (18) dummy -> ID .
 
-    NUMBER          shift and go to state 42
-    error           shift and go to state 43
+    BOOK            reduce using rule 18 (dummy -> ID .)
+    STATUS          reduce using rule 18 (dummy -> ID .)
+    SHOW            reduce using rule 18 (dummy -> ID .)
+    FETCH           reduce using rule 18 (dummy -> ID .)
+    RESERVE         reduce using rule 18 (dummy -> ID .)
+    LIST            reduce using rule 18 (dummy -> ID .)
+    PAY             reduce using rule 18 (dummy -> ID .)
+    CANCEL          reduce using rule 18 (dummy -> ID .)
+    $end            reduce using rule 18 (dummy -> ID .)
 
 
 state 20
-
-    (56) listing -> LIST . ALL EVENTS
-    (57) listing -> LIST . error
-
-    ALL             shift and go to state 44
-    error           shift and go to state 45
-
-
-state 21
-
-    (58) payment -> PAY . FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD
-    (60) payment -> PAY . FOR ALL BOOKINGS error USING PAYMENT_METHOD
-    (61) payment -> PAY . FOR ALL BOOKINGS BOOKING_ID USING error
-
-    FOR             shift and go to state 46
-
-
-state 22
-
-    (59) payment -> CANCEL . BOOKING BOOKING_ID
-    (62) payment -> CANCEL . BOOKING error
-
-    BOOKING         shift and go to state 47
-
-
-state 23
-
-    (22) dummy -> ID .
-
-    BOOK            reduce using rule 22 (dummy -> ID .)
-    STATUS          reduce using rule 22 (dummy -> ID .)
-    SHOW            reduce using rule 22 (dummy -> ID .)
-    SELECT          reduce using rule 22 (dummy -> ID .)
-    SORT            reduce using rule 22 (dummy -> ID .)
-    FETCH           reduce using rule 22 (dummy -> ID .)
-    RESERVE         reduce using rule 22 (dummy -> ID .)
-    LIST            reduce using rule 22 (dummy -> ID .)
-    PAY             reduce using rule 22 (dummy -> ID .)
-    CANCEL          reduce using rule 22 (dummy -> ID .)
-    $end            reduce using rule 22 (dummy -> ID .)
-
-
-state 24
 
     (2) command -> command booking .
 
     BOOK            reduce using rule 2 (command -> command booking .)
     STATUS          reduce using rule 2 (command -> command booking .)
     SHOW            reduce using rule 2 (command -> command booking .)
-    SELECT          reduce using rule 2 (command -> command booking .)
-    SORT            reduce using rule 2 (command -> command booking .)
     FETCH           reduce using rule 2 (command -> command booking .)
     RESERVE         reduce using rule 2 (command -> command booking .)
     LIST            reduce using rule 2 (command -> command booking .)
@@ -623,15 +544,13 @@ state 24
     $end            reduce using rule 2 (command -> command booking .)
 
 
-state 25
+state 21
 
     (4) command -> command status .
 
     BOOK            reduce using rule 4 (command -> command status .)
     STATUS          reduce using rule 4 (command -> command status .)
     SHOW            reduce using rule 4 (command -> command status .)
-    SELECT          reduce using rule 4 (command -> command status .)
-    SORT            reduce using rule 4 (command -> command status .)
     FETCH           reduce using rule 4 (command -> command status .)
     RESERVE         reduce using rule 4 (command -> command status .)
     LIST            reduce using rule 4 (command -> command status .)
@@ -640,15 +559,13 @@ state 25
     $end            reduce using rule 4 (command -> command status .)
 
 
-state 26
+state 22
 
     (6) command -> command view .
 
     BOOK            reduce using rule 6 (command -> command view .)
     STATUS          reduce using rule 6 (command -> command view .)
     SHOW            reduce using rule 6 (command -> command view .)
-    SELECT          reduce using rule 6 (command -> command view .)
-    SORT            reduce using rule 6 (command -> command view .)
     FETCH           reduce using rule 6 (command -> command view .)
     RESERVE         reduce using rule 6 (command -> command view .)
     LIST            reduce using rule 6 (command -> command view .)
@@ -657,1312 +574,1501 @@ state 26
     $end            reduce using rule 6 (command -> command view .)
 
 
+state 23
+
+    (8) command -> command fetching .
+
+    BOOK            reduce using rule 8 (command -> command fetching .)
+    STATUS          reduce using rule 8 (command -> command fetching .)
+    SHOW            reduce using rule 8 (command -> command fetching .)
+    FETCH           reduce using rule 8 (command -> command fetching .)
+    RESERVE         reduce using rule 8 (command -> command fetching .)
+    LIST            reduce using rule 8 (command -> command fetching .)
+    PAY             reduce using rule 8 (command -> command fetching .)
+    CANCEL          reduce using rule 8 (command -> command fetching .)
+    $end            reduce using rule 8 (command -> command fetching .)
+
+
+state 24
+
+    (10) command -> command region .
+
+    BOOK            reduce using rule 10 (command -> command region .)
+    STATUS          reduce using rule 10 (command -> command region .)
+    SHOW            reduce using rule 10 (command -> command region .)
+    FETCH           reduce using rule 10 (command -> command region .)
+    RESERVE         reduce using rule 10 (command -> command region .)
+    LIST            reduce using rule 10 (command -> command region .)
+    PAY             reduce using rule 10 (command -> command region .)
+    CANCEL          reduce using rule 10 (command -> command region .)
+    $end            reduce using rule 10 (command -> command region .)
+
+
+state 25
+
+    (12) command -> command reservation .
+
+    BOOK            reduce using rule 12 (command -> command reservation .)
+    STATUS          reduce using rule 12 (command -> command reservation .)
+    SHOW            reduce using rule 12 (command -> command reservation .)
+    FETCH           reduce using rule 12 (command -> command reservation .)
+    RESERVE         reduce using rule 12 (command -> command reservation .)
+    LIST            reduce using rule 12 (command -> command reservation .)
+    PAY             reduce using rule 12 (command -> command reservation .)
+    CANCEL          reduce using rule 12 (command -> command reservation .)
+    $end            reduce using rule 12 (command -> command reservation .)
+
+
+state 26
+
+    (14) command -> command listing .
+
+    BOOK            reduce using rule 14 (command -> command listing .)
+    STATUS          reduce using rule 14 (command -> command listing .)
+    SHOW            reduce using rule 14 (command -> command listing .)
+    FETCH           reduce using rule 14 (command -> command listing .)
+    RESERVE         reduce using rule 14 (command -> command listing .)
+    LIST            reduce using rule 14 (command -> command listing .)
+    PAY             reduce using rule 14 (command -> command listing .)
+    CANCEL          reduce using rule 14 (command -> command listing .)
+    $end            reduce using rule 14 (command -> command listing .)
+
+
 state 27
 
-    (8) command -> command selection .
+    (16) command -> command payment .
 
-    BOOK            reduce using rule 8 (command -> command selection .)
-    STATUS          reduce using rule 8 (command -> command selection .)
-    SHOW            reduce using rule 8 (command -> command selection .)
-    SELECT          reduce using rule 8 (command -> command selection .)
-    SORT            reduce using rule 8 (command -> command selection .)
-    FETCH           reduce using rule 8 (command -> command selection .)
-    RESERVE         reduce using rule 8 (command -> command selection .)
-    LIST            reduce using rule 8 (command -> command selection .)
-    PAY             reduce using rule 8 (command -> command selection .)
-    CANCEL          reduce using rule 8 (command -> command selection .)
-    $end            reduce using rule 8 (command -> command selection .)
+    BOOK            reduce using rule 16 (command -> command payment .)
+    STATUS          reduce using rule 16 (command -> command payment .)
+    SHOW            reduce using rule 16 (command -> command payment .)
+    FETCH           reduce using rule 16 (command -> command payment .)
+    RESERVE         reduce using rule 16 (command -> command payment .)
+    LIST            reduce using rule 16 (command -> command payment .)
+    PAY             reduce using rule 16 (command -> command payment .)
+    CANCEL          reduce using rule 16 (command -> command payment .)
+    $end            reduce using rule 16 (command -> command payment .)
 
 
 state 28
 
-    (10) command -> command sorting .
+    (19) booking -> BOOK NUMBER . TICKETS FOR STRING ON DATE FOR EMAIL
+    (20) booking -> BOOK NUMBER . TICKETS FOR STRING ON DATE FOR
+    (22) booking -> BOOK NUMBER . TICKETS FOR STRING ON error FOR EMAIL
+    (23) booking -> BOOK NUMBER . TICKETS FOR error ON DATE FOR EMAIL
 
-    BOOK            reduce using rule 10 (command -> command sorting .)
-    STATUS          reduce using rule 10 (command -> command sorting .)
-    SHOW            reduce using rule 10 (command -> command sorting .)
-    SELECT          reduce using rule 10 (command -> command sorting .)
-    SORT            reduce using rule 10 (command -> command sorting .)
-    FETCH           reduce using rule 10 (command -> command sorting .)
-    RESERVE         reduce using rule 10 (command -> command sorting .)
-    LIST            reduce using rule 10 (command -> command sorting .)
-    PAY             reduce using rule 10 (command -> command sorting .)
-    CANCEL          reduce using rule 10 (command -> command sorting .)
-    $end            reduce using rule 10 (command -> command sorting .)
+    TICKETS         shift and go to state 44
 
 
 state 29
 
-    (12) command -> command fetching .
+    (21) booking -> BOOK error . TICKETS FOR STRING ON DATE FOR EMAIL
+    (24) booking -> BOOK error . TICKETS FOR error ON DATE FOR EMAIL
 
-    BOOK            reduce using rule 12 (command -> command fetching .)
-    STATUS          reduce using rule 12 (command -> command fetching .)
-    SHOW            reduce using rule 12 (command -> command fetching .)
-    SELECT          reduce using rule 12 (command -> command fetching .)
-    SORT            reduce using rule 12 (command -> command fetching .)
-    FETCH           reduce using rule 12 (command -> command fetching .)
-    RESERVE         reduce using rule 12 (command -> command fetching .)
-    LIST            reduce using rule 12 (command -> command fetching .)
-    PAY             reduce using rule 12 (command -> command fetching .)
-    CANCEL          reduce using rule 12 (command -> command fetching .)
-    $end            reduce using rule 12 (command -> command fetching .)
+    TICKETS         shift and go to state 45
 
 
 state 30
 
-    (14) command -> command region .
+    (25) status -> STATUS OF . BOOKING BOOKING_ID FOR EMAIL
+    (26) status -> STATUS OF . TICKETS FOR EMAIL
+    (27) status -> STATUS OF . BOOKING error
+    (28) status -> STATUS OF . BOOKING BOOKING_ID FOR error
+    (29) status -> STATUS OF . error
+    (30) status -> STATUS OF .
 
-    BOOK            reduce using rule 14 (command -> command region .)
-    STATUS          reduce using rule 14 (command -> command region .)
-    SHOW            reduce using rule 14 (command -> command region .)
-    SELECT          reduce using rule 14 (command -> command region .)
-    SORT            reduce using rule 14 (command -> command region .)
-    FETCH           reduce using rule 14 (command -> command region .)
-    RESERVE         reduce using rule 14 (command -> command region .)
-    LIST            reduce using rule 14 (command -> command region .)
-    PAY             reduce using rule 14 (command -> command region .)
-    CANCEL          reduce using rule 14 (command -> command region .)
-    $end            reduce using rule 14 (command -> command region .)
+    BOOKING         shift and go to state 46
+    TICKETS         shift and go to state 47
+    error           shift and go to state 48
+    BOOK            reduce using rule 30 (status -> STATUS OF .)
+    STATUS          reduce using rule 30 (status -> STATUS OF .)
+    SHOW            reduce using rule 30 (status -> STATUS OF .)
+    FETCH           reduce using rule 30 (status -> STATUS OF .)
+    RESERVE         reduce using rule 30 (status -> STATUS OF .)
+    LIST            reduce using rule 30 (status -> STATUS OF .)
+    PAY             reduce using rule 30 (status -> STATUS OF .)
+    CANCEL          reduce using rule 30 (status -> STATUS OF .)
+    $end            reduce using rule 30 (status -> STATUS OF .)
 
 
 state 31
 
-    (16) command -> command reservation .
-
-    BOOK            reduce using rule 16 (command -> command reservation .)
-    STATUS          reduce using rule 16 (command -> command reservation .)
-    SHOW            reduce using rule 16 (command -> command reservation .)
-    SELECT          reduce using rule 16 (command -> command reservation .)
-    SORT            reduce using rule 16 (command -> command reservation .)
-    FETCH           reduce using rule 16 (command -> command reservation .)
-    RESERVE         reduce using rule 16 (command -> command reservation .)
-    LIST            reduce using rule 16 (command -> command reservation .)
-    PAY             reduce using rule 16 (command -> command reservation .)
-    CANCEL          reduce using rule 16 (command -> command reservation .)
-    $end            reduce using rule 16 (command -> command reservation .)
-
-
-state 32
-
-    (18) command -> command listing .
-
-    BOOK            reduce using rule 18 (command -> command listing .)
-    STATUS          reduce using rule 18 (command -> command listing .)
-    SHOW            reduce using rule 18 (command -> command listing .)
-    SELECT          reduce using rule 18 (command -> command listing .)
-    SORT            reduce using rule 18 (command -> command listing .)
-    FETCH           reduce using rule 18 (command -> command listing .)
-    RESERVE         reduce using rule 18 (command -> command listing .)
-    LIST            reduce using rule 18 (command -> command listing .)
-    PAY             reduce using rule 18 (command -> command listing .)
-    CANCEL          reduce using rule 18 (command -> command listing .)
-    $end            reduce using rule 18 (command -> command listing .)
-
-
-state 33
-
-    (20) command -> command payment .
-
-    BOOK            reduce using rule 20 (command -> command payment .)
-    STATUS          reduce using rule 20 (command -> command payment .)
-    SHOW            reduce using rule 20 (command -> command payment .)
-    SELECT          reduce using rule 20 (command -> command payment .)
-    SORT            reduce using rule 20 (command -> command payment .)
-    FETCH           reduce using rule 20 (command -> command payment .)
-    RESERVE         reduce using rule 20 (command -> command payment .)
-    LIST            reduce using rule 20 (command -> command payment .)
-    PAY             reduce using rule 20 (command -> command payment .)
-    CANCEL          reduce using rule 20 (command -> command payment .)
-    $end            reduce using rule 20 (command -> command payment .)
-
-
-state 34
-
-    (23) booking -> BOOK NUMBER . TICKETS FOR STRING ON DATE FOR EMAIL
-    (24) booking -> BOOK NUMBER . TICKETS FOR STRING ON DATE FOR
-    (26) booking -> BOOK NUMBER . TICKETS FOR STRING ON error FOR EMAIL
-    (27) booking -> BOOK NUMBER . TICKETS FOR error ON DATE FOR EMAIL
-
-    TICKETS         shift and go to state 48
-
-
-state 35
-
-    (25) booking -> BOOK error . TICKETS FOR STRING ON DATE FOR EMAIL
-    (28) booking -> BOOK error . TICKETS FOR error ON DATE FOR EMAIL
+    (31) view -> SHOW AVAILABLE . TICKETS FOR STRING
+    (37) view -> SHOW AVAILABLE . TICKETS FOR error
+    (47) region -> SHOW AVAILABLE . TICKETS IN STRING
+    (48) region -> SHOW AVAILABLE . TICKETS error
 
     TICKETS         shift and go to state 49
 
 
+state 32
+
+    (32) view -> SHOW RESERVATIONS . FOR EMAIL
+    (41) view -> SHOW RESERVATIONS . FOR error
+
+    FOR             shift and go to state 50
+
+
+state 33
+
+    (33) view -> SHOW CONFIRMED . BOOKINGS FOR EMAIL
+    (42) view -> SHOW CONFIRMED . BOOKINGS FOR error
+
+    BOOKINGS        shift and go to state 51
+
+
+state 34
+
+    (34) view -> SHOW PAID . TICKETS FOR EMAIL
+
+    TICKETS         shift and go to state 52
+
+
+state 35
+
+    (35) view -> SHOW CANCELED . BOOKINGS FOR EMAIL
+    (43) view -> SHOW CANCELED . BOOKINGS FOR error
+    (44) view -> SHOW CANCELED . TICKETS FOR error
+
+    BOOKINGS        shift and go to state 53
+    TICKETS         shift and go to state 54
+
+
 state 36
 
-    (29) status -> STATUS OF . BOOKING BOOKING_ID
-    (30) status -> STATUS OF . TICKETS
-    (31) status -> STATUS OF . BOOKING error
-    (32) status -> STATUS OF . error
-    (33) status -> STATUS OF .
+    (36) view -> SHOW error .
+    (38) view -> SHOW error . FOR EMAIL
+    (39) view -> SHOW error . BOOKINGS FOR EMAIL
+    (40) view -> SHOW error . TICKETS FOR EMAIL
 
-    BOOKING         shift and go to state 50
-    TICKETS         shift and go to state 51
-    error           shift and go to state 52
-    BOOK            reduce using rule 33 (status -> STATUS OF .)
-    STATUS          reduce using rule 33 (status -> STATUS OF .)
-    SHOW            reduce using rule 33 (status -> STATUS OF .)
-    SELECT          reduce using rule 33 (status -> STATUS OF .)
-    SORT            reduce using rule 33 (status -> STATUS OF .)
-    FETCH           reduce using rule 33 (status -> STATUS OF .)
-    RESERVE         reduce using rule 33 (status -> STATUS OF .)
-    LIST            reduce using rule 33 (status -> STATUS OF .)
-    PAY             reduce using rule 33 (status -> STATUS OF .)
-    CANCEL          reduce using rule 33 (status -> STATUS OF .)
-    $end            reduce using rule 33 (status -> STATUS OF .)
+    BOOK            reduce using rule 36 (view -> SHOW error .)
+    STATUS          reduce using rule 36 (view -> SHOW error .)
+    SHOW            reduce using rule 36 (view -> SHOW error .)
+    FETCH           reduce using rule 36 (view -> SHOW error .)
+    RESERVE         reduce using rule 36 (view -> SHOW error .)
+    LIST            reduce using rule 36 (view -> SHOW error .)
+    PAY             reduce using rule 36 (view -> SHOW error .)
+    CANCEL          reduce using rule 36 (view -> SHOW error .)
+    $end            reduce using rule 36 (view -> SHOW error .)
+    FOR             shift and go to state 55
+    BOOKINGS        shift and go to state 56
+    TICKETS         shift and go to state 57
 
 
 state 37
 
-    (34) view -> SHOW AVAILABLE . TICKETS FOR STRING
-    (39) view -> SHOW AVAILABLE . TICKETS FOR error
-    (50) region -> SHOW AVAILABLE . TICKETS IN STRING
-    (51) region -> SHOW AVAILABLE . TICKETS error
+    (45) fetching -> FETCH TICKETS . FROM API API_URL
+    (46) fetching -> FETCH TICKETS . FROM API error
 
-    TICKETS         shift and go to state 53
+    FROM            shift and go to state 58
 
 
 state 38
 
-    (35) view -> SHOW MY . RESERVATIONS
-    (36) view -> SHOW MY . CONFIRMED BOOKINGS
-    (37) view -> SHOW MY . PAID TICKETS
-    (38) view -> SHOW MY . CANCELED BOOKINGS
-    (40) view -> SHOW MY . error
-    (41) view -> SHOW MY . error BOOKINGS
-    (42) view -> SHOW MY . error TICKETS
+    (49) reservation -> RESERVE NUMBER . TICKETS FOR STRING ON DATE FOR EMAIL
+    (50) reservation -> RESERVE NUMBER . FOR STRING ON DATE FOR
+    (52) reservation -> RESERVE NUMBER . FOR error ON DATE FOR EMAIL
+    (53) reservation -> RESERVE NUMBER . FOR STRING ON DATE FOR error
+    (54) reservation -> RESERVE NUMBER . FOR STRING ON error FOR EMAIL
 
-    RESERVATIONS    shift and go to state 54
-    CONFIRMED       shift and go to state 55
-    PAID            shift and go to state 56
-    CANCELED        shift and go to state 57
-    error           shift and go to state 58
+    TICKETS         shift and go to state 59
+    FOR             shift and go to state 60
 
 
 state 39
 
-    (43) selection -> SELECT TICKET . TICKET_ID
-    (44) selection -> SELECT TICKET . error
+    (51) reservation -> RESERVE error . FOR STRING ON DATE FOR EMAIL
 
-    TICKET_ID       shift and go to state 59
-    error           shift and go to state 60
+    FOR             shift and go to state 61
 
 
 state 40
 
-    (45) sorting -> SORT TICKETS . BY NUMBER
-    (46) sorting -> SORT TICKETS . BY DATE
-    (47) sorting -> SORT TICKETS . BY error
+    (55) listing -> LIST ALL . EVENTS
 
-    BY              shift and go to state 61
+    EVENTS          shift and go to state 62
 
 
 state 41
 
-    (48) fetching -> FETCH TICKETS . FROM API API_URL
-    (49) fetching -> FETCH TICKETS . FROM API error
+    (56) listing -> LIST error .
 
-    FROM            shift and go to state 62
+    BOOK            reduce using rule 56 (listing -> LIST error .)
+    STATUS          reduce using rule 56 (listing -> LIST error .)
+    SHOW            reduce using rule 56 (listing -> LIST error .)
+    FETCH           reduce using rule 56 (listing -> LIST error .)
+    RESERVE         reduce using rule 56 (listing -> LIST error .)
+    LIST            reduce using rule 56 (listing -> LIST error .)
+    PAY             reduce using rule 56 (listing -> LIST error .)
+    CANCEL          reduce using rule 56 (listing -> LIST error .)
+    $end            reduce using rule 56 (listing -> LIST error .)
 
 
 state 42
 
-    (52) reservation -> RESERVE NUMBER . TICKETS FOR STRING ON DATE
-    (54) reservation -> RESERVE NUMBER . FOR error ON DATE
-    (55) reservation -> RESERVE NUMBER . FOR STRING ON error
+    (57) payment -> PAY FOR . ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR EMAIL
+    (59) payment -> PAY FOR . ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR
+    (60) payment -> PAY FOR . ALL BOOKINGS error USING PAYMENT_METHOD FOR EMAIL
+    (61) payment -> PAY FOR . ALL BOOKINGS BOOKING_ID USING error FOR EMAIL
 
-    TICKETS         shift and go to state 63
-    FOR             shift and go to state 64
+    ALL             shift and go to state 63
 
 
 state 43
 
-    (53) reservation -> RESERVE error . FOR STRING ON DATE
+    (58) payment -> CANCEL BOOKING . BOOKING_ID FOR EMAIL
+    (62) payment -> CANCEL BOOKING . error FOR EMAIL
 
-    FOR             shift and go to state 65
+    BOOKING_ID      shift and go to state 64
+    error           shift and go to state 65
 
 
 state 44
 
-    (56) listing -> LIST ALL . EVENTS
+    (19) booking -> BOOK NUMBER TICKETS . FOR STRING ON DATE FOR EMAIL
+    (20) booking -> BOOK NUMBER TICKETS . FOR STRING ON DATE FOR
+    (22) booking -> BOOK NUMBER TICKETS . FOR STRING ON error FOR EMAIL
+    (23) booking -> BOOK NUMBER TICKETS . FOR error ON DATE FOR EMAIL
 
-    EVENTS          shift and go to state 66
+    FOR             shift and go to state 66
 
 
 state 45
 
-    (57) listing -> LIST error .
+    (21) booking -> BOOK error TICKETS . FOR STRING ON DATE FOR EMAIL
+    (24) booking -> BOOK error TICKETS . FOR error ON DATE FOR EMAIL
 
-    BOOK            reduce using rule 57 (listing -> LIST error .)
-    STATUS          reduce using rule 57 (listing -> LIST error .)
-    SHOW            reduce using rule 57 (listing -> LIST error .)
-    SELECT          reduce using rule 57 (listing -> LIST error .)
-    SORT            reduce using rule 57 (listing -> LIST error .)
-    FETCH           reduce using rule 57 (listing -> LIST error .)
-    RESERVE         reduce using rule 57 (listing -> LIST error .)
-    LIST            reduce using rule 57 (listing -> LIST error .)
-    PAY             reduce using rule 57 (listing -> LIST error .)
-    CANCEL          reduce using rule 57 (listing -> LIST error .)
-    $end            reduce using rule 57 (listing -> LIST error .)
+    FOR             shift and go to state 67
 
 
 state 46
 
-    (58) payment -> PAY FOR . ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD
-    (60) payment -> PAY FOR . ALL BOOKINGS error USING PAYMENT_METHOD
-    (61) payment -> PAY FOR . ALL BOOKINGS BOOKING_ID USING error
-
-    ALL             shift and go to state 67
-
-
-state 47
-
-    (59) payment -> CANCEL BOOKING . BOOKING_ID
-    (62) payment -> CANCEL BOOKING . error
+    (25) status -> STATUS OF BOOKING . BOOKING_ID FOR EMAIL
+    (27) status -> STATUS OF BOOKING . error
+    (28) status -> STATUS OF BOOKING . BOOKING_ID FOR error
 
     BOOKING_ID      shift and go to state 68
     error           shift and go to state 69
 
 
-state 48
+state 47
 
-    (23) booking -> BOOK NUMBER TICKETS . FOR STRING ON DATE FOR EMAIL
-    (24) booking -> BOOK NUMBER TICKETS . FOR STRING ON DATE FOR
-    (26) booking -> BOOK NUMBER TICKETS . FOR STRING ON error FOR EMAIL
-    (27) booking -> BOOK NUMBER TICKETS . FOR error ON DATE FOR EMAIL
+    (26) status -> STATUS OF TICKETS . FOR EMAIL
 
     FOR             shift and go to state 70
 
 
+state 48
+
+    (29) status -> STATUS OF error .
+
+    BOOK            reduce using rule 29 (status -> STATUS OF error .)
+    STATUS          reduce using rule 29 (status -> STATUS OF error .)
+    SHOW            reduce using rule 29 (status -> STATUS OF error .)
+    FETCH           reduce using rule 29 (status -> STATUS OF error .)
+    RESERVE         reduce using rule 29 (status -> STATUS OF error .)
+    LIST            reduce using rule 29 (status -> STATUS OF error .)
+    PAY             reduce using rule 29 (status -> STATUS OF error .)
+    CANCEL          reduce using rule 29 (status -> STATUS OF error .)
+    $end            reduce using rule 29 (status -> STATUS OF error .)
+
+
 state 49
 
-    (25) booking -> BOOK error TICKETS . FOR STRING ON DATE FOR EMAIL
-    (28) booking -> BOOK error TICKETS . FOR error ON DATE FOR EMAIL
+    (31) view -> SHOW AVAILABLE TICKETS . FOR STRING
+    (37) view -> SHOW AVAILABLE TICKETS . FOR error
+    (47) region -> SHOW AVAILABLE TICKETS . IN STRING
+    (48) region -> SHOW AVAILABLE TICKETS . error
 
     FOR             shift and go to state 71
+    IN              shift and go to state 73
+    error           shift and go to state 72
 
 
 state 50
 
-    (29) status -> STATUS OF BOOKING . BOOKING_ID
-    (31) status -> STATUS OF BOOKING . error
+    (32) view -> SHOW RESERVATIONS FOR . EMAIL
+    (41) view -> SHOW RESERVATIONS FOR . error
 
-    BOOKING_ID      shift and go to state 72
-    error           shift and go to state 73
+    EMAIL           shift and go to state 74
+    error           shift and go to state 75
 
 
 state 51
 
-    (30) status -> STATUS OF TICKETS .
+    (33) view -> SHOW CONFIRMED BOOKINGS . FOR EMAIL
+    (42) view -> SHOW CONFIRMED BOOKINGS . FOR error
 
-    BOOK            reduce using rule 30 (status -> STATUS OF TICKETS .)
-    STATUS          reduce using rule 30 (status -> STATUS OF TICKETS .)
-    SHOW            reduce using rule 30 (status -> STATUS OF TICKETS .)
-    SELECT          reduce using rule 30 (status -> STATUS OF TICKETS .)
-    SORT            reduce using rule 30 (status -> STATUS OF TICKETS .)
-    FETCH           reduce using rule 30 (status -> STATUS OF TICKETS .)
-    RESERVE         reduce using rule 30 (status -> STATUS OF TICKETS .)
-    LIST            reduce using rule 30 (status -> STATUS OF TICKETS .)
-    PAY             reduce using rule 30 (status -> STATUS OF TICKETS .)
-    CANCEL          reduce using rule 30 (status -> STATUS OF TICKETS .)
-    $end            reduce using rule 30 (status -> STATUS OF TICKETS .)
+    FOR             shift and go to state 76
 
 
 state 52
 
-    (32) status -> STATUS OF error .
+    (34) view -> SHOW PAID TICKETS . FOR EMAIL
 
-    BOOK            reduce using rule 32 (status -> STATUS OF error .)
-    STATUS          reduce using rule 32 (status -> STATUS OF error .)
-    SHOW            reduce using rule 32 (status -> STATUS OF error .)
-    SELECT          reduce using rule 32 (status -> STATUS OF error .)
-    SORT            reduce using rule 32 (status -> STATUS OF error .)
-    FETCH           reduce using rule 32 (status -> STATUS OF error .)
-    RESERVE         reduce using rule 32 (status -> STATUS OF error .)
-    LIST            reduce using rule 32 (status -> STATUS OF error .)
-    PAY             reduce using rule 32 (status -> STATUS OF error .)
-    CANCEL          reduce using rule 32 (status -> STATUS OF error .)
-    $end            reduce using rule 32 (status -> STATUS OF error .)
+    FOR             shift and go to state 77
 
 
 state 53
 
-    (34) view -> SHOW AVAILABLE TICKETS . FOR STRING
-    (39) view -> SHOW AVAILABLE TICKETS . FOR error
-    (50) region -> SHOW AVAILABLE TICKETS . IN STRING
-    (51) region -> SHOW AVAILABLE TICKETS . error
+    (35) view -> SHOW CANCELED BOOKINGS . FOR EMAIL
+    (43) view -> SHOW CANCELED BOOKINGS . FOR error
 
-    FOR             shift and go to state 74
-    IN              shift and go to state 76
-    error           shift and go to state 75
+    FOR             shift and go to state 78
 
 
 state 54
 
-    (35) view -> SHOW MY RESERVATIONS .
+    (44) view -> SHOW CANCELED TICKETS . FOR error
 
-    BOOK            reduce using rule 35 (view -> SHOW MY RESERVATIONS .)
-    STATUS          reduce using rule 35 (view -> SHOW MY RESERVATIONS .)
-    SHOW            reduce using rule 35 (view -> SHOW MY RESERVATIONS .)
-    SELECT          reduce using rule 35 (view -> SHOW MY RESERVATIONS .)
-    SORT            reduce using rule 35 (view -> SHOW MY RESERVATIONS .)
-    FETCH           reduce using rule 35 (view -> SHOW MY RESERVATIONS .)
-    RESERVE         reduce using rule 35 (view -> SHOW MY RESERVATIONS .)
-    LIST            reduce using rule 35 (view -> SHOW MY RESERVATIONS .)
-    PAY             reduce using rule 35 (view -> SHOW MY RESERVATIONS .)
-    CANCEL          reduce using rule 35 (view -> SHOW MY RESERVATIONS .)
-    $end            reduce using rule 35 (view -> SHOW MY RESERVATIONS .)
+    FOR             shift and go to state 79
 
 
 state 55
 
-    (36) view -> SHOW MY CONFIRMED . BOOKINGS
+    (38) view -> SHOW error FOR . EMAIL
 
-    BOOKINGS        shift and go to state 77
+    EMAIL           shift and go to state 80
 
 
 state 56
 
-    (37) view -> SHOW MY PAID . TICKETS
+    (39) view -> SHOW error BOOKINGS . FOR EMAIL
 
-    TICKETS         shift and go to state 78
+    FOR             shift and go to state 81
 
 
 state 57
 
-    (38) view -> SHOW MY CANCELED . BOOKINGS
+    (40) view -> SHOW error TICKETS . FOR EMAIL
 
-    BOOKINGS        shift and go to state 79
+    FOR             shift and go to state 82
 
 
 state 58
 
-    (40) view -> SHOW MY error .
-    (41) view -> SHOW MY error . BOOKINGS
-    (42) view -> SHOW MY error . TICKETS
+    (45) fetching -> FETCH TICKETS FROM . API API_URL
+    (46) fetching -> FETCH TICKETS FROM . API error
 
-    BOOK            reduce using rule 40 (view -> SHOW MY error .)
-    STATUS          reduce using rule 40 (view -> SHOW MY error .)
-    SHOW            reduce using rule 40 (view -> SHOW MY error .)
-    SELECT          reduce using rule 40 (view -> SHOW MY error .)
-    SORT            reduce using rule 40 (view -> SHOW MY error .)
-    FETCH           reduce using rule 40 (view -> SHOW MY error .)
-    RESERVE         reduce using rule 40 (view -> SHOW MY error .)
-    LIST            reduce using rule 40 (view -> SHOW MY error .)
-    PAY             reduce using rule 40 (view -> SHOW MY error .)
-    CANCEL          reduce using rule 40 (view -> SHOW MY error .)
-    $end            reduce using rule 40 (view -> SHOW MY error .)
-    BOOKINGS        shift and go to state 80
-    TICKETS         shift and go to state 81
+    API             shift and go to state 83
 
 
 state 59
 
-    (43) selection -> SELECT TICKET TICKET_ID .
+    (49) reservation -> RESERVE NUMBER TICKETS . FOR STRING ON DATE FOR EMAIL
 
-    BOOK            reduce using rule 43 (selection -> SELECT TICKET TICKET_ID .)
-    STATUS          reduce using rule 43 (selection -> SELECT TICKET TICKET_ID .)
-    SHOW            reduce using rule 43 (selection -> SELECT TICKET TICKET_ID .)
-    SELECT          reduce using rule 43 (selection -> SELECT TICKET TICKET_ID .)
-    SORT            reduce using rule 43 (selection -> SELECT TICKET TICKET_ID .)
-    FETCH           reduce using rule 43 (selection -> SELECT TICKET TICKET_ID .)
-    RESERVE         reduce using rule 43 (selection -> SELECT TICKET TICKET_ID .)
-    LIST            reduce using rule 43 (selection -> SELECT TICKET TICKET_ID .)
-    PAY             reduce using rule 43 (selection -> SELECT TICKET TICKET_ID .)
-    CANCEL          reduce using rule 43 (selection -> SELECT TICKET TICKET_ID .)
-    $end            reduce using rule 43 (selection -> SELECT TICKET TICKET_ID .)
+    FOR             shift and go to state 84
 
 
 state 60
 
-    (44) selection -> SELECT TICKET error .
+    (50) reservation -> RESERVE NUMBER FOR . STRING ON DATE FOR
+    (52) reservation -> RESERVE NUMBER FOR . error ON DATE FOR EMAIL
+    (53) reservation -> RESERVE NUMBER FOR . STRING ON DATE FOR error
+    (54) reservation -> RESERVE NUMBER FOR . STRING ON error FOR EMAIL
 
-    BOOK            reduce using rule 44 (selection -> SELECT TICKET error .)
-    STATUS          reduce using rule 44 (selection -> SELECT TICKET error .)
-    SHOW            reduce using rule 44 (selection -> SELECT TICKET error .)
-    SELECT          reduce using rule 44 (selection -> SELECT TICKET error .)
-    SORT            reduce using rule 44 (selection -> SELECT TICKET error .)
-    FETCH           reduce using rule 44 (selection -> SELECT TICKET error .)
-    RESERVE         reduce using rule 44 (selection -> SELECT TICKET error .)
-    LIST            reduce using rule 44 (selection -> SELECT TICKET error .)
-    PAY             reduce using rule 44 (selection -> SELECT TICKET error .)
-    CANCEL          reduce using rule 44 (selection -> SELECT TICKET error .)
-    $end            reduce using rule 44 (selection -> SELECT TICKET error .)
+    STRING          shift and go to state 85
+    error           shift and go to state 86
 
 
 state 61
 
-    (45) sorting -> SORT TICKETS BY . NUMBER
-    (46) sorting -> SORT TICKETS BY . DATE
-    (47) sorting -> SORT TICKETS BY . error
+    (51) reservation -> RESERVE error FOR . STRING ON DATE FOR EMAIL
 
-    NUMBER          shift and go to state 82
-    DATE            shift and go to state 83
-    error           shift and go to state 84
+    STRING          shift and go to state 87
 
 
 state 62
 
-    (48) fetching -> FETCH TICKETS FROM . API API_URL
-    (49) fetching -> FETCH TICKETS FROM . API error
+    (55) listing -> LIST ALL EVENTS .
 
-    API             shift and go to state 85
+    BOOK            reduce using rule 55 (listing -> LIST ALL EVENTS .)
+    STATUS          reduce using rule 55 (listing -> LIST ALL EVENTS .)
+    SHOW            reduce using rule 55 (listing -> LIST ALL EVENTS .)
+    FETCH           reduce using rule 55 (listing -> LIST ALL EVENTS .)
+    RESERVE         reduce using rule 55 (listing -> LIST ALL EVENTS .)
+    LIST            reduce using rule 55 (listing -> LIST ALL EVENTS .)
+    PAY             reduce using rule 55 (listing -> LIST ALL EVENTS .)
+    CANCEL          reduce using rule 55 (listing -> LIST ALL EVENTS .)
+    $end            reduce using rule 55 (listing -> LIST ALL EVENTS .)
 
 
 state 63
 
-    (52) reservation -> RESERVE NUMBER TICKETS . FOR STRING ON DATE
+    (57) payment -> PAY FOR ALL . BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR EMAIL
+    (59) payment -> PAY FOR ALL . BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR
+    (60) payment -> PAY FOR ALL . BOOKINGS error USING PAYMENT_METHOD FOR EMAIL
+    (61) payment -> PAY FOR ALL . BOOKINGS BOOKING_ID USING error FOR EMAIL
 
-    FOR             shift and go to state 86
+    BOOKINGS        shift and go to state 88
 
 
 state 64
 
-    (54) reservation -> RESERVE NUMBER FOR . error ON DATE
-    (55) reservation -> RESERVE NUMBER FOR . STRING ON error
+    (58) payment -> CANCEL BOOKING BOOKING_ID . FOR EMAIL
 
-    error           shift and go to state 87
-    STRING          shift and go to state 88
+    FOR             shift and go to state 89
 
 
 state 65
 
-    (53) reservation -> RESERVE error FOR . STRING ON DATE
+    (62) payment -> CANCEL BOOKING error . FOR EMAIL
 
-    STRING          shift and go to state 89
+    FOR             shift and go to state 90
 
 
 state 66
 
-    (56) listing -> LIST ALL EVENTS .
-
-    BOOK            reduce using rule 56 (listing -> LIST ALL EVENTS .)
-    STATUS          reduce using rule 56 (listing -> LIST ALL EVENTS .)
-    SHOW            reduce using rule 56 (listing -> LIST ALL EVENTS .)
-    SELECT          reduce using rule 56 (listing -> LIST ALL EVENTS .)
-    SORT            reduce using rule 56 (listing -> LIST ALL EVENTS .)
-    FETCH           reduce using rule 56 (listing -> LIST ALL EVENTS .)
-    RESERVE         reduce using rule 56 (listing -> LIST ALL EVENTS .)
-    LIST            reduce using rule 56 (listing -> LIST ALL EVENTS .)
-    PAY             reduce using rule 56 (listing -> LIST ALL EVENTS .)
-    CANCEL          reduce using rule 56 (listing -> LIST ALL EVENTS .)
-    $end            reduce using rule 56 (listing -> LIST ALL EVENTS .)
-
-
-state 67
-
-    (58) payment -> PAY FOR ALL . BOOKINGS BOOKING_ID USING PAYMENT_METHOD
-    (60) payment -> PAY FOR ALL . BOOKINGS error USING PAYMENT_METHOD
-    (61) payment -> PAY FOR ALL . BOOKINGS BOOKING_ID USING error
-
-    BOOKINGS        shift and go to state 90
-
-
-state 68
-
-    (59) payment -> CANCEL BOOKING BOOKING_ID .
-
-    BOOK            reduce using rule 59 (payment -> CANCEL BOOKING BOOKING_ID .)
-    STATUS          reduce using rule 59 (payment -> CANCEL BOOKING BOOKING_ID .)
-    SHOW            reduce using rule 59 (payment -> CANCEL BOOKING BOOKING_ID .)
-    SELECT          reduce using rule 59 (payment -> CANCEL BOOKING BOOKING_ID .)
-    SORT            reduce using rule 59 (payment -> CANCEL BOOKING BOOKING_ID .)
-    FETCH           reduce using rule 59 (payment -> CANCEL BOOKING BOOKING_ID .)
-    RESERVE         reduce using rule 59 (payment -> CANCEL BOOKING BOOKING_ID .)
-    LIST            reduce using rule 59 (payment -> CANCEL BOOKING BOOKING_ID .)
-    PAY             reduce using rule 59 (payment -> CANCEL BOOKING BOOKING_ID .)
-    CANCEL          reduce using rule 59 (payment -> CANCEL BOOKING BOOKING_ID .)
-    $end            reduce using rule 59 (payment -> CANCEL BOOKING BOOKING_ID .)
-
-
-state 69
-
-    (62) payment -> CANCEL BOOKING error .
-
-    BOOK            reduce using rule 62 (payment -> CANCEL BOOKING error .)
-    STATUS          reduce using rule 62 (payment -> CANCEL BOOKING error .)
-    SHOW            reduce using rule 62 (payment -> CANCEL BOOKING error .)
-    SELECT          reduce using rule 62 (payment -> CANCEL BOOKING error .)
-    SORT            reduce using rule 62 (payment -> CANCEL BOOKING error .)
-    FETCH           reduce using rule 62 (payment -> CANCEL BOOKING error .)
-    RESERVE         reduce using rule 62 (payment -> CANCEL BOOKING error .)
-    LIST            reduce using rule 62 (payment -> CANCEL BOOKING error .)
-    PAY             reduce using rule 62 (payment -> CANCEL BOOKING error .)
-    CANCEL          reduce using rule 62 (payment -> CANCEL BOOKING error .)
-    $end            reduce using rule 62 (payment -> CANCEL BOOKING error .)
-
-
-state 70
-
-    (23) booking -> BOOK NUMBER TICKETS FOR . STRING ON DATE FOR EMAIL
-    (24) booking -> BOOK NUMBER TICKETS FOR . STRING ON DATE FOR
-    (26) booking -> BOOK NUMBER TICKETS FOR . STRING ON error FOR EMAIL
-    (27) booking -> BOOK NUMBER TICKETS FOR . error ON DATE FOR EMAIL
+    (19) booking -> BOOK NUMBER TICKETS FOR . STRING ON DATE FOR EMAIL
+    (20) booking -> BOOK NUMBER TICKETS FOR . STRING ON DATE FOR
+    (22) booking -> BOOK NUMBER TICKETS FOR . STRING ON error FOR EMAIL
+    (23) booking -> BOOK NUMBER TICKETS FOR . error ON DATE FOR EMAIL
 
     STRING          shift and go to state 91
     error           shift and go to state 92
 
 
-state 71
+state 67
 
-    (25) booking -> BOOK error TICKETS FOR . STRING ON DATE FOR EMAIL
-    (28) booking -> BOOK error TICKETS FOR . error ON DATE FOR EMAIL
+    (21) booking -> BOOK error TICKETS FOR . STRING ON DATE FOR EMAIL
+    (24) booking -> BOOK error TICKETS FOR . error ON DATE FOR EMAIL
 
     STRING          shift and go to state 94
     error           shift and go to state 93
 
 
+state 68
+
+    (25) status -> STATUS OF BOOKING BOOKING_ID . FOR EMAIL
+    (28) status -> STATUS OF BOOKING BOOKING_ID . FOR error
+
+    FOR             shift and go to state 95
+
+
+state 69
+
+    (27) status -> STATUS OF BOOKING error .
+
+    BOOK            reduce using rule 27 (status -> STATUS OF BOOKING error .)
+    STATUS          reduce using rule 27 (status -> STATUS OF BOOKING error .)
+    SHOW            reduce using rule 27 (status -> STATUS OF BOOKING error .)
+    FETCH           reduce using rule 27 (status -> STATUS OF BOOKING error .)
+    RESERVE         reduce using rule 27 (status -> STATUS OF BOOKING error .)
+    LIST            reduce using rule 27 (status -> STATUS OF BOOKING error .)
+    PAY             reduce using rule 27 (status -> STATUS OF BOOKING error .)
+    CANCEL          reduce using rule 27 (status -> STATUS OF BOOKING error .)
+    $end            reduce using rule 27 (status -> STATUS OF BOOKING error .)
+
+
+state 70
+
+    (26) status -> STATUS OF TICKETS FOR . EMAIL
+
+    EMAIL           shift and go to state 96
+
+
+state 71
+
+    (31) view -> SHOW AVAILABLE TICKETS FOR . STRING
+    (37) view -> SHOW AVAILABLE TICKETS FOR . error
+
+    STRING          shift and go to state 97
+    error           shift and go to state 98
+
+
 state 72
 
-    (29) status -> STATUS OF BOOKING BOOKING_ID .
+    (48) region -> SHOW AVAILABLE TICKETS error .
 
-    BOOK            reduce using rule 29 (status -> STATUS OF BOOKING BOOKING_ID .)
-    STATUS          reduce using rule 29 (status -> STATUS OF BOOKING BOOKING_ID .)
-    SHOW            reduce using rule 29 (status -> STATUS OF BOOKING BOOKING_ID .)
-    SELECT          reduce using rule 29 (status -> STATUS OF BOOKING BOOKING_ID .)
-    SORT            reduce using rule 29 (status -> STATUS OF BOOKING BOOKING_ID .)
-    FETCH           reduce using rule 29 (status -> STATUS OF BOOKING BOOKING_ID .)
-    RESERVE         reduce using rule 29 (status -> STATUS OF BOOKING BOOKING_ID .)
-    LIST            reduce using rule 29 (status -> STATUS OF BOOKING BOOKING_ID .)
-    PAY             reduce using rule 29 (status -> STATUS OF BOOKING BOOKING_ID .)
-    CANCEL          reduce using rule 29 (status -> STATUS OF BOOKING BOOKING_ID .)
-    $end            reduce using rule 29 (status -> STATUS OF BOOKING BOOKING_ID .)
+    BOOK            reduce using rule 48 (region -> SHOW AVAILABLE TICKETS error .)
+    STATUS          reduce using rule 48 (region -> SHOW AVAILABLE TICKETS error .)
+    SHOW            reduce using rule 48 (region -> SHOW AVAILABLE TICKETS error .)
+    FETCH           reduce using rule 48 (region -> SHOW AVAILABLE TICKETS error .)
+    RESERVE         reduce using rule 48 (region -> SHOW AVAILABLE TICKETS error .)
+    LIST            reduce using rule 48 (region -> SHOW AVAILABLE TICKETS error .)
+    PAY             reduce using rule 48 (region -> SHOW AVAILABLE TICKETS error .)
+    CANCEL          reduce using rule 48 (region -> SHOW AVAILABLE TICKETS error .)
+    $end            reduce using rule 48 (region -> SHOW AVAILABLE TICKETS error .)
 
 
 state 73
 
-    (31) status -> STATUS OF BOOKING error .
+    (47) region -> SHOW AVAILABLE TICKETS IN . STRING
 
-    BOOK            reduce using rule 31 (status -> STATUS OF BOOKING error .)
-    STATUS          reduce using rule 31 (status -> STATUS OF BOOKING error .)
-    SHOW            reduce using rule 31 (status -> STATUS OF BOOKING error .)
-    SELECT          reduce using rule 31 (status -> STATUS OF BOOKING error .)
-    SORT            reduce using rule 31 (status -> STATUS OF BOOKING error .)
-    FETCH           reduce using rule 31 (status -> STATUS OF BOOKING error .)
-    RESERVE         reduce using rule 31 (status -> STATUS OF BOOKING error .)
-    LIST            reduce using rule 31 (status -> STATUS OF BOOKING error .)
-    PAY             reduce using rule 31 (status -> STATUS OF BOOKING error .)
-    CANCEL          reduce using rule 31 (status -> STATUS OF BOOKING error .)
-    $end            reduce using rule 31 (status -> STATUS OF BOOKING error .)
+    STRING          shift and go to state 99
 
 
 state 74
 
-    (34) view -> SHOW AVAILABLE TICKETS FOR . STRING
-    (39) view -> SHOW AVAILABLE TICKETS FOR . error
+    (32) view -> SHOW RESERVATIONS FOR EMAIL .
 
-    STRING          shift and go to state 95
-    error           shift and go to state 96
+    BOOK            reduce using rule 32 (view -> SHOW RESERVATIONS FOR EMAIL .)
+    STATUS          reduce using rule 32 (view -> SHOW RESERVATIONS FOR EMAIL .)
+    SHOW            reduce using rule 32 (view -> SHOW RESERVATIONS FOR EMAIL .)
+    FETCH           reduce using rule 32 (view -> SHOW RESERVATIONS FOR EMAIL .)
+    RESERVE         reduce using rule 32 (view -> SHOW RESERVATIONS FOR EMAIL .)
+    LIST            reduce using rule 32 (view -> SHOW RESERVATIONS FOR EMAIL .)
+    PAY             reduce using rule 32 (view -> SHOW RESERVATIONS FOR EMAIL .)
+    CANCEL          reduce using rule 32 (view -> SHOW RESERVATIONS FOR EMAIL .)
+    $end            reduce using rule 32 (view -> SHOW RESERVATIONS FOR EMAIL .)
 
 
 state 75
 
-    (51) region -> SHOW AVAILABLE TICKETS error .
+    (41) view -> SHOW RESERVATIONS FOR error .
 
-    BOOK            reduce using rule 51 (region -> SHOW AVAILABLE TICKETS error .)
-    STATUS          reduce using rule 51 (region -> SHOW AVAILABLE TICKETS error .)
-    SHOW            reduce using rule 51 (region -> SHOW AVAILABLE TICKETS error .)
-    SELECT          reduce using rule 51 (region -> SHOW AVAILABLE TICKETS error .)
-    SORT            reduce using rule 51 (region -> SHOW AVAILABLE TICKETS error .)
-    FETCH           reduce using rule 51 (region -> SHOW AVAILABLE TICKETS error .)
-    RESERVE         reduce using rule 51 (region -> SHOW AVAILABLE TICKETS error .)
-    LIST            reduce using rule 51 (region -> SHOW AVAILABLE TICKETS error .)
-    PAY             reduce using rule 51 (region -> SHOW AVAILABLE TICKETS error .)
-    CANCEL          reduce using rule 51 (region -> SHOW AVAILABLE TICKETS error .)
-    $end            reduce using rule 51 (region -> SHOW AVAILABLE TICKETS error .)
+    BOOK            reduce using rule 41 (view -> SHOW RESERVATIONS FOR error .)
+    STATUS          reduce using rule 41 (view -> SHOW RESERVATIONS FOR error .)
+    SHOW            reduce using rule 41 (view -> SHOW RESERVATIONS FOR error .)
+    FETCH           reduce using rule 41 (view -> SHOW RESERVATIONS FOR error .)
+    RESERVE         reduce using rule 41 (view -> SHOW RESERVATIONS FOR error .)
+    LIST            reduce using rule 41 (view -> SHOW RESERVATIONS FOR error .)
+    PAY             reduce using rule 41 (view -> SHOW RESERVATIONS FOR error .)
+    CANCEL          reduce using rule 41 (view -> SHOW RESERVATIONS FOR error .)
+    $end            reduce using rule 41 (view -> SHOW RESERVATIONS FOR error .)
 
 
 state 76
 
-    (50) region -> SHOW AVAILABLE TICKETS IN . STRING
+    (33) view -> SHOW CONFIRMED BOOKINGS FOR . EMAIL
+    (42) view -> SHOW CONFIRMED BOOKINGS FOR . error
 
-    STRING          shift and go to state 97
+    EMAIL           shift and go to state 100
+    error           shift and go to state 101
 
 
 state 77
 
-    (36) view -> SHOW MY CONFIRMED BOOKINGS .
+    (34) view -> SHOW PAID TICKETS FOR . EMAIL
 
-    BOOK            reduce using rule 36 (view -> SHOW MY CONFIRMED BOOKINGS .)
-    STATUS          reduce using rule 36 (view -> SHOW MY CONFIRMED BOOKINGS .)
-    SHOW            reduce using rule 36 (view -> SHOW MY CONFIRMED BOOKINGS .)
-    SELECT          reduce using rule 36 (view -> SHOW MY CONFIRMED BOOKINGS .)
-    SORT            reduce using rule 36 (view -> SHOW MY CONFIRMED BOOKINGS .)
-    FETCH           reduce using rule 36 (view -> SHOW MY CONFIRMED BOOKINGS .)
-    RESERVE         reduce using rule 36 (view -> SHOW MY CONFIRMED BOOKINGS .)
-    LIST            reduce using rule 36 (view -> SHOW MY CONFIRMED BOOKINGS .)
-    PAY             reduce using rule 36 (view -> SHOW MY CONFIRMED BOOKINGS .)
-    CANCEL          reduce using rule 36 (view -> SHOW MY CONFIRMED BOOKINGS .)
-    $end            reduce using rule 36 (view -> SHOW MY CONFIRMED BOOKINGS .)
+    EMAIL           shift and go to state 102
 
 
 state 78
 
-    (37) view -> SHOW MY PAID TICKETS .
+    (35) view -> SHOW CANCELED BOOKINGS FOR . EMAIL
+    (43) view -> SHOW CANCELED BOOKINGS FOR . error
 
-    BOOK            reduce using rule 37 (view -> SHOW MY PAID TICKETS .)
-    STATUS          reduce using rule 37 (view -> SHOW MY PAID TICKETS .)
-    SHOW            reduce using rule 37 (view -> SHOW MY PAID TICKETS .)
-    SELECT          reduce using rule 37 (view -> SHOW MY PAID TICKETS .)
-    SORT            reduce using rule 37 (view -> SHOW MY PAID TICKETS .)
-    FETCH           reduce using rule 37 (view -> SHOW MY PAID TICKETS .)
-    RESERVE         reduce using rule 37 (view -> SHOW MY PAID TICKETS .)
-    LIST            reduce using rule 37 (view -> SHOW MY PAID TICKETS .)
-    PAY             reduce using rule 37 (view -> SHOW MY PAID TICKETS .)
-    CANCEL          reduce using rule 37 (view -> SHOW MY PAID TICKETS .)
-    $end            reduce using rule 37 (view -> SHOW MY PAID TICKETS .)
+    EMAIL           shift and go to state 103
+    error           shift and go to state 104
 
 
 state 79
 
-    (38) view -> SHOW MY CANCELED BOOKINGS .
+    (44) view -> SHOW CANCELED TICKETS FOR . error
 
-    BOOK            reduce using rule 38 (view -> SHOW MY CANCELED BOOKINGS .)
-    STATUS          reduce using rule 38 (view -> SHOW MY CANCELED BOOKINGS .)
-    SHOW            reduce using rule 38 (view -> SHOW MY CANCELED BOOKINGS .)
-    SELECT          reduce using rule 38 (view -> SHOW MY CANCELED BOOKINGS .)
-    SORT            reduce using rule 38 (view -> SHOW MY CANCELED BOOKINGS .)
-    FETCH           reduce using rule 38 (view -> SHOW MY CANCELED BOOKINGS .)
-    RESERVE         reduce using rule 38 (view -> SHOW MY CANCELED BOOKINGS .)
-    LIST            reduce using rule 38 (view -> SHOW MY CANCELED BOOKINGS .)
-    PAY             reduce using rule 38 (view -> SHOW MY CANCELED BOOKINGS .)
-    CANCEL          reduce using rule 38 (view -> SHOW MY CANCELED BOOKINGS .)
-    $end            reduce using rule 38 (view -> SHOW MY CANCELED BOOKINGS .)
+    error           shift and go to state 105
 
 
 state 80
 
-    (41) view -> SHOW MY error BOOKINGS .
+    (38) view -> SHOW error FOR EMAIL .
 
-    BOOK            reduce using rule 41 (view -> SHOW MY error BOOKINGS .)
-    STATUS          reduce using rule 41 (view -> SHOW MY error BOOKINGS .)
-    SHOW            reduce using rule 41 (view -> SHOW MY error BOOKINGS .)
-    SELECT          reduce using rule 41 (view -> SHOW MY error BOOKINGS .)
-    SORT            reduce using rule 41 (view -> SHOW MY error BOOKINGS .)
-    FETCH           reduce using rule 41 (view -> SHOW MY error BOOKINGS .)
-    RESERVE         reduce using rule 41 (view -> SHOW MY error BOOKINGS .)
-    LIST            reduce using rule 41 (view -> SHOW MY error BOOKINGS .)
-    PAY             reduce using rule 41 (view -> SHOW MY error BOOKINGS .)
-    CANCEL          reduce using rule 41 (view -> SHOW MY error BOOKINGS .)
-    $end            reduce using rule 41 (view -> SHOW MY error BOOKINGS .)
+    BOOK            reduce using rule 38 (view -> SHOW error FOR EMAIL .)
+    STATUS          reduce using rule 38 (view -> SHOW error FOR EMAIL .)
+    SHOW            reduce using rule 38 (view -> SHOW error FOR EMAIL .)
+    FETCH           reduce using rule 38 (view -> SHOW error FOR EMAIL .)
+    RESERVE         reduce using rule 38 (view -> SHOW error FOR EMAIL .)
+    LIST            reduce using rule 38 (view -> SHOW error FOR EMAIL .)
+    PAY             reduce using rule 38 (view -> SHOW error FOR EMAIL .)
+    CANCEL          reduce using rule 38 (view -> SHOW error FOR EMAIL .)
+    $end            reduce using rule 38 (view -> SHOW error FOR EMAIL .)
 
 
 state 81
 
-    (42) view -> SHOW MY error TICKETS .
+    (39) view -> SHOW error BOOKINGS FOR . EMAIL
 
-    BOOK            reduce using rule 42 (view -> SHOW MY error TICKETS .)
-    STATUS          reduce using rule 42 (view -> SHOW MY error TICKETS .)
-    SHOW            reduce using rule 42 (view -> SHOW MY error TICKETS .)
-    SELECT          reduce using rule 42 (view -> SHOW MY error TICKETS .)
-    SORT            reduce using rule 42 (view -> SHOW MY error TICKETS .)
-    FETCH           reduce using rule 42 (view -> SHOW MY error TICKETS .)
-    RESERVE         reduce using rule 42 (view -> SHOW MY error TICKETS .)
-    LIST            reduce using rule 42 (view -> SHOW MY error TICKETS .)
-    PAY             reduce using rule 42 (view -> SHOW MY error TICKETS .)
-    CANCEL          reduce using rule 42 (view -> SHOW MY error TICKETS .)
-    $end            reduce using rule 42 (view -> SHOW MY error TICKETS .)
+    EMAIL           shift and go to state 106
 
 
 state 82
 
-    (45) sorting -> SORT TICKETS BY NUMBER .
+    (40) view -> SHOW error TICKETS FOR . EMAIL
 
-    BOOK            reduce using rule 45 (sorting -> SORT TICKETS BY NUMBER .)
-    STATUS          reduce using rule 45 (sorting -> SORT TICKETS BY NUMBER .)
-    SHOW            reduce using rule 45 (sorting -> SORT TICKETS BY NUMBER .)
-    SELECT          reduce using rule 45 (sorting -> SORT TICKETS BY NUMBER .)
-    SORT            reduce using rule 45 (sorting -> SORT TICKETS BY NUMBER .)
-    FETCH           reduce using rule 45 (sorting -> SORT TICKETS BY NUMBER .)
-    RESERVE         reduce using rule 45 (sorting -> SORT TICKETS BY NUMBER .)
-    LIST            reduce using rule 45 (sorting -> SORT TICKETS BY NUMBER .)
-    PAY             reduce using rule 45 (sorting -> SORT TICKETS BY NUMBER .)
-    CANCEL          reduce using rule 45 (sorting -> SORT TICKETS BY NUMBER .)
-    $end            reduce using rule 45 (sorting -> SORT TICKETS BY NUMBER .)
+    EMAIL           shift and go to state 107
 
 
 state 83
 
-    (46) sorting -> SORT TICKETS BY DATE .
+    (45) fetching -> FETCH TICKETS FROM API . API_URL
+    (46) fetching -> FETCH TICKETS FROM API . error
 
-    BOOK            reduce using rule 46 (sorting -> SORT TICKETS BY DATE .)
-    STATUS          reduce using rule 46 (sorting -> SORT TICKETS BY DATE .)
-    SHOW            reduce using rule 46 (sorting -> SORT TICKETS BY DATE .)
-    SELECT          reduce using rule 46 (sorting -> SORT TICKETS BY DATE .)
-    SORT            reduce using rule 46 (sorting -> SORT TICKETS BY DATE .)
-    FETCH           reduce using rule 46 (sorting -> SORT TICKETS BY DATE .)
-    RESERVE         reduce using rule 46 (sorting -> SORT TICKETS BY DATE .)
-    LIST            reduce using rule 46 (sorting -> SORT TICKETS BY DATE .)
-    PAY             reduce using rule 46 (sorting -> SORT TICKETS BY DATE .)
-    CANCEL          reduce using rule 46 (sorting -> SORT TICKETS BY DATE .)
-    $end            reduce using rule 46 (sorting -> SORT TICKETS BY DATE .)
+    API_URL         shift and go to state 108
+    error           shift and go to state 109
 
 
 state 84
 
-    (47) sorting -> SORT TICKETS BY error .
+    (49) reservation -> RESERVE NUMBER TICKETS FOR . STRING ON DATE FOR EMAIL
 
-    BOOK            reduce using rule 47 (sorting -> SORT TICKETS BY error .)
-    STATUS          reduce using rule 47 (sorting -> SORT TICKETS BY error .)
-    SHOW            reduce using rule 47 (sorting -> SORT TICKETS BY error .)
-    SELECT          reduce using rule 47 (sorting -> SORT TICKETS BY error .)
-    SORT            reduce using rule 47 (sorting -> SORT TICKETS BY error .)
-    FETCH           reduce using rule 47 (sorting -> SORT TICKETS BY error .)
-    RESERVE         reduce using rule 47 (sorting -> SORT TICKETS BY error .)
-    LIST            reduce using rule 47 (sorting -> SORT TICKETS BY error .)
-    PAY             reduce using rule 47 (sorting -> SORT TICKETS BY error .)
-    CANCEL          reduce using rule 47 (sorting -> SORT TICKETS BY error .)
-    $end            reduce using rule 47 (sorting -> SORT TICKETS BY error .)
+    STRING          shift and go to state 110
 
 
 state 85
 
-    (48) fetching -> FETCH TICKETS FROM API . API_URL
-    (49) fetching -> FETCH TICKETS FROM API . error
+    (50) reservation -> RESERVE NUMBER FOR STRING . ON DATE FOR
+    (53) reservation -> RESERVE NUMBER FOR STRING . ON DATE FOR error
+    (54) reservation -> RESERVE NUMBER FOR STRING . ON error FOR EMAIL
 
-    API_URL         shift and go to state 98
-    error           shift and go to state 99
+    ON              shift and go to state 111
 
 
 state 86
 
-    (52) reservation -> RESERVE NUMBER TICKETS FOR . STRING ON DATE
+    (52) reservation -> RESERVE NUMBER FOR error . ON DATE FOR EMAIL
 
-    STRING          shift and go to state 100
+    ON              shift and go to state 112
 
 
 state 87
 
-    (54) reservation -> RESERVE NUMBER FOR error . ON DATE
+    (51) reservation -> RESERVE error FOR STRING . ON DATE FOR EMAIL
 
-    ON              shift and go to state 101
+    ON              shift and go to state 113
 
 
 state 88
 
-    (55) reservation -> RESERVE NUMBER FOR STRING . ON error
+    (57) payment -> PAY FOR ALL BOOKINGS . BOOKING_ID USING PAYMENT_METHOD FOR EMAIL
+    (59) payment -> PAY FOR ALL BOOKINGS . BOOKING_ID USING PAYMENT_METHOD FOR
+    (60) payment -> PAY FOR ALL BOOKINGS . error USING PAYMENT_METHOD FOR EMAIL
+    (61) payment -> PAY FOR ALL BOOKINGS . BOOKING_ID USING error FOR EMAIL
 
-    ON              shift and go to state 102
+    BOOKING_ID      shift and go to state 114
+    error           shift and go to state 115
 
 
 state 89
 
-    (53) reservation -> RESERVE error FOR STRING . ON DATE
+    (58) payment -> CANCEL BOOKING BOOKING_ID FOR . EMAIL
 
-    ON              shift and go to state 103
+    EMAIL           shift and go to state 116
 
 
 state 90
 
-    (58) payment -> PAY FOR ALL BOOKINGS . BOOKING_ID USING PAYMENT_METHOD
-    (60) payment -> PAY FOR ALL BOOKINGS . error USING PAYMENT_METHOD
-    (61) payment -> PAY FOR ALL BOOKINGS . BOOKING_ID USING error
+    (62) payment -> CANCEL BOOKING error FOR . EMAIL
 
-    BOOKING_ID      shift and go to state 104
-    error           shift and go to state 105
+    EMAIL           shift and go to state 117
 
 
 state 91
 
-    (23) booking -> BOOK NUMBER TICKETS FOR STRING . ON DATE FOR EMAIL
-    (24) booking -> BOOK NUMBER TICKETS FOR STRING . ON DATE FOR
-    (26) booking -> BOOK NUMBER TICKETS FOR STRING . ON error FOR EMAIL
+    (19) booking -> BOOK NUMBER TICKETS FOR STRING . ON DATE FOR EMAIL
+    (20) booking -> BOOK NUMBER TICKETS FOR STRING . ON DATE FOR
+    (22) booking -> BOOK NUMBER TICKETS FOR STRING . ON error FOR EMAIL
 
-    ON              shift and go to state 106
+    ON              shift and go to state 118
 
 
 state 92
 
-    (27) booking -> BOOK NUMBER TICKETS FOR error . ON DATE FOR EMAIL
+    (23) booking -> BOOK NUMBER TICKETS FOR error . ON DATE FOR EMAIL
 
-    ON              shift and go to state 107
+    ON              shift and go to state 119
 
 
 state 93
 
-    (28) booking -> BOOK error TICKETS FOR error . ON DATE FOR EMAIL
+    (24) booking -> BOOK error TICKETS FOR error . ON DATE FOR EMAIL
 
-    ON              shift and go to state 108
+    ON              shift and go to state 120
 
 
 state 94
 
-    (25) booking -> BOOK error TICKETS FOR STRING . ON DATE FOR EMAIL
+    (21) booking -> BOOK error TICKETS FOR STRING . ON DATE FOR EMAIL
 
-    ON              shift and go to state 109
+    ON              shift and go to state 121
 
 
 state 95
 
-    (34) view -> SHOW AVAILABLE TICKETS FOR STRING .
+    (25) status -> STATUS OF BOOKING BOOKING_ID FOR . EMAIL
+    (28) status -> STATUS OF BOOKING BOOKING_ID FOR . error
 
-    BOOK            reduce using rule 34 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
-    STATUS          reduce using rule 34 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
-    SHOW            reduce using rule 34 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
-    SELECT          reduce using rule 34 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
-    SORT            reduce using rule 34 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
-    FETCH           reduce using rule 34 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
-    RESERVE         reduce using rule 34 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
-    LIST            reduce using rule 34 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
-    PAY             reduce using rule 34 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
-    CANCEL          reduce using rule 34 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
-    $end            reduce using rule 34 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
+    EMAIL           shift and go to state 122
+    error           shift and go to state 123
 
 
 state 96
 
-    (39) view -> SHOW AVAILABLE TICKETS FOR error .
+    (26) status -> STATUS OF TICKETS FOR EMAIL .
 
-    BOOK            reduce using rule 39 (view -> SHOW AVAILABLE TICKETS FOR error .)
-    STATUS          reduce using rule 39 (view -> SHOW AVAILABLE TICKETS FOR error .)
-    SHOW            reduce using rule 39 (view -> SHOW AVAILABLE TICKETS FOR error .)
-    SELECT          reduce using rule 39 (view -> SHOW AVAILABLE TICKETS FOR error .)
-    SORT            reduce using rule 39 (view -> SHOW AVAILABLE TICKETS FOR error .)
-    FETCH           reduce using rule 39 (view -> SHOW AVAILABLE TICKETS FOR error .)
-    RESERVE         reduce using rule 39 (view -> SHOW AVAILABLE TICKETS FOR error .)
-    LIST            reduce using rule 39 (view -> SHOW AVAILABLE TICKETS FOR error .)
-    PAY             reduce using rule 39 (view -> SHOW AVAILABLE TICKETS FOR error .)
-    CANCEL          reduce using rule 39 (view -> SHOW AVAILABLE TICKETS FOR error .)
-    $end            reduce using rule 39 (view -> SHOW AVAILABLE TICKETS FOR error .)
+    BOOK            reduce using rule 26 (status -> STATUS OF TICKETS FOR EMAIL .)
+    STATUS          reduce using rule 26 (status -> STATUS OF TICKETS FOR EMAIL .)
+    SHOW            reduce using rule 26 (status -> STATUS OF TICKETS FOR EMAIL .)
+    FETCH           reduce using rule 26 (status -> STATUS OF TICKETS FOR EMAIL .)
+    RESERVE         reduce using rule 26 (status -> STATUS OF TICKETS FOR EMAIL .)
+    LIST            reduce using rule 26 (status -> STATUS OF TICKETS FOR EMAIL .)
+    PAY             reduce using rule 26 (status -> STATUS OF TICKETS FOR EMAIL .)
+    CANCEL          reduce using rule 26 (status -> STATUS OF TICKETS FOR EMAIL .)
+    $end            reduce using rule 26 (status -> STATUS OF TICKETS FOR EMAIL .)
 
 
 state 97
 
-    (50) region -> SHOW AVAILABLE TICKETS IN STRING .
+    (31) view -> SHOW AVAILABLE TICKETS FOR STRING .
 
-    BOOK            reduce using rule 50 (region -> SHOW AVAILABLE TICKETS IN STRING .)
-    STATUS          reduce using rule 50 (region -> SHOW AVAILABLE TICKETS IN STRING .)
-    SHOW            reduce using rule 50 (region -> SHOW AVAILABLE TICKETS IN STRING .)
-    SELECT          reduce using rule 50 (region -> SHOW AVAILABLE TICKETS IN STRING .)
-    SORT            reduce using rule 50 (region -> SHOW AVAILABLE TICKETS IN STRING .)
-    FETCH           reduce using rule 50 (region -> SHOW AVAILABLE TICKETS IN STRING .)
-    RESERVE         reduce using rule 50 (region -> SHOW AVAILABLE TICKETS IN STRING .)
-    LIST            reduce using rule 50 (region -> SHOW AVAILABLE TICKETS IN STRING .)
-    PAY             reduce using rule 50 (region -> SHOW AVAILABLE TICKETS IN STRING .)
-    CANCEL          reduce using rule 50 (region -> SHOW AVAILABLE TICKETS IN STRING .)
-    $end            reduce using rule 50 (region -> SHOW AVAILABLE TICKETS IN STRING .)
+    BOOK            reduce using rule 31 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
+    STATUS          reduce using rule 31 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
+    SHOW            reduce using rule 31 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
+    FETCH           reduce using rule 31 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
+    RESERVE         reduce using rule 31 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
+    LIST            reduce using rule 31 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
+    PAY             reduce using rule 31 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
+    CANCEL          reduce using rule 31 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
+    $end            reduce using rule 31 (view -> SHOW AVAILABLE TICKETS FOR STRING .)
 
 
 state 98
 
-    (48) fetching -> FETCH TICKETS FROM API API_URL .
+    (37) view -> SHOW AVAILABLE TICKETS FOR error .
 
-    BOOK            reduce using rule 48 (fetching -> FETCH TICKETS FROM API API_URL .)
-    STATUS          reduce using rule 48 (fetching -> FETCH TICKETS FROM API API_URL .)
-    SHOW            reduce using rule 48 (fetching -> FETCH TICKETS FROM API API_URL .)
-    SELECT          reduce using rule 48 (fetching -> FETCH TICKETS FROM API API_URL .)
-    SORT            reduce using rule 48 (fetching -> FETCH TICKETS FROM API API_URL .)
-    FETCH           reduce using rule 48 (fetching -> FETCH TICKETS FROM API API_URL .)
-    RESERVE         reduce using rule 48 (fetching -> FETCH TICKETS FROM API API_URL .)
-    LIST            reduce using rule 48 (fetching -> FETCH TICKETS FROM API API_URL .)
-    PAY             reduce using rule 48 (fetching -> FETCH TICKETS FROM API API_URL .)
-    CANCEL          reduce using rule 48 (fetching -> FETCH TICKETS FROM API API_URL .)
-    $end            reduce using rule 48 (fetching -> FETCH TICKETS FROM API API_URL .)
+    BOOK            reduce using rule 37 (view -> SHOW AVAILABLE TICKETS FOR error .)
+    STATUS          reduce using rule 37 (view -> SHOW AVAILABLE TICKETS FOR error .)
+    SHOW            reduce using rule 37 (view -> SHOW AVAILABLE TICKETS FOR error .)
+    FETCH           reduce using rule 37 (view -> SHOW AVAILABLE TICKETS FOR error .)
+    RESERVE         reduce using rule 37 (view -> SHOW AVAILABLE TICKETS FOR error .)
+    LIST            reduce using rule 37 (view -> SHOW AVAILABLE TICKETS FOR error .)
+    PAY             reduce using rule 37 (view -> SHOW AVAILABLE TICKETS FOR error .)
+    CANCEL          reduce using rule 37 (view -> SHOW AVAILABLE TICKETS FOR error .)
+    $end            reduce using rule 37 (view -> SHOW AVAILABLE TICKETS FOR error .)
 
 
 state 99
 
-    (49) fetching -> FETCH TICKETS FROM API error .
+    (47) region -> SHOW AVAILABLE TICKETS IN STRING .
 
-    BOOK            reduce using rule 49 (fetching -> FETCH TICKETS FROM API error .)
-    STATUS          reduce using rule 49 (fetching -> FETCH TICKETS FROM API error .)
-    SHOW            reduce using rule 49 (fetching -> FETCH TICKETS FROM API error .)
-    SELECT          reduce using rule 49 (fetching -> FETCH TICKETS FROM API error .)
-    SORT            reduce using rule 49 (fetching -> FETCH TICKETS FROM API error .)
-    FETCH           reduce using rule 49 (fetching -> FETCH TICKETS FROM API error .)
-    RESERVE         reduce using rule 49 (fetching -> FETCH TICKETS FROM API error .)
-    LIST            reduce using rule 49 (fetching -> FETCH TICKETS FROM API error .)
-    PAY             reduce using rule 49 (fetching -> FETCH TICKETS FROM API error .)
-    CANCEL          reduce using rule 49 (fetching -> FETCH TICKETS FROM API error .)
-    $end            reduce using rule 49 (fetching -> FETCH TICKETS FROM API error .)
+    BOOK            reduce using rule 47 (region -> SHOW AVAILABLE TICKETS IN STRING .)
+    STATUS          reduce using rule 47 (region -> SHOW AVAILABLE TICKETS IN STRING .)
+    SHOW            reduce using rule 47 (region -> SHOW AVAILABLE TICKETS IN STRING .)
+    FETCH           reduce using rule 47 (region -> SHOW AVAILABLE TICKETS IN STRING .)
+    RESERVE         reduce using rule 47 (region -> SHOW AVAILABLE TICKETS IN STRING .)
+    LIST            reduce using rule 47 (region -> SHOW AVAILABLE TICKETS IN STRING .)
+    PAY             reduce using rule 47 (region -> SHOW AVAILABLE TICKETS IN STRING .)
+    CANCEL          reduce using rule 47 (region -> SHOW AVAILABLE TICKETS IN STRING .)
+    $end            reduce using rule 47 (region -> SHOW AVAILABLE TICKETS IN STRING .)
 
 
 state 100
 
-    (52) reservation -> RESERVE NUMBER TICKETS FOR STRING . ON DATE
+    (33) view -> SHOW CONFIRMED BOOKINGS FOR EMAIL .
 
-    ON              shift and go to state 110
+    BOOK            reduce using rule 33 (view -> SHOW CONFIRMED BOOKINGS FOR EMAIL .)
+    STATUS          reduce using rule 33 (view -> SHOW CONFIRMED BOOKINGS FOR EMAIL .)
+    SHOW            reduce using rule 33 (view -> SHOW CONFIRMED BOOKINGS FOR EMAIL .)
+    FETCH           reduce using rule 33 (view -> SHOW CONFIRMED BOOKINGS FOR EMAIL .)
+    RESERVE         reduce using rule 33 (view -> SHOW CONFIRMED BOOKINGS FOR EMAIL .)
+    LIST            reduce using rule 33 (view -> SHOW CONFIRMED BOOKINGS FOR EMAIL .)
+    PAY             reduce using rule 33 (view -> SHOW CONFIRMED BOOKINGS FOR EMAIL .)
+    CANCEL          reduce using rule 33 (view -> SHOW CONFIRMED BOOKINGS FOR EMAIL .)
+    $end            reduce using rule 33 (view -> SHOW CONFIRMED BOOKINGS FOR EMAIL .)
 
 
 state 101
 
-    (54) reservation -> RESERVE NUMBER FOR error ON . DATE
+    (42) view -> SHOW CONFIRMED BOOKINGS FOR error .
 
-    DATE            shift and go to state 111
+    BOOK            reduce using rule 42 (view -> SHOW CONFIRMED BOOKINGS FOR error .)
+    STATUS          reduce using rule 42 (view -> SHOW CONFIRMED BOOKINGS FOR error .)
+    SHOW            reduce using rule 42 (view -> SHOW CONFIRMED BOOKINGS FOR error .)
+    FETCH           reduce using rule 42 (view -> SHOW CONFIRMED BOOKINGS FOR error .)
+    RESERVE         reduce using rule 42 (view -> SHOW CONFIRMED BOOKINGS FOR error .)
+    LIST            reduce using rule 42 (view -> SHOW CONFIRMED BOOKINGS FOR error .)
+    PAY             reduce using rule 42 (view -> SHOW CONFIRMED BOOKINGS FOR error .)
+    CANCEL          reduce using rule 42 (view -> SHOW CONFIRMED BOOKINGS FOR error .)
+    $end            reduce using rule 42 (view -> SHOW CONFIRMED BOOKINGS FOR error .)
 
 
 state 102
 
-    (55) reservation -> RESERVE NUMBER FOR STRING ON . error
+    (34) view -> SHOW PAID TICKETS FOR EMAIL .
 
-    error           shift and go to state 112
+    BOOK            reduce using rule 34 (view -> SHOW PAID TICKETS FOR EMAIL .)
+    STATUS          reduce using rule 34 (view -> SHOW PAID TICKETS FOR EMAIL .)
+    SHOW            reduce using rule 34 (view -> SHOW PAID TICKETS FOR EMAIL .)
+    FETCH           reduce using rule 34 (view -> SHOW PAID TICKETS FOR EMAIL .)
+    RESERVE         reduce using rule 34 (view -> SHOW PAID TICKETS FOR EMAIL .)
+    LIST            reduce using rule 34 (view -> SHOW PAID TICKETS FOR EMAIL .)
+    PAY             reduce using rule 34 (view -> SHOW PAID TICKETS FOR EMAIL .)
+    CANCEL          reduce using rule 34 (view -> SHOW PAID TICKETS FOR EMAIL .)
+    $end            reduce using rule 34 (view -> SHOW PAID TICKETS FOR EMAIL .)
 
 
 state 103
 
-    (53) reservation -> RESERVE error FOR STRING ON . DATE
+    (35) view -> SHOW CANCELED BOOKINGS FOR EMAIL .
 
-    DATE            shift and go to state 113
+    BOOK            reduce using rule 35 (view -> SHOW CANCELED BOOKINGS FOR EMAIL .)
+    STATUS          reduce using rule 35 (view -> SHOW CANCELED BOOKINGS FOR EMAIL .)
+    SHOW            reduce using rule 35 (view -> SHOW CANCELED BOOKINGS FOR EMAIL .)
+    FETCH           reduce using rule 35 (view -> SHOW CANCELED BOOKINGS FOR EMAIL .)
+    RESERVE         reduce using rule 35 (view -> SHOW CANCELED BOOKINGS FOR EMAIL .)
+    LIST            reduce using rule 35 (view -> SHOW CANCELED BOOKINGS FOR EMAIL .)
+    PAY             reduce using rule 35 (view -> SHOW CANCELED BOOKINGS FOR EMAIL .)
+    CANCEL          reduce using rule 35 (view -> SHOW CANCELED BOOKINGS FOR EMAIL .)
+    $end            reduce using rule 35 (view -> SHOW CANCELED BOOKINGS FOR EMAIL .)
 
 
 state 104
 
-    (58) payment -> PAY FOR ALL BOOKINGS BOOKING_ID . USING PAYMENT_METHOD
-    (61) payment -> PAY FOR ALL BOOKINGS BOOKING_ID . USING error
+    (43) view -> SHOW CANCELED BOOKINGS FOR error .
 
-    USING           shift and go to state 114
+    BOOK            reduce using rule 43 (view -> SHOW CANCELED BOOKINGS FOR error .)
+    STATUS          reduce using rule 43 (view -> SHOW CANCELED BOOKINGS FOR error .)
+    SHOW            reduce using rule 43 (view -> SHOW CANCELED BOOKINGS FOR error .)
+    FETCH           reduce using rule 43 (view -> SHOW CANCELED BOOKINGS FOR error .)
+    RESERVE         reduce using rule 43 (view -> SHOW CANCELED BOOKINGS FOR error .)
+    LIST            reduce using rule 43 (view -> SHOW CANCELED BOOKINGS FOR error .)
+    PAY             reduce using rule 43 (view -> SHOW CANCELED BOOKINGS FOR error .)
+    CANCEL          reduce using rule 43 (view -> SHOW CANCELED BOOKINGS FOR error .)
+    $end            reduce using rule 43 (view -> SHOW CANCELED BOOKINGS FOR error .)
 
 
 state 105
 
-    (60) payment -> PAY FOR ALL BOOKINGS error . USING PAYMENT_METHOD
+    (44) view -> SHOW CANCELED TICKETS FOR error .
 
-    USING           shift and go to state 115
+    BOOK            reduce using rule 44 (view -> SHOW CANCELED TICKETS FOR error .)
+    STATUS          reduce using rule 44 (view -> SHOW CANCELED TICKETS FOR error .)
+    SHOW            reduce using rule 44 (view -> SHOW CANCELED TICKETS FOR error .)
+    FETCH           reduce using rule 44 (view -> SHOW CANCELED TICKETS FOR error .)
+    RESERVE         reduce using rule 44 (view -> SHOW CANCELED TICKETS FOR error .)
+    LIST            reduce using rule 44 (view -> SHOW CANCELED TICKETS FOR error .)
+    PAY             reduce using rule 44 (view -> SHOW CANCELED TICKETS FOR error .)
+    CANCEL          reduce using rule 44 (view -> SHOW CANCELED TICKETS FOR error .)
+    $end            reduce using rule 44 (view -> SHOW CANCELED TICKETS FOR error .)
 
 
 state 106
 
-    (23) booking -> BOOK NUMBER TICKETS FOR STRING ON . DATE FOR EMAIL
-    (24) booking -> BOOK NUMBER TICKETS FOR STRING ON . DATE FOR
-    (26) booking -> BOOK NUMBER TICKETS FOR STRING ON . error FOR EMAIL
+    (39) view -> SHOW error BOOKINGS FOR EMAIL .
 
-    DATE            shift and go to state 116
-    error           shift and go to state 117
+    BOOK            reduce using rule 39 (view -> SHOW error BOOKINGS FOR EMAIL .)
+    STATUS          reduce using rule 39 (view -> SHOW error BOOKINGS FOR EMAIL .)
+    SHOW            reduce using rule 39 (view -> SHOW error BOOKINGS FOR EMAIL .)
+    FETCH           reduce using rule 39 (view -> SHOW error BOOKINGS FOR EMAIL .)
+    RESERVE         reduce using rule 39 (view -> SHOW error BOOKINGS FOR EMAIL .)
+    LIST            reduce using rule 39 (view -> SHOW error BOOKINGS FOR EMAIL .)
+    PAY             reduce using rule 39 (view -> SHOW error BOOKINGS FOR EMAIL .)
+    CANCEL          reduce using rule 39 (view -> SHOW error BOOKINGS FOR EMAIL .)
+    $end            reduce using rule 39 (view -> SHOW error BOOKINGS FOR EMAIL .)
 
 
 state 107
 
-    (27) booking -> BOOK NUMBER TICKETS FOR error ON . DATE FOR EMAIL
+    (40) view -> SHOW error TICKETS FOR EMAIL .
 
-    DATE            shift and go to state 118
+    BOOK            reduce using rule 40 (view -> SHOW error TICKETS FOR EMAIL .)
+    STATUS          reduce using rule 40 (view -> SHOW error TICKETS FOR EMAIL .)
+    SHOW            reduce using rule 40 (view -> SHOW error TICKETS FOR EMAIL .)
+    FETCH           reduce using rule 40 (view -> SHOW error TICKETS FOR EMAIL .)
+    RESERVE         reduce using rule 40 (view -> SHOW error TICKETS FOR EMAIL .)
+    LIST            reduce using rule 40 (view -> SHOW error TICKETS FOR EMAIL .)
+    PAY             reduce using rule 40 (view -> SHOW error TICKETS FOR EMAIL .)
+    CANCEL          reduce using rule 40 (view -> SHOW error TICKETS FOR EMAIL .)
+    $end            reduce using rule 40 (view -> SHOW error TICKETS FOR EMAIL .)
 
 
 state 108
 
-    (28) booking -> BOOK error TICKETS FOR error ON . DATE FOR EMAIL
+    (45) fetching -> FETCH TICKETS FROM API API_URL .
 
-    DATE            shift and go to state 119
+    BOOK            reduce using rule 45 (fetching -> FETCH TICKETS FROM API API_URL .)
+    STATUS          reduce using rule 45 (fetching -> FETCH TICKETS FROM API API_URL .)
+    SHOW            reduce using rule 45 (fetching -> FETCH TICKETS FROM API API_URL .)
+    FETCH           reduce using rule 45 (fetching -> FETCH TICKETS FROM API API_URL .)
+    RESERVE         reduce using rule 45 (fetching -> FETCH TICKETS FROM API API_URL .)
+    LIST            reduce using rule 45 (fetching -> FETCH TICKETS FROM API API_URL .)
+    PAY             reduce using rule 45 (fetching -> FETCH TICKETS FROM API API_URL .)
+    CANCEL          reduce using rule 45 (fetching -> FETCH TICKETS FROM API API_URL .)
+    $end            reduce using rule 45 (fetching -> FETCH TICKETS FROM API API_URL .)
 
 
 state 109
 
-    (25) booking -> BOOK error TICKETS FOR STRING ON . DATE FOR EMAIL
+    (46) fetching -> FETCH TICKETS FROM API error .
 
-    DATE            shift and go to state 120
+    BOOK            reduce using rule 46 (fetching -> FETCH TICKETS FROM API error .)
+    STATUS          reduce using rule 46 (fetching -> FETCH TICKETS FROM API error .)
+    SHOW            reduce using rule 46 (fetching -> FETCH TICKETS FROM API error .)
+    FETCH           reduce using rule 46 (fetching -> FETCH TICKETS FROM API error .)
+    RESERVE         reduce using rule 46 (fetching -> FETCH TICKETS FROM API error .)
+    LIST            reduce using rule 46 (fetching -> FETCH TICKETS FROM API error .)
+    PAY             reduce using rule 46 (fetching -> FETCH TICKETS FROM API error .)
+    CANCEL          reduce using rule 46 (fetching -> FETCH TICKETS FROM API error .)
+    $end            reduce using rule 46 (fetching -> FETCH TICKETS FROM API error .)
 
 
 state 110
 
-    (52) reservation -> RESERVE NUMBER TICKETS FOR STRING ON . DATE
+    (49) reservation -> RESERVE NUMBER TICKETS FOR STRING . ON DATE FOR EMAIL
 
-    DATE            shift and go to state 121
+    ON              shift and go to state 124
 
 
 state 111
 
-    (54) reservation -> RESERVE NUMBER FOR error ON DATE .
+    (50) reservation -> RESERVE NUMBER FOR STRING ON . DATE FOR
+    (53) reservation -> RESERVE NUMBER FOR STRING ON . DATE FOR error
+    (54) reservation -> RESERVE NUMBER FOR STRING ON . error FOR EMAIL
 
-    BOOK            reduce using rule 54 (reservation -> RESERVE NUMBER FOR error ON DATE .)
-    STATUS          reduce using rule 54 (reservation -> RESERVE NUMBER FOR error ON DATE .)
-    SHOW            reduce using rule 54 (reservation -> RESERVE NUMBER FOR error ON DATE .)
-    SELECT          reduce using rule 54 (reservation -> RESERVE NUMBER FOR error ON DATE .)
-    SORT            reduce using rule 54 (reservation -> RESERVE NUMBER FOR error ON DATE .)
-    FETCH           reduce using rule 54 (reservation -> RESERVE NUMBER FOR error ON DATE .)
-    RESERVE         reduce using rule 54 (reservation -> RESERVE NUMBER FOR error ON DATE .)
-    LIST            reduce using rule 54 (reservation -> RESERVE NUMBER FOR error ON DATE .)
-    PAY             reduce using rule 54 (reservation -> RESERVE NUMBER FOR error ON DATE .)
-    CANCEL          reduce using rule 54 (reservation -> RESERVE NUMBER FOR error ON DATE .)
-    $end            reduce using rule 54 (reservation -> RESERVE NUMBER FOR error ON DATE .)
+    DATE            shift and go to state 125
+    error           shift and go to state 126
 
 
 state 112
 
-    (55) reservation -> RESERVE NUMBER FOR STRING ON error .
+    (52) reservation -> RESERVE NUMBER FOR error ON . DATE FOR EMAIL
 
-    BOOK            reduce using rule 55 (reservation -> RESERVE NUMBER FOR STRING ON error .)
-    STATUS          reduce using rule 55 (reservation -> RESERVE NUMBER FOR STRING ON error .)
-    SHOW            reduce using rule 55 (reservation -> RESERVE NUMBER FOR STRING ON error .)
-    SELECT          reduce using rule 55 (reservation -> RESERVE NUMBER FOR STRING ON error .)
-    SORT            reduce using rule 55 (reservation -> RESERVE NUMBER FOR STRING ON error .)
-    FETCH           reduce using rule 55 (reservation -> RESERVE NUMBER FOR STRING ON error .)
-    RESERVE         reduce using rule 55 (reservation -> RESERVE NUMBER FOR STRING ON error .)
-    LIST            reduce using rule 55 (reservation -> RESERVE NUMBER FOR STRING ON error .)
-    PAY             reduce using rule 55 (reservation -> RESERVE NUMBER FOR STRING ON error .)
-    CANCEL          reduce using rule 55 (reservation -> RESERVE NUMBER FOR STRING ON error .)
-    $end            reduce using rule 55 (reservation -> RESERVE NUMBER FOR STRING ON error .)
+    DATE            shift and go to state 127
 
 
 state 113
 
-    (53) reservation -> RESERVE error FOR STRING ON DATE .
+    (51) reservation -> RESERVE error FOR STRING ON . DATE FOR EMAIL
 
-    BOOK            reduce using rule 53 (reservation -> RESERVE error FOR STRING ON DATE .)
-    STATUS          reduce using rule 53 (reservation -> RESERVE error FOR STRING ON DATE .)
-    SHOW            reduce using rule 53 (reservation -> RESERVE error FOR STRING ON DATE .)
-    SELECT          reduce using rule 53 (reservation -> RESERVE error FOR STRING ON DATE .)
-    SORT            reduce using rule 53 (reservation -> RESERVE error FOR STRING ON DATE .)
-    FETCH           reduce using rule 53 (reservation -> RESERVE error FOR STRING ON DATE .)
-    RESERVE         reduce using rule 53 (reservation -> RESERVE error FOR STRING ON DATE .)
-    LIST            reduce using rule 53 (reservation -> RESERVE error FOR STRING ON DATE .)
-    PAY             reduce using rule 53 (reservation -> RESERVE error FOR STRING ON DATE .)
-    CANCEL          reduce using rule 53 (reservation -> RESERVE error FOR STRING ON DATE .)
-    $end            reduce using rule 53 (reservation -> RESERVE error FOR STRING ON DATE .)
+    DATE            shift and go to state 128
 
 
 state 114
 
-    (58) payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING . PAYMENT_METHOD
-    (61) payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING . error
+    (57) payment -> PAY FOR ALL BOOKINGS BOOKING_ID . USING PAYMENT_METHOD FOR EMAIL
+    (59) payment -> PAY FOR ALL BOOKINGS BOOKING_ID . USING PAYMENT_METHOD FOR
+    (61) payment -> PAY FOR ALL BOOKINGS BOOKING_ID . USING error FOR EMAIL
 
-    PAYMENT_METHOD  shift and go to state 122
-    error           shift and go to state 123
+    USING           shift and go to state 129
 
 
 state 115
 
-    (60) payment -> PAY FOR ALL BOOKINGS error USING . PAYMENT_METHOD
+    (60) payment -> PAY FOR ALL BOOKINGS error . USING PAYMENT_METHOD FOR EMAIL
 
-    PAYMENT_METHOD  shift and go to state 124
+    USING           shift and go to state 130
 
 
 state 116
 
-    (23) booking -> BOOK NUMBER TICKETS FOR STRING ON DATE . FOR EMAIL
-    (24) booking -> BOOK NUMBER TICKETS FOR STRING ON DATE . FOR
+    (58) payment -> CANCEL BOOKING BOOKING_ID FOR EMAIL .
 
-    FOR             shift and go to state 125
+    BOOK            reduce using rule 58 (payment -> CANCEL BOOKING BOOKING_ID FOR EMAIL .)
+    STATUS          reduce using rule 58 (payment -> CANCEL BOOKING BOOKING_ID FOR EMAIL .)
+    SHOW            reduce using rule 58 (payment -> CANCEL BOOKING BOOKING_ID FOR EMAIL .)
+    FETCH           reduce using rule 58 (payment -> CANCEL BOOKING BOOKING_ID FOR EMAIL .)
+    RESERVE         reduce using rule 58 (payment -> CANCEL BOOKING BOOKING_ID FOR EMAIL .)
+    LIST            reduce using rule 58 (payment -> CANCEL BOOKING BOOKING_ID FOR EMAIL .)
+    PAY             reduce using rule 58 (payment -> CANCEL BOOKING BOOKING_ID FOR EMAIL .)
+    CANCEL          reduce using rule 58 (payment -> CANCEL BOOKING BOOKING_ID FOR EMAIL .)
+    $end            reduce using rule 58 (payment -> CANCEL BOOKING BOOKING_ID FOR EMAIL .)
 
 
 state 117
 
-    (26) booking -> BOOK NUMBER TICKETS FOR STRING ON error . FOR EMAIL
+    (62) payment -> CANCEL BOOKING error FOR EMAIL .
 
-    FOR             shift and go to state 126
+    BOOK            reduce using rule 62 (payment -> CANCEL BOOKING error FOR EMAIL .)
+    STATUS          reduce using rule 62 (payment -> CANCEL BOOKING error FOR EMAIL .)
+    SHOW            reduce using rule 62 (payment -> CANCEL BOOKING error FOR EMAIL .)
+    FETCH           reduce using rule 62 (payment -> CANCEL BOOKING error FOR EMAIL .)
+    RESERVE         reduce using rule 62 (payment -> CANCEL BOOKING error FOR EMAIL .)
+    LIST            reduce using rule 62 (payment -> CANCEL BOOKING error FOR EMAIL .)
+    PAY             reduce using rule 62 (payment -> CANCEL BOOKING error FOR EMAIL .)
+    CANCEL          reduce using rule 62 (payment -> CANCEL BOOKING error FOR EMAIL .)
+    $end            reduce using rule 62 (payment -> CANCEL BOOKING error FOR EMAIL .)
 
 
 state 118
 
-    (27) booking -> BOOK NUMBER TICKETS FOR error ON DATE . FOR EMAIL
+    (19) booking -> BOOK NUMBER TICKETS FOR STRING ON . DATE FOR EMAIL
+    (20) booking -> BOOK NUMBER TICKETS FOR STRING ON . DATE FOR
+    (22) booking -> BOOK NUMBER TICKETS FOR STRING ON . error FOR EMAIL
 
-    FOR             shift and go to state 127
+    DATE            shift and go to state 131
+    error           shift and go to state 132
 
 
 state 119
 
-    (28) booking -> BOOK error TICKETS FOR error ON DATE . FOR EMAIL
+    (23) booking -> BOOK NUMBER TICKETS FOR error ON . DATE FOR EMAIL
 
-    FOR             shift and go to state 128
+    DATE            shift and go to state 133
 
 
 state 120
 
-    (25) booking -> BOOK error TICKETS FOR STRING ON DATE . FOR EMAIL
+    (24) booking -> BOOK error TICKETS FOR error ON . DATE FOR EMAIL
 
-    FOR             shift and go to state 129
+    DATE            shift and go to state 134
 
 
 state 121
 
-    (52) reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE .
+    (21) booking -> BOOK error TICKETS FOR STRING ON . DATE FOR EMAIL
 
-    BOOK            reduce using rule 52 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE .)
-    STATUS          reduce using rule 52 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE .)
-    SHOW            reduce using rule 52 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE .)
-    SELECT          reduce using rule 52 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE .)
-    SORT            reduce using rule 52 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE .)
-    FETCH           reduce using rule 52 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE .)
-    RESERVE         reduce using rule 52 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE .)
-    LIST            reduce using rule 52 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE .)
-    PAY             reduce using rule 52 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE .)
-    CANCEL          reduce using rule 52 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE .)
-    $end            reduce using rule 52 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE .)
+    DATE            shift and go to state 135
 
 
 state 122
 
-    (58) payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD .
+    (25) status -> STATUS OF BOOKING BOOKING_ID FOR EMAIL .
 
-    BOOK            reduce using rule 58 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD .)
-    STATUS          reduce using rule 58 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD .)
-    SHOW            reduce using rule 58 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD .)
-    SELECT          reduce using rule 58 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD .)
-    SORT            reduce using rule 58 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD .)
-    FETCH           reduce using rule 58 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD .)
-    RESERVE         reduce using rule 58 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD .)
-    LIST            reduce using rule 58 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD .)
-    PAY             reduce using rule 58 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD .)
-    CANCEL          reduce using rule 58 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD .)
-    $end            reduce using rule 58 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD .)
+    BOOK            reduce using rule 25 (status -> STATUS OF BOOKING BOOKING_ID FOR EMAIL .)
+    STATUS          reduce using rule 25 (status -> STATUS OF BOOKING BOOKING_ID FOR EMAIL .)
+    SHOW            reduce using rule 25 (status -> STATUS OF BOOKING BOOKING_ID FOR EMAIL .)
+    FETCH           reduce using rule 25 (status -> STATUS OF BOOKING BOOKING_ID FOR EMAIL .)
+    RESERVE         reduce using rule 25 (status -> STATUS OF BOOKING BOOKING_ID FOR EMAIL .)
+    LIST            reduce using rule 25 (status -> STATUS OF BOOKING BOOKING_ID FOR EMAIL .)
+    PAY             reduce using rule 25 (status -> STATUS OF BOOKING BOOKING_ID FOR EMAIL .)
+    CANCEL          reduce using rule 25 (status -> STATUS OF BOOKING BOOKING_ID FOR EMAIL .)
+    $end            reduce using rule 25 (status -> STATUS OF BOOKING BOOKING_ID FOR EMAIL .)
 
 
 state 123
 
-    (61) payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error .
+    (28) status -> STATUS OF BOOKING BOOKING_ID FOR error .
 
-    BOOK            reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error .)
-    STATUS          reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error .)
-    SHOW            reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error .)
-    SELECT          reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error .)
-    SORT            reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error .)
-    FETCH           reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error .)
-    RESERVE         reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error .)
-    LIST            reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error .)
-    PAY             reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error .)
-    CANCEL          reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error .)
-    $end            reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error .)
+    BOOK            reduce using rule 28 (status -> STATUS OF BOOKING BOOKING_ID FOR error .)
+    STATUS          reduce using rule 28 (status -> STATUS OF BOOKING BOOKING_ID FOR error .)
+    SHOW            reduce using rule 28 (status -> STATUS OF BOOKING BOOKING_ID FOR error .)
+    FETCH           reduce using rule 28 (status -> STATUS OF BOOKING BOOKING_ID FOR error .)
+    RESERVE         reduce using rule 28 (status -> STATUS OF BOOKING BOOKING_ID FOR error .)
+    LIST            reduce using rule 28 (status -> STATUS OF BOOKING BOOKING_ID FOR error .)
+    PAY             reduce using rule 28 (status -> STATUS OF BOOKING BOOKING_ID FOR error .)
+    CANCEL          reduce using rule 28 (status -> STATUS OF BOOKING BOOKING_ID FOR error .)
+    $end            reduce using rule 28 (status -> STATUS OF BOOKING BOOKING_ID FOR error .)
 
 
 state 124
 
-    (60) payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD .
+    (49) reservation -> RESERVE NUMBER TICKETS FOR STRING ON . DATE FOR EMAIL
 
-    BOOK            reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD .)
-    STATUS          reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD .)
-    SHOW            reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD .)
-    SELECT          reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD .)
-    SORT            reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD .)
-    FETCH           reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD .)
-    RESERVE         reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD .)
-    LIST            reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD .)
-    PAY             reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD .)
-    CANCEL          reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD .)
-    $end            reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD .)
+    DATE            shift and go to state 136
 
 
 state 125
 
-    (23) booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR . EMAIL
-    (24) booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .
+    (50) reservation -> RESERVE NUMBER FOR STRING ON DATE . FOR
+    (53) reservation -> RESERVE NUMBER FOR STRING ON DATE . FOR error
 
-    EMAIL           shift and go to state 130
-    BOOK            reduce using rule 24 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
-    STATUS          reduce using rule 24 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
-    SHOW            reduce using rule 24 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
-    SELECT          reduce using rule 24 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
-    SORT            reduce using rule 24 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
-    FETCH           reduce using rule 24 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
-    RESERVE         reduce using rule 24 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
-    LIST            reduce using rule 24 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
-    PAY             reduce using rule 24 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
-    CANCEL          reduce using rule 24 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
-    $end            reduce using rule 24 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
+    FOR             shift and go to state 137
 
 
 state 126
 
-    (26) booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR . EMAIL
+    (54) reservation -> RESERVE NUMBER FOR STRING ON error . FOR EMAIL
 
-    EMAIL           shift and go to state 131
+    FOR             shift and go to state 138
 
 
 state 127
 
-    (27) booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR . EMAIL
+    (52) reservation -> RESERVE NUMBER FOR error ON DATE . FOR EMAIL
 
-    EMAIL           shift and go to state 132
+    FOR             shift and go to state 139
 
 
 state 128
 
-    (28) booking -> BOOK error TICKETS FOR error ON DATE FOR . EMAIL
+    (51) reservation -> RESERVE error FOR STRING ON DATE . FOR EMAIL
 
-    EMAIL           shift and go to state 133
+    FOR             shift and go to state 140
 
 
 state 129
 
-    (25) booking -> BOOK error TICKETS FOR STRING ON DATE FOR . EMAIL
+    (57) payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING . PAYMENT_METHOD FOR EMAIL
+    (59) payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING . PAYMENT_METHOD FOR
+    (61) payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING . error FOR EMAIL
 
-    EMAIL           shift and go to state 134
+    PAYMENT_METHOD  shift and go to state 141
+    error           shift and go to state 142
 
 
 state 130
 
-    (23) booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .
+    (60) payment -> PAY FOR ALL BOOKINGS error USING . PAYMENT_METHOD FOR EMAIL
 
-    BOOK            reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
-    STATUS          reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
-    SHOW            reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
-    SELECT          reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
-    SORT            reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
-    FETCH           reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
-    RESERVE         reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
-    LIST            reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
-    PAY             reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
-    CANCEL          reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
-    $end            reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+    PAYMENT_METHOD  shift and go to state 143
 
 
 state 131
 
-    (26) booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .
+    (19) booking -> BOOK NUMBER TICKETS FOR STRING ON DATE . FOR EMAIL
+    (20) booking -> BOOK NUMBER TICKETS FOR STRING ON DATE . FOR
 
-    BOOK            reduce using rule 26 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
-    STATUS          reduce using rule 26 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
-    SHOW            reduce using rule 26 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
-    SELECT          reduce using rule 26 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
-    SORT            reduce using rule 26 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
-    FETCH           reduce using rule 26 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
-    RESERVE         reduce using rule 26 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
-    LIST            reduce using rule 26 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
-    PAY             reduce using rule 26 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
-    CANCEL          reduce using rule 26 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
-    $end            reduce using rule 26 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
+    FOR             shift and go to state 144
 
 
 state 132
 
-    (27) booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .
+    (22) booking -> BOOK NUMBER TICKETS FOR STRING ON error . FOR EMAIL
 
-    BOOK            reduce using rule 27 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
-    STATUS          reduce using rule 27 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
-    SHOW            reduce using rule 27 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
-    SELECT          reduce using rule 27 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
-    SORT            reduce using rule 27 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
-    FETCH           reduce using rule 27 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
-    RESERVE         reduce using rule 27 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
-    LIST            reduce using rule 27 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
-    PAY             reduce using rule 27 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
-    CANCEL          reduce using rule 27 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
-    $end            reduce using rule 27 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
+    FOR             shift and go to state 145
 
 
 state 133
 
-    (28) booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .
+    (23) booking -> BOOK NUMBER TICKETS FOR error ON DATE . FOR EMAIL
 
-    BOOK            reduce using rule 28 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
-    STATUS          reduce using rule 28 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
-    SHOW            reduce using rule 28 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
-    SELECT          reduce using rule 28 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
-    SORT            reduce using rule 28 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
-    FETCH           reduce using rule 28 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
-    RESERVE         reduce using rule 28 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
-    LIST            reduce using rule 28 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
-    PAY             reduce using rule 28 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
-    CANCEL          reduce using rule 28 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
-    $end            reduce using rule 28 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
+    FOR             shift and go to state 146
 
 
 state 134
 
-    (25) booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .
+    (24) booking -> BOOK error TICKETS FOR error ON DATE . FOR EMAIL
 
-    BOOK            reduce using rule 25 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
-    STATUS          reduce using rule 25 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
-    SHOW            reduce using rule 25 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
-    SELECT          reduce using rule 25 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
-    SORT            reduce using rule 25 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
-    FETCH           reduce using rule 25 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
-    RESERVE         reduce using rule 25 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
-    LIST            reduce using rule 25 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
-    PAY             reduce using rule 25 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
-    CANCEL          reduce using rule 25 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
-    $end            reduce using rule 25 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
+    FOR             shift and go to state 147
+
+
+state 135
+
+    (21) booking -> BOOK error TICKETS FOR STRING ON DATE . FOR EMAIL
+
+    FOR             shift and go to state 148
+
+
+state 136
+
+    (49) reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE . FOR EMAIL
+
+    FOR             shift and go to state 149
+
+
+state 137
+
+    (50) reservation -> RESERVE NUMBER FOR STRING ON DATE FOR .
+    (53) reservation -> RESERVE NUMBER FOR STRING ON DATE FOR . error
+
+    BOOK            reduce using rule 50 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR .)
+    STATUS          reduce using rule 50 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR .)
+    SHOW            reduce using rule 50 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR .)
+    FETCH           reduce using rule 50 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR .)
+    RESERVE         reduce using rule 50 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR .)
+    LIST            reduce using rule 50 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR .)
+    PAY             reduce using rule 50 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR .)
+    CANCEL          reduce using rule 50 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR .)
+    $end            reduce using rule 50 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR .)
+    error           shift and go to state 150
+
+
+state 138
+
+    (54) reservation -> RESERVE NUMBER FOR STRING ON error FOR . EMAIL
+
+    EMAIL           shift and go to state 151
+
+
+state 139
+
+    (52) reservation -> RESERVE NUMBER FOR error ON DATE FOR . EMAIL
+
+    EMAIL           shift and go to state 152
+
+
+state 140
+
+    (51) reservation -> RESERVE error FOR STRING ON DATE FOR . EMAIL
+
+    EMAIL           shift and go to state 153
+
+
+state 141
+
+    (57) payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD . FOR EMAIL
+    (59) payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD . FOR
+
+    FOR             shift and go to state 154
+
+
+state 142
+
+    (61) payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error . FOR EMAIL
+
+    FOR             shift and go to state 155
+
+
+state 143
+
+    (60) payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD . FOR EMAIL
+
+    FOR             shift and go to state 156
+
+
+state 144
+
+    (19) booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR . EMAIL
+    (20) booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .
+
+    EMAIL           shift and go to state 157
+    BOOK            reduce using rule 20 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
+    STATUS          reduce using rule 20 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
+    SHOW            reduce using rule 20 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
+    FETCH           reduce using rule 20 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
+    RESERVE         reduce using rule 20 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
+    LIST            reduce using rule 20 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
+    PAY             reduce using rule 20 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
+    CANCEL          reduce using rule 20 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
+    $end            reduce using rule 20 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR .)
+
+
+state 145
+
+    (22) booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR . EMAIL
+
+    EMAIL           shift and go to state 158
+
+
+state 146
+
+    (23) booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR . EMAIL
+
+    EMAIL           shift and go to state 159
+
+
+state 147
+
+    (24) booking -> BOOK error TICKETS FOR error ON DATE FOR . EMAIL
+
+    EMAIL           shift and go to state 160
+
+
+state 148
+
+    (21) booking -> BOOK error TICKETS FOR STRING ON DATE FOR . EMAIL
+
+    EMAIL           shift and go to state 161
+
+
+state 149
+
+    (49) reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE FOR . EMAIL
+
+    EMAIL           shift and go to state 162
+
+
+state 150
+
+    (53) reservation -> RESERVE NUMBER FOR STRING ON DATE FOR error .
+
+    BOOK            reduce using rule 53 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR error .)
+    STATUS          reduce using rule 53 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR error .)
+    SHOW            reduce using rule 53 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR error .)
+    FETCH           reduce using rule 53 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR error .)
+    RESERVE         reduce using rule 53 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR error .)
+    LIST            reduce using rule 53 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR error .)
+    PAY             reduce using rule 53 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR error .)
+    CANCEL          reduce using rule 53 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR error .)
+    $end            reduce using rule 53 (reservation -> RESERVE NUMBER FOR STRING ON DATE FOR error .)
+
+
+state 151
+
+    (54) reservation -> RESERVE NUMBER FOR STRING ON error FOR EMAIL .
+
+    BOOK            reduce using rule 54 (reservation -> RESERVE NUMBER FOR STRING ON error FOR EMAIL .)
+    STATUS          reduce using rule 54 (reservation -> RESERVE NUMBER FOR STRING ON error FOR EMAIL .)
+    SHOW            reduce using rule 54 (reservation -> RESERVE NUMBER FOR STRING ON error FOR EMAIL .)
+    FETCH           reduce using rule 54 (reservation -> RESERVE NUMBER FOR STRING ON error FOR EMAIL .)
+    RESERVE         reduce using rule 54 (reservation -> RESERVE NUMBER FOR STRING ON error FOR EMAIL .)
+    LIST            reduce using rule 54 (reservation -> RESERVE NUMBER FOR STRING ON error FOR EMAIL .)
+    PAY             reduce using rule 54 (reservation -> RESERVE NUMBER FOR STRING ON error FOR EMAIL .)
+    CANCEL          reduce using rule 54 (reservation -> RESERVE NUMBER FOR STRING ON error FOR EMAIL .)
+    $end            reduce using rule 54 (reservation -> RESERVE NUMBER FOR STRING ON error FOR EMAIL .)
+
+
+state 152
+
+    (52) reservation -> RESERVE NUMBER FOR error ON DATE FOR EMAIL .
+
+    BOOK            reduce using rule 52 (reservation -> RESERVE NUMBER FOR error ON DATE FOR EMAIL .)
+    STATUS          reduce using rule 52 (reservation -> RESERVE NUMBER FOR error ON DATE FOR EMAIL .)
+    SHOW            reduce using rule 52 (reservation -> RESERVE NUMBER FOR error ON DATE FOR EMAIL .)
+    FETCH           reduce using rule 52 (reservation -> RESERVE NUMBER FOR error ON DATE FOR EMAIL .)
+    RESERVE         reduce using rule 52 (reservation -> RESERVE NUMBER FOR error ON DATE FOR EMAIL .)
+    LIST            reduce using rule 52 (reservation -> RESERVE NUMBER FOR error ON DATE FOR EMAIL .)
+    PAY             reduce using rule 52 (reservation -> RESERVE NUMBER FOR error ON DATE FOR EMAIL .)
+    CANCEL          reduce using rule 52 (reservation -> RESERVE NUMBER FOR error ON DATE FOR EMAIL .)
+    $end            reduce using rule 52 (reservation -> RESERVE NUMBER FOR error ON DATE FOR EMAIL .)
+
+
+state 153
+
+    (51) reservation -> RESERVE error FOR STRING ON DATE FOR EMAIL .
+
+    BOOK            reduce using rule 51 (reservation -> RESERVE error FOR STRING ON DATE FOR EMAIL .)
+    STATUS          reduce using rule 51 (reservation -> RESERVE error FOR STRING ON DATE FOR EMAIL .)
+    SHOW            reduce using rule 51 (reservation -> RESERVE error FOR STRING ON DATE FOR EMAIL .)
+    FETCH           reduce using rule 51 (reservation -> RESERVE error FOR STRING ON DATE FOR EMAIL .)
+    RESERVE         reduce using rule 51 (reservation -> RESERVE error FOR STRING ON DATE FOR EMAIL .)
+    LIST            reduce using rule 51 (reservation -> RESERVE error FOR STRING ON DATE FOR EMAIL .)
+    PAY             reduce using rule 51 (reservation -> RESERVE error FOR STRING ON DATE FOR EMAIL .)
+    CANCEL          reduce using rule 51 (reservation -> RESERVE error FOR STRING ON DATE FOR EMAIL .)
+    $end            reduce using rule 51 (reservation -> RESERVE error FOR STRING ON DATE FOR EMAIL .)
+
+
+state 154
+
+    (57) payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR . EMAIL
+    (59) payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR .
+
+    EMAIL           shift and go to state 163
+    BOOK            reduce using rule 59 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR .)
+    STATUS          reduce using rule 59 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR .)
+    SHOW            reduce using rule 59 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR .)
+    FETCH           reduce using rule 59 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR .)
+    RESERVE         reduce using rule 59 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR .)
+    LIST            reduce using rule 59 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR .)
+    PAY             reduce using rule 59 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR .)
+    CANCEL          reduce using rule 59 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR .)
+    $end            reduce using rule 59 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR .)
+
+
+state 155
+
+    (61) payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error FOR . EMAIL
+
+    EMAIL           shift and go to state 164
+
+
+state 156
+
+    (60) payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD FOR . EMAIL
+
+    EMAIL           shift and go to state 165
+
+
+state 157
+
+    (19) booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .
+
+    BOOK            reduce using rule 19 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+    STATUS          reduce using rule 19 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+    SHOW            reduce using rule 19 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+    FETCH           reduce using rule 19 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+    RESERVE         reduce using rule 19 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+    LIST            reduce using rule 19 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+    PAY             reduce using rule 19 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+    CANCEL          reduce using rule 19 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+    $end            reduce using rule 19 (booking -> BOOK NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+
+
+state 158
+
+    (22) booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .
+
+    BOOK            reduce using rule 22 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
+    STATUS          reduce using rule 22 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
+    SHOW            reduce using rule 22 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
+    FETCH           reduce using rule 22 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
+    RESERVE         reduce using rule 22 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
+    LIST            reduce using rule 22 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
+    PAY             reduce using rule 22 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
+    CANCEL          reduce using rule 22 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
+    $end            reduce using rule 22 (booking -> BOOK NUMBER TICKETS FOR STRING ON error FOR EMAIL .)
+
+
+state 159
+
+    (23) booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .
+
+    BOOK            reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
+    STATUS          reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
+    SHOW            reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
+    FETCH           reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
+    RESERVE         reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
+    LIST            reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
+    PAY             reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
+    CANCEL          reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
+    $end            reduce using rule 23 (booking -> BOOK NUMBER TICKETS FOR error ON DATE FOR EMAIL .)
+
+
+state 160
+
+    (24) booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .
+
+    BOOK            reduce using rule 24 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
+    STATUS          reduce using rule 24 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
+    SHOW            reduce using rule 24 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
+    FETCH           reduce using rule 24 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
+    RESERVE         reduce using rule 24 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
+    LIST            reduce using rule 24 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
+    PAY             reduce using rule 24 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
+    CANCEL          reduce using rule 24 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
+    $end            reduce using rule 24 (booking -> BOOK error TICKETS FOR error ON DATE FOR EMAIL .)
+
+
+state 161
+
+    (21) booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .
+
+    BOOK            reduce using rule 21 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
+    STATUS          reduce using rule 21 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
+    SHOW            reduce using rule 21 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
+    FETCH           reduce using rule 21 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
+    RESERVE         reduce using rule 21 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
+    LIST            reduce using rule 21 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
+    PAY             reduce using rule 21 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
+    CANCEL          reduce using rule 21 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
+    $end            reduce using rule 21 (booking -> BOOK error TICKETS FOR STRING ON DATE FOR EMAIL .)
+
+
+state 162
+
+    (49) reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .
+
+    BOOK            reduce using rule 49 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+    STATUS          reduce using rule 49 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+    SHOW            reduce using rule 49 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+    FETCH           reduce using rule 49 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+    RESERVE         reduce using rule 49 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+    LIST            reduce using rule 49 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+    PAY             reduce using rule 49 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+    CANCEL          reduce using rule 49 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+    $end            reduce using rule 49 (reservation -> RESERVE NUMBER TICKETS FOR STRING ON DATE FOR EMAIL .)
+
+
+state 163
+
+    (57) payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR EMAIL .
+
+    BOOK            reduce using rule 57 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR EMAIL .)
+    STATUS          reduce using rule 57 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR EMAIL .)
+    SHOW            reduce using rule 57 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR EMAIL .)
+    FETCH           reduce using rule 57 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR EMAIL .)
+    RESERVE         reduce using rule 57 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR EMAIL .)
+    LIST            reduce using rule 57 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR EMAIL .)
+    PAY             reduce using rule 57 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR EMAIL .)
+    CANCEL          reduce using rule 57 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR EMAIL .)
+    $end            reduce using rule 57 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING PAYMENT_METHOD FOR EMAIL .)
+
+
+state 164
+
+    (61) payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error FOR EMAIL .
+
+    BOOK            reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error FOR EMAIL .)
+    STATUS          reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error FOR EMAIL .)
+    SHOW            reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error FOR EMAIL .)
+    FETCH           reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error FOR EMAIL .)
+    RESERVE         reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error FOR EMAIL .)
+    LIST            reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error FOR EMAIL .)
+    PAY             reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error FOR EMAIL .)
+    CANCEL          reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error FOR EMAIL .)
+    $end            reduce using rule 61 (payment -> PAY FOR ALL BOOKINGS BOOKING_ID USING error FOR EMAIL .)
+
+
+state 165
+
+    (60) payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD FOR EMAIL .
+
+    BOOK            reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD FOR EMAIL .)
+    STATUS          reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD FOR EMAIL .)
+    SHOW            reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD FOR EMAIL .)
+    FETCH           reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD FOR EMAIL .)
+    RESERVE         reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD FOR EMAIL .)
+    LIST            reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD FOR EMAIL .)
+    PAY             reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD FOR EMAIL .)
+    CANCEL          reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD FOR EMAIL .)
+    $end            reduce using rule 60 (payment -> PAY FOR ALL BOOKINGS error USING PAYMENT_METHOD FOR EMAIL .)
 

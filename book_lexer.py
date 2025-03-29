@@ -5,8 +5,6 @@ reserved = {
     "book": "BOOK",
     "status": "STATUS",
     "show": "SHOW",
-    "select": "SELECT",
-    "sort": "SORT",
     "fetch": "FETCH",
     "reserve": "RESERVE",
     "reservations": "RESERVATIONS",
@@ -18,25 +16,27 @@ reserved = {
     "for": "FOR",
     "on": "ON",
     "using": "USING",
-    "by": "BY",
     "of": "OF",
     "api": "API",
-    "region": "REGION",
     "from": "FROM",
     "in": "IN",
     "tickets": "TICKETS",
-    "ticket": "TICKET",
     "available": "AVAILABLE",
     "events": "EVENTS",
     "paid": "PAID",
-    "my": "MY",
     "booking": "BOOKING",
     "bookings": "BOOKINGS",
     "all": "ALL",
 }
 
+    # "my": "MY",
+    # "ticket": "TICKET",
+    # "region": "REGION",
+    # "select": "SELECT",
     # "read": "READ",
+    # "by": "BY",
     # "out": "OUT",
+    # "sort": "SORT",
     # "details": "DETAILS",
 #    "event": "EVENT",
 # Token list
@@ -44,7 +44,6 @@ tokens = [
     "NUMBER",
     "STRING",
     "BOOKING_ID",
-    "TICKET_ID",
     "PAYMENT_METHOD",
     "API_URL",
     "DATE",
@@ -52,6 +51,7 @@ tokens = [
     "EMAIL"
 ] + list(reserved.values())
 
+    # "TICKET_ID",
 # Lexer rules
 
 
@@ -71,9 +71,9 @@ def t_BOOKING_ID(t):
     return t
 
 
-def t_TICKET_ID(t):
-    r"ticket_[a-zA-Z0-9_]+"
-    return t
+# def t_TICKET_ID(t):
+#     r"ticket_[a-zA-Z0-9_]+"
+#     return t
 
 
 def t_PAYMENT_METHOD(t):
