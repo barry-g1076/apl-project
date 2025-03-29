@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookify Compiler</title>
+    <!-- Updated Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styless.css">
+    <style>
+        /* Styling for the header and Bookify animation */
+        .header {
+            position: relative;
+            background-color: #333;
+            color: white;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            animation: fadeIn 2s ease-in-out; /* Fade-in animation */
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Styling for other sections */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .chat-section, .compiler-section {
+            padding: 20px;
+        }
+
+        .chat-area {
+            background-color: #f1f1f1;
+            padding: 10px;
+            margin-bottom: 10px;
+            height: 200px;
+            overflow-y: auto;
+        }
+
+        .message {
+            background-color: #e1e1e1;
+            margin-bottom: 5px;
+            padding: 8px;
+            border-radius: 5px;
+        }
+
+        /* Add styling for user and AI messages */
+        .user-message {
+            background-color: #d1f7d1;
+            text-align: right;
+        }
+
+        .ai-message {
+            background-color: #e1e1e1;
+            text-align: left;
+        }
+
+        .send-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .compiler-section {
+            width: 50%;
+        }
+
+        .compiler-buttons button {
+            margin-right: 10px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .output-area {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+
+        .booking-history-area {
+            margin-top: 20px;
+        }
+
+        .history-textarea {
+            width: 100%;
+            height: 150px;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: black; /* Add this line to change the font color to black */
+        }
+
+        /* Styling for Output Label */
+        .output-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        /* Styling for the emoji section */
+        .emoji-section {
+            display: flex;
+            margin-top: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .emoji {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Copyright Section */
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        /* Styling for the Speak button */
+        .speak-button {
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header with Bookify centered -->
+    <div class="header">
+        Bookify
+    </div>
+
+    <div class="container">
+        <div class="layout">
+            <!-- Chat Assistant (Left Section) -->
+            <div class="chat-section">
+                <h2>Chat with Assistant</h2>
+                <div id="chatArea" class="chat-area">
+                    <div class="message ai-message"><strong>AI:</strong> Hello! How can I assist you with your ticket reservations today?</div>
+                </div>
+
+                <!-- Chat Input Section with Send Button -->
+                <div class="chat-input-container">
+                    <textarea id="chatInput" placeholder="Ask me anything..."></textarea>
+                    <button id="sendButton" class="send-button">
+                        <i class="fas fa-arrow-right"></i> <!-- Send icon -->
+                    </button>
+                </div>
+
+                <!-- Emoji Section -->
+                <div class="emoji-section">
+                    <span class="emoji" onclick="insertEmoji('😊')">😊</span>
+                    <span class="emoji" onclick="insertEmoji('😂')">😂</span>
+                    <span class="emoji" onclick="insertEmoji('❤️')">❤️</span>
+                    <span class="emoji" onclick="insertEmoji('👍')">👍</span>
+                    <span class="emoji" onclick="insertEmoji('🎉')">🎉</span>
+                    <span class="emoji" onclick="insertEmoji('😎')">😎</span>
+                </div>
+
+                <!-- Speak Button below AI's response -->
+                <button id="speakButton" class="speak-button">Speak</button>
+            </div>
+
+            <!-- Compiler (Right Section) -->
+            <div class="compiler-section">
+                <h2>Bookify Compiler</h2>
+
+                <!-- Compiler Buttons (Run, Save, Erase, Clear History) -->
+                <div class="compiler-buttons">
+                    <button id="runButton" class="compiler-button">
+                        <i class="fas fa-play"></i> Run
+                    </button>
+                    <button id="saveButton" class="compiler-button">
+                        <i class="fas fa-save"></i> Save
+                    </button>
+                    <button id="eraseButton" class="compiler-button">
+                        <i class="fas fa-eraser"></i> Erase
+                    </button>
+                    <button id="clearHistoryButton" class="compiler-button">
+                        <i class="fas fa-history"></i> Clear History
+                    </button>
+                </div>
+
+                <!-- TicketLang Input Area -->
+                <textarea id="ticketLangInput" placeholder="Enter Bookify commands here..." rows="10" cols="50"></textarea>
+                
+                <!-- Label for Output Area -->
+                <div class="output-label">Output:</div>
+
+                <!-- Output Area Below the Compiler -->
+                <div class="output-area" id="outputArea"></div>
+
+                <!-- Booking History Section -->
+                <div id="bookingHistoryArea" class="booking-history-area">
+                    <h3>Booking History:</h3>
+                    <textarea id="bookingHistoryText" class="history-textarea" readonly></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copyright Section -->
+    <div class="copyright">
+        <p>&copy; 2025 Bookify. All rights reserved. <i class="fas fa-copyright"></i></p>
+    </div>
+
+    <script>
+    // Function to handle message sending and AI response
+    async function sendMessage() {
+        const chatInput = document.getElementById("chatInput");
+        const chatArea = document.getElementById("chatArea");
+        const message = chatInput.value.trim();
+
+        if (message) {
+            // User message
+            chatArea.innerHTML += `<div class="message user-message"><strong>You:</strong> ${message}</div>`;
+            
+            // Get AI response from OpenAI API
+            const aiResponse = await getAIResponse(message);
+
+            // AI message
+            chatArea.innerHTML += `<div class="message ai-message"><strong>AI:</strong> ${aiResponse}</div>`;
+            
+            // Scroll to bottom
+            chatArea.scrollTop = chatArea.scrollHeight;
+
+            // Clear the input
+            chatInput.value = "";
+        }
+    }
+
+    // Function to get AI response from OpenAI API
+    async function getAIResponse(message) {
+        const apiKey = 'your-openai-api-key';  // Replace this with your OpenAI API key
+        const url = 'https://api.openai.com/v1/completions';
+
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+        };
+
+        const body = JSON.stringify({
+            model: 'text-davinci-003',  // Or 'gpt-4', depending on the model you have access to
+            prompt: message,
+            max_tokens: 150,
+            temperature: 0.7,
+        });
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: body,
+            });
+
+            const data = await response.json();
+            if (data.choices && data.choices.length > 0) {
+                return data.choices[0].text.trim();
+            } else {
+                return 'Sorry, I could not understand your request.';
+            }
+        } catch (error) {
+            console.error('Error fetching AI response:', error);
+            return 'Sorry, something went wrong while getting the AI response.';
+        }
+    }
+
+    // Function to handle emoji insertion
+    function insertEmoji(emoji) {
+        const chatInput = document.getElementById("chatInput");
+        chatInput.value += emoji; // Insert emoji in textarea
+        chatInput.focus();
+    }
+
+    // Function to speak the AI's response
+    function speakAIResponse() {
+        const aiMessages = document.querySelectorAll('.ai-message');
+        const latestMessage = aiMessages[aiMessages.length - 1];
+        const messageText = latestMessage ? latestMessage.textContent.replace("AI:", "").trim() : '';
+
+        if (messageText) {
+            const speech = new SpeechSynthesisUtterance(messageText);
+            speech.lang = 'en-US'; // Set language
+            window.speechSynthesis.speak(speech); // Speak the message
+        }
+    }
+
+    // Auto-resize the textarea input for chat
+    document.getElementById("chatInput").addEventListener("input", function () {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+
+    // Attach event listeners to buttons after page load
+    window.addEventListener("DOMContentLoaded", function() {
+        // Attach event listeners to buttons
+        const sendButton = document.getElementById("sendButton");
+        const speakButton = document.getElementById("speakButton");
+        const runButton = document.getElementById("runButton");
+        const saveButton = document.getElementById("saveButton");
+        const eraseButton = document.getElementById("eraseButton");
+        const clearHistoryButton = document.getElementById("clearHistoryButton");
+
+        if (sendButton) sendButton.addEventListener("click", sendMessage);
+        if (speakButton) speakButton.addEventListener("click", speakAIResponse);
+        if (runButton) runButton.addEventListener("click", processTicketLang);
+        if (saveButton) saveButton.addEventListener("click", saveTicketLang);
+        if (eraseButton) eraseButton.addEventListener("click", eraseTicketLang);
+        if (clearHistoryButton) clearHistoryButton.addEventListener("click", clearHistory);
+    });
+
+    // Function to process TicketLang input
+    function processTicketLang() {
+        const inputText = document.getElementById("ticketLangInput").value.trim();
+        const outputArea = document.getElementById("outputArea");
+        let output = '';
+
+        if (inputText.startsWith('listEvents')) {
+            output = 'Events listed';
+        } else if (inputText.startsWith('reserveTicket')) {
+            output = 'Ticket reserved';
+        } else {
+            output = 'Invalid command';
+        }
+
+        outputArea.innerHTML = output;
+    }
+
+    // Function to save TicketLang input to localStorage
+    function saveTicketLang() {
+        const ticketLangInput = document.getElementById("ticketLangInput").value;
+        localStorage.setItem("savedTicketLang", ticketLangInput);
+        alert("TicketLang saved!");
+    }
+
+    // Function to erase TicketLang input
+    function eraseTicketLang() {
+        document.getElementById("ticketLangInput").value = "";
+    }
+
+    // Function to clear booking history
+    function clearHistory() {
+        document.getElementById("bookingHistoryText").value = "";
+    }
+</script>
+</body>
+
+
+
+
+
+
+
