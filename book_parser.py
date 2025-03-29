@@ -3,12 +3,11 @@ import book_lexer
 from semantic_analyzer import *
 from utils import *
 from testcode import data as testCode
-
-tokens = book_lexer.tokens  # Import tokens from your lexer
-from book_lexer import tokens
 from llm_integration import LLMBookingAssistant
 import json
 import os
+
+tokens = book_lexer.tokens  # Import tokens from your lexer
 
 # Initialize LLM assistant
 llm_assistant = LLMBookingAssistant(os.getenv('OPENAI_API_KEY', ''))
