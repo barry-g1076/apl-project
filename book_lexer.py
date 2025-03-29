@@ -43,6 +43,23 @@ reserved = {
 tokens = [
     "NUMBER",
     "STRING",
+# List of token names - order matters for precedence
+tokens = (
+    "BOOK",
+    "STATUS",
+    "SHOW",
+    "SELECT",
+    "SORT",
+    "FETCH",
+    "READ",
+    "RESERVE",
+    "LIST",
+    "PAY",
+    "CANCEL",
+    "API",
+    "NUMBER",
+    "DATE",
+    "QUOTED_STRING",
     "BOOKING_ID",
     "PAYMENT_METHOD",
     "API_URL",
@@ -53,6 +70,52 @@ tokens = [
 
     # "TICKET_ID",
 # Lexer rules
+    "FOR",
+    "ON",
+    "USING",
+    "FROM",
+    "IN",
+    "TICKETS",
+    "AVAILABLE",
+    "BY",
+    "PRICE",
+    "EVENTS",
+    "OUT",
+    "MY",
+    "BOOKING",
+    "DETAILS",
+    "SEARCH",
+    "POLICIES",
+)
+
+# Regular expression rules for simple tokens
+t_BOOK = r"BOOK"
+t_STATUS = r"STATUS"
+t_SHOW = r"SHOW"
+t_SELECT = r"SELECT"
+t_SORT = r"SORT"
+t_FETCH = r"FETCH"
+t_READ = r"READ"
+t_RESERVE = r"RESERVE"
+t_LIST = r"LIST"
+t_PAY = r"PAY"
+t_CANCEL = r"CANCEL"
+t_API = r"API"
+t_FOR = r"FOR"
+t_ON = r"ON"
+t_USING = r"USING"
+t_FROM = r"FROM"
+t_IN = r"IN"
+t_TICKETS = r"TICKETS"
+t_AVAILABLE = r"AVAILABLE"
+t_BY = r"BY"
+t_PRICE = r"PRICE"
+t_OUT = r"OUT"
+t_MY = r"MY"
+t_BOOKING = r"BOOKING"
+t_DETAILS = r"DETAILS"
+t_SEARCH = r"SEARCH"
+t_POLICIES = r"POLICIES"
 
 
 # Ignore whitespace and newlines
@@ -64,6 +127,38 @@ def t_EMAIL(t):
 
 def t_API_URL(t):
     r"https?://[^\s]+"
+
+def t_DATE(t):
+    r'"\d{4}-\d{2}-\d{2}"'
+    t.value = t.value.strip('"')
+    return t
+
+
+def t_QUOTED_STRING(t):
+    r'"[^"]*"'
+    t.value = t.value.strip('"')
+    return t
+
+
+def t_REGION(t):
+    r'"[^"]*"'
+    t.value = t.value.strip('"')
+    return t
+
+
+def t_BOOKING_ID(t):
+    r"\#\d+"
+    return t
+
+
+def t_TICKET_ID(t):
+    r"\#\d+"
+    return t
+
+
+def t_API_URL(t):
+    r'"https?://[^\s]+"'
+    t.value = t.value.strip('"')
     return t
 
 def t_BOOKING_ID(t):
