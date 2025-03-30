@@ -12,8 +12,9 @@ tokens = book_lexer.tokens  # Import tokens from your lexer
 # Initialize LLM assistant
 llm_assistant = LLMBookingAssistant(os.getenv('OPENAI_API_KEY', ''))
 
-# Todo: add a command to save data to file
-# Todo: add a command to load data from file
+# Todo: add a command to save data to file (leave for now)
+# Todo: add a command to load data from file (leave for now)
+# Todo: merge statement and command grammar, add custom syntax errors for the grammar and move semantics and interpreter code to the semantics analyzer file.
 # Parser rules
 def p_command(p):
     """command : booking
