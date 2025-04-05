@@ -9,8 +9,8 @@ function createWebSocket() {
         console.warn('WebSocket already exists');
         return;
     }
-
     socket = new WebSocket("ws://localhost:8000/ws");
+    // console.log("hi")
 
     socket.addEventListener('open', (event) => {
         console.log("[open] Connection established");
@@ -35,7 +35,8 @@ function createWebSocket() {
                 return;
             }
 
-            console.debug('Received WebSocket message:', data);
+
+            console.log('Received WebSocket message:', data);
 
             // Create container for all messages
             const messageContainer = document.createElement('div');
@@ -95,11 +96,12 @@ function createWebSocket() {
     });
 
     socket.addEventListener('error', (error) => {
-        console.error(`[error] ${error.message}`);
+        console.log(`[error] ${error.message}`);
     });
 }
 
 function sendMessage(data) {
+    
     if (!socket || socket.readyState !== WebSocket.OPEN) {
         console.log('Connection not ready - queuing message');
         messageQueue.push(data);

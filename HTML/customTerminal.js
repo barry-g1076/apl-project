@@ -1,135 +1,245 @@
-import { createWebSocket, sendMessage } from './customWebSocket.js'
+import { createWebSocket, sendMessage } from './customWebSocket.js';
 
-let currentInput = '';
-let commandHistory = [];
-let historyIndex = -1;
-let cursorIndex = 0;
+class TerminalManager {
+    constructor() {
+        this.currentInput = '';
+        this.commandHistory = [];
+        this.historyIndex = -1;
+        this.cursorIndex = 0;
+        this.initialized = false;
 
-// Initialize WebSocket
-createWebSocket()
-
-// Initialize the terminal
-const term = new Terminal({
-    cols: 40,
-    cursorBlink: true,
-    rows: 20,
-    lineWrap: true,
-});
-
-term.open(document.getElementById('terminal'));
-term.focus();
-
-
-term.write('Welcome to \x1b[94mBookify\x1B[0m \r\n// Enter Bookify commands here...\r\n// Examples: \r\nlistEvents()\r\nreserveTicket(\'Event Name\', \'Seat\', Date);')
-
-
-const prompt = (label = 'Bookify', newline = true) => {
-    if (newline) term.write('\r\n');
-    term.write(`Enter your command \x1b[94m${label}\x1b[0m >> `);
-};
-
-prompt()
-
-function redrawInput() {
-    term.write('\x1b[?25l');
-    // Clear current line and move cursor to beginning
-    term.write('\x1b[2K\r');
-
-    // Redraw prompt and input without newline
-    prompt('Bookify', false); 
-    term.write(currentInput);
-
-    // Move cursor back to correct position
-    const moveBack = currentInput.length - cursorIndex;
-    if (moveBack > 0) {
-        term.write(`\x1b[${moveBack}D`);
+        this.initTerminal();
     }
-    term.write('\x1b[?25h');
+
+    initTerminal() {
+        try {
+            // Initialize WebSocket
+            createWebSocket();
+
+            // Initialize the terminal
+            this.term = new Terminal({
+                cols: 80,  // Increased for better readability
+                cursorBlink: true,
+                rows: 24,  // Standard terminal size
+                lineWrap: true,
+                fontFamily: '"Courier New", monospace',
+                theme: {
+                    background: '#1e1e1e',
+                    foreground: '#f0f0f0'
+                }
+            });
+
+            this.term.open(document.getElementById('terminal'));
+            this.term.focus();
+
+            this.displayWelcomeMessage();
+            this.prompt();
+
+            this.setupEventListeners();
+            this.initialized = true;
+        } catch (error) {
+            console.error('Terminal initialization failed:', error);
+            // Fallback or error display logic could go here
+        }
+    }
+
+    displayWelcomeMessage() {
+        const welcomeMessage = [
+            'Welcome to \x1b[94mBookify\x1B[0m',
+            'Enter Bookify commands below:',
+            'Examples:',
+            '  listEvents()',
+            '  reserveTicket(\'Event Name\', \'Seat\', Date);',
+            '  help() for command list',
+            ''
+        ].join('\r\n');
+
+        this.term.write(welcomeMessage);
+    }
+
+    prompt(label = 'Bookify', newline = true) {
+        if (newline) this.term.write('\r\n');
+        this.term.write(`\x1b[32m${label}\x1b[0m $ `);  // Changed to Unix-style prompt
+    }
+
+    redrawInput() {
+        // Hide cursor during redraw to prevent flickering
+        this.term.write('\x1b[?25l');
+
+        // Move to start of line and clear it
+        this.term.write('\r\x1b[K');
+
+        // Redraw the prompt
+        this.term.write(`\x1b[32mBookify\x1b[0m $ `);
+
+        // Write the current input
+        this.term.write(this.currentInput);
+
+        // Position cursor correctly
+        if (this.cursorIndex < this.currentInput.length) {
+            // Move left N positions where N is remaining characters after cursor
+            const moveLeft = this.currentInput.length - this.cursorIndex;
+            this.term.write(`\x1b[${moveLeft}D`);
+        } else if (this.cursorIndex > this.currentInput.length) {
+            // Sanity check - shouldn't happen but protects against edge cases
+            this.cursorIndex = this.currentInput.length;
+        }
+
+        // Show cursor again
+        this.term.write('\x1b[?25h');
+    }
+
+    loadHistory() {
+        this.currentInput = this.commandHistory[this.historyIndex] || '';
+        this.cursorIndex = this.currentInput.length;
+        this.redrawInput();
+    }
+
+    handleCommand(input) {
+        input = input.trim();
+
+        if (input === '') {
+            this.prompt();
+            return;
+        }
+
+        // Add to history if not duplicate of last command
+        if (this.commandHistory[this.commandHistory.length - 1] !== input) {
+            this.commandHistory.push(input);
+        }
+        this.historyIndex = this.commandHistory.length;
+
+        // Handle special commands
+        if (input.toLowerCase() === "clear" || input.toLowerCase() === "cls") {
+            this.term.clear();
+        } else if (input.toLowerCase() === "help") {
+            this.displayHelp();
+        } else {
+            try {
+                sendMessage(input);
+            } catch (error) {
+                this.term.write(`\r\n\x1b[31mError sending command: ${error.message}\x1b[0m\r\n`);
+            }
+        }
+
+        this.currentInput = '';
+        this.cursorIndex = 0;
+        this.prompt();
+    }
+
+    displayHelp() {
+        const helpText = [
+            '\r\n\x1b[36mAvailable commands:\x1b[0m',
+            '  listEvents() - Show available events',
+            '  reserveTicket(name, seat, date) - Reserve a ticket',
+            '  clear/cls - Clear the terminal',
+            '  help - Show this help message',
+            '\x1b[90mUse arrow keys for history navigation\x1b[0m\r\n'
+        ].join('\r\n');
+
+        this.term.write(helpText);
+    }
+
+    setupEventListeners() {
+        this.term.onData((data) => {
+            try {
+                this.handleInput(data);
+            } catch (error) {
+                this.term.write(`\r\n\x1b[31mInput error: ${error.message}\x1b[0m\r\n`);
+                this.prompt();
+            }
+        });
+
+        // Optional: Handle resize events
+        // window.addEventListener('resize', () => {
+        //     this.term.fit();
+        // });
+    }
+
+    handleInput(data) {
+        switch (data) {
+            case '\r': // Enter
+            case '\n':
+                this.handleCommand(this.currentInput);
+                break;
+
+            case '\u007F': // Backspace
+                if (this.cursorIndex > 0) {
+                    this.currentInput =
+                        this.currentInput.slice(0, this.cursorIndex - 1) +
+                        this.currentInput.slice(this.cursorIndex);
+                    this.cursorIndex--;
+                    this.redrawInput();
+                }
+                break;
+
+            case '\x1b[A': // Up arrow
+                if (this.historyIndex > 0) {
+                    this.historyIndex--;
+                    this.loadHistory();
+                }
+                break;
+
+            case '\x1b[B': // Down arrow
+                if (this.historyIndex < this.commandHistory.length - 1) {
+                    this.historyIndex++;
+                    this.loadHistory();
+                } else {
+                    this.historyIndex = this.commandHistory.length;
+                    this.currentInput = '';
+                    this.cursorIndex = 0;
+                    this.redrawInput();
+                }
+                break;
+
+            case '\x1b[D': // Left arrow
+                if (this.cursorIndex > 0) {
+                    this.cursorIndex--;
+                    this.term.write('\x1b[D');
+                }
+                break;
+
+            case '\x1b[C': // Right arrow
+                if (this.cursorIndex < this.currentInput.length) {
+                    this.cursorIndex++;
+                    this.term.write('\x1b[C');
+                }
+                break;
+
+            case '\x1b[3~': // Delete key
+                if (this.cursorIndex < this.currentInput.length) {
+                    this.currentInput =
+                        this.currentInput.slice(0, this.cursorIndex) +
+                        this.currentInput.slice(this.cursorIndex + 1);
+                    this.redrawInput();
+                }
+                break;
+
+            case '\x1b[H': // Home key
+                this.cursorIndex = 0;
+                this.term.write(`\x1b[${this.currentInput.length}D`);
+                break;
+
+            case '\x1b[F': // End key
+                this.cursorIndex = this.currentInput.length;
+                this.term.write(`\x1b[${this.currentInput.length - this.cursorIndex}C`);
+                break;
+
+            default:
+                if (data >= ' ' && data <= '~') { // Printable ASCII characters
+                    this.currentInput =
+                        this.currentInput.slice(0, this.cursorIndex) +
+                        data +
+                        this.currentInput.slice(this.cursorIndex);
+                    this.cursorIndex++;
+                    this.redrawInput();
+                }
+                break;
+        }
+    }
 }
 
-function loadHistory() {
-    currentInput = commandHistory[historyIndex];
-    cursorIndex = currentInput.length;
-    redrawInput();
-}
-
-term.onData((data) => {
-
-    switch (data) {
-        case '\r':
-            // Enter pressed
-            const input = currentInput.trim();
-
-            if (input !== '') {
-                commandHistory.push(input);
-                historyIndex = commandHistory.length;
-            }
-
-            if (input.toLowerCase() === "cls") {
-                term.clear();
-                term.focus();
-            } else {
-                console.log(input)
-                sendMessage(input)
-            }
-
-            currentInput = '';
-            cursorIndex = 0;
-            prompt();
-            break;
-        case '\u007F': // backspace
-            if (cursorIndex > 0) {
-                currentInput =
-                    currentInput.slice(0, cursorIndex - 1) +
-                    currentInput.slice(cursorIndex);
-                cursorIndex--;
-                redrawInput();
-            }
-            break;
-        case '\x1b[A': // Arrow Up
-            if (historyIndex > 0) {
-                historyIndex--;
-                loadHistory();
-            }
-            break;
-        case '\x1b[B': //Arrow down
-            if (historyIndex < commandHistory.length - 1) {
-                historyIndex++;
-                loadHistory();
-            } else {
-                historyIndex = commandHistory.length;
-                currentInput = '';
-                cursorIndex = 0;
-                redrawInput();
-            }
-            break;
-        case '\x1b[D': // Left arrow
-            if (cursorIndex > 0) {
-                cursorIndex--;
-                term.write('\x1b[D');
-            }
-            break;
-
-        case '\x1b[C': // Right arrow
-            if (cursorIndex < currentInput.length) {
-                cursorIndex++;
-                term.write('\x1b[C');
-            }
-            break;
-        default:
-            if (data >= ' ') { // printable characters
-                currentInput =
-                    currentInput.slice(0, cursorIndex) +
-                    data +
-                    currentInput.slice(cursorIndex);
-                cursorIndex++;
-                redrawInput();
-            }
-            break;
-    }
+// Initialize the terminal when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    const terminalManager = new TerminalManager();
 });
-
-
-
-
-

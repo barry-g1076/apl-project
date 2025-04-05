@@ -1,21 +1,13 @@
-require('dotenv').config(); // Load .env
+import { GoogleGenAI } from "@google/genai";
 
-const { OpenAI } = require('openai');
+const ai = new GoogleGenAI({ apiKey: "AIzaSyDqmtl6gEjrDi-3p8PSQlpUzep4F5parIU "});
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY, 
-});
-
-async function runChat() {
-    const chatCompletion = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
-        messages: [
-            { role: "system", content: "You are a helpful assistant." },
-            { role: "user", content: "How do I use OpenAI in JavaScript?" },
-        ],
+async function main() {
+    const response = await ai.models.generateContent({
+        model: "gemini-2.0-flash",
+        contents: "Explain how AI works in a few words",
     });
-
-    console.log(chatCompletion.choices[0].message.content);
+    console.log(response.text);
 }
 
-runChat();
+main();

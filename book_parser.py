@@ -444,13 +444,18 @@ parser = yacc.yacc()
 
 def parse_input(data):
     error_collector.reset()
-    result = parser.parse(data)
+    parsed_data= parser.parse(data)
+    print(parsed_data)
+    result, booking_history = semantic_analyzer([parsed_data])
+    print(result)
+
     # Return errors along with result (if any)
     return {
         "success": not any([error_collector.lex_errors, error_collector.parse_errors]),
         "result": result,
         "errors": error_collector.lex_errors + error_collector.parse_errors,
         "warnings": syntaxWarnings,
+        "booking_history": booking_history,
     }
 
 

@@ -4,18 +4,19 @@ from pydantic import BaseModel
 from typing import List, Dict
 import json  # Add JSON module for serialization
 from book_parser import parse_input
-from llm_integration import LLMBookingAssistant
-import os
-from dotenv import load_dotenv
 
-load_dotenv()
+# from llm_integration import LLMBookingAssistant
+# import os
+# from dotenv import load_dotenv
+
+# load_dotenv()
 # Load environment variables from .env file
-api_key = os.getenv("OPENAI_API_KEY")
-if not api_key:
-    raise ValueError("OPENAI_API_KEY environment variable not set")
+# api_key = os.getenv("GEMINI_API_KEY")
+# if not api_key:
+#     raise ValueError("GEMINI_API_KEY environment variable not set")
+# app.state.llm_assistant = LLMBookingAssistant(api_key=api_key)
 
 app = FastAPI()
-app.state.llm_assistant = LLMBookingAssistant(api_key=api_key)
 # Add CORS middleware to allow cross-origin requests
 app.add_middleware(
     CORSMiddleware,

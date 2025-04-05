@@ -149,8 +149,9 @@ def check_user_ticket_limit(
     return True, None
 
 
-def semantic_analyzer(ast: List) -> bool:
+def semantic_analyzer(ast: List) -> list:
     """Process the abstract syntax tree of commands."""
+    
     results = []
     for node in ast:
         if node is None:
@@ -177,16 +178,14 @@ def semantic_analyzer(ast: List) -> bool:
             elif node[0] == "policy":
                 results.append(handle_policy(node))
         except Exception as e:
-            printer.critical(f"Error processing command: {str(e)}")
-            results.append(False)
-    return all(results)
+            results.append(f"Error processing command: {str(e)}")
+    return results, USER_DATA
 
 
-def handle_booking(node: List) -> bool:
+def handle_booking(node: List) -> str:
     """Process a booking request with comprehensive validation."""
     if len(node) < 4:
-        printer.critical("Invalid booking data format")
-        return False
+        return "Invalid booking data format"
 
     try:
         ticket_no, event_name, event_date_str, email = (
@@ -198,43 +197,37 @@ def handle_booking(node: List) -> bool:
         ticket_no = int(ticket_no)
         event_date = datetime.strptime(event_date_str, "%Y-%m-%d").date()
     except (ValueError, IndexError) as e:
-        printer.critical(f"Invalid booking data format: {str(e)}")
-        return False
+        return f"Invalid booking data format: {str(e)}"
 
     # Validate date
     if not validate_event_date(event_date):
-        printer.critical("Event date cannot be in the past")
-        return False
+        return "Event date cannot be in the past"
 
     # Validate ticket quantity
     is_valid, message = validate_ticket_quantity(ticket_no)
     if not is_valid:
-        printer.critical(message)
-        return False
+        return message
 
     # Find and validate event
     event = find_event(event_name)
     if not event:
-        printer.critical("Event not found")
-        return False
+        return "Event not found"
 
     # Check ticket availability
     is_available, message = check_ticket_availability(event, ticket_no)
     if not is_available:
-        printer.critical(message)
-        return False
+        return message
 
     # Check user ticket limit
     can_book, message = check_user_ticket_limit(event_name, ticket_no, email)
     if not can_book:
-        printer.critical(message)
-        return False
+       return message
 
     # Process booking
     return create_booking(event, event_name, ticket_no, email)
 
 
-def create_booking(event: dict, event_name: str, ticket_no: int, email: str) -> bool:
+def create_booking(event: dict, event_name: str, ticket_no: int, email: str) -> str:
     """Create a new booking and update system state.
 
     Args:
@@ -275,19 +268,17 @@ def create_booking(event: dict, event_name: str, ticket_no: int, email: str) -> 
         USER_DATA[email][event_name]["bookings"].append(booking_details)
         USER_DATA[email][event_name]["ticketNo"] += ticket_no
 
-        printer.info(
-            f"Successfully booked {ticket_no} tickets for event {event_name} for {email}"
-        )
+        return f"Successfully booked {ticket_no} tickets for event {event_name} for {email}"
+
         # printer.info(f"Booking details: {USER_DATA}")
-        return True
     except Exception as e:
-        printer.critical(f"Failed to create booking: {str(e)}")
-        return False
+        return f"Failed to create booking: {str(e)}"
 
 
-def handle_status(booking_reference: str) -> bool:
+def handle_status(booking_reference: str) -> str:
     """Display status of bookings or tickets."""
     found = False
+    result = []
 
     for event_name, event_data in USER_DATA.items():
         for booking in event_data["bookings"]:
@@ -296,49 +287,49 @@ def handle_status(booking_reference: str) -> bool:
                 or booking["booking_id"] == booking_reference
             ):
                 found = True
-                print_booking_status(event_name, booking)
+                result.append(format_booking_status(event_name, booking))
 
     if not found and booking_reference.lower() != "tickets":
-        printer.warning(f"No booking found with ID: {booking_reference}")
+        return f"No booking found with ID: {booking_reference}"
 
-    return found
+    return "\n".join(result) if result else "No bookings found"
 
 
-def print_booking_status(event_name: str, booking: dict) -> None:
-    """Print formatted booking status."""
-    printer.info(
-        f"\nEvent: {event_name}\n"
-        f"Booking ID: {booking['booking_id']}\n"
-        f"Created: {booking.get('created_at', 'N/A')}\n"
-        f"Status: {booking.get('status', 'N/A')}\n"
-        "Tickets:"
-    )
+def format_booking_status(event_name: str, booking: dict) -> str:
+    """Format booking status as string."""
+    status = [
+        f"\nEvent: {event_name}",
+        f"Booking ID: {booking['booking_id']}",
+        f"Created: {booking.get('created_at', 'N/A')}",
+        f"Status: {booking.get('status', 'N/A')}",
+        "Tickets:",
+    ]
 
     for ticket in booking["tickets"]:
-        printer.info(f"  - {ticket['ticket_id']}: {ticket['status'].upper()}")
+        status.append(f"  - {ticket['ticket_id']}: {ticket['status'].upper()}")
+
+    return "\n".join(status)
 
 
-def handle_view(node: list) -> bool:
+def handle_view(node: list) -> str:
     """Display event information or filtered ticket statuses."""
-
     view_type, email = node[1], node[2]
+
     # Check if viewing an event
     event = find_event(view_type)
     if event:
-        print_event_details(event)
-        return True
+        return format_event_details(event)
 
     # Check if viewing ticket statuses
     if view_type in VALID_TICKET_STATUSES:
-        return print_tickets_by_status(view_type, email)
+        return get_tickets_by_status(view_type, email)
 
-    printer.warning(f"Invalid view type: {view_type}")
-    return False
+    return f"Invalid view type: {view_type}"
 
 
-def print_event_details(event: dict) -> None:
-    """Print formatted event details."""
-    printer.info(
+def format_event_details(event: dict) -> str:
+    """Format event details as string."""
+    return (
         f"\nEvent: {event['name']}\n"
         f"Date: {event['date']} {event.get('time', '')}\n"
         f"Description: {event.get('description', 'N/A')}\n"
@@ -347,16 +338,18 @@ def print_event_details(event: dict) -> None:
     )
 
 
-def print_tickets_by_status(status: str, email: str) -> bool:
-    """Print tickets filtered by status."""
-    found_data = False
+def get_tickets_by_status(status: str, email: str) -> str:
+    """Get tickets filtered by status as string."""
+    result = []
+
+    if email not in USER_DATA:
+        return f"No tickets found with status: {status.upper()}"
 
     for event_name, event_data in USER_DATA[email].items():
         for booking in event_data["bookings"]:
             for ticket in booking["tickets"]:
                 if ticket["status"].lower() == status.lower():
-                    found_data = True
-                    printer.info(
+                    result.append(
                         f"Event: {event_name}, "
                         f"Booking ID: {booking['booking_id']}, "
                         f"Ticket ID: {ticket['ticket_id']}, "
@@ -364,83 +357,54 @@ def print_tickets_by_status(status: str, email: str) -> bool:
                         f"Email: {email}"
                     )
 
-    if not found_data:
-        printer.info(f"No tickets found with status: {status.upper()}")
+    if not result:
+        return f"No tickets found with status: {status.upper()}"
 
-    return found_data
+    return "\n".join(result)
 
 
-def handle_fetch(url: str, timeout: float = 10.0) -> bool:
-    """
-    Fetch data from a URL and update the event data if successful.
-
-    Args:
-        url: The URL to fetch data from
-        timeout: Request timeout in seconds (default: 10.0)
-
-    Returns:
-        bool: True if fetch and update were successful, False otherwise
-    """
-    # Validate URL format
+def handle_fetch(url: str, timeout: float = 10.0) -> str:
+    """Fetch data from a URL and update the event data if successful."""
     if not url.startswith(("http://", "https://")):
-        printer.critical(f"Invalid URL format: {url}")
-        return False
+        return f"Invalid URL format: {url}"
 
     try:
         response = requests.get(
             url, timeout=timeout, headers={"Accept": "application/json"}
         )
-        response.raise_for_status()  # Raises HTTPError for bad responses
+        response.raise_for_status()
 
         data = response.json()
 
-        # Validate response data structure
         if not validate_event_data(data):
-            printer.critical("Invalid data structure received from API")
-            return False
+            return "Invalid data structure received from API"
 
         for event in data:
             EVENT_DATA.append(event)
-            printer.info(
-                f"Successfully fetched and added event: {event.get('name', 'Unnamed event')}"
-            )
-        return True
+            return f"Successfully fetched and added event: {event.get('name', 'Unnamed event')}"
 
     except requests.exceptions.Timeout:
-        printer.critical(f"Request timed out after {timeout} seconds")
+        return f"Request timed out after {timeout} seconds"
     except requests.exceptions.HTTPError as e:
-        printer.critical(f"HTTP error occurred: {str(e)}")
+        return f"HTTP error occurred: {str(e)}"
     except requests.exceptions.JSONDecodeError:
-        printer.critical("Invalid JSON response from server")
+        return "Invalid JSON response from server"
     except requests.exceptions.RequestException as e:
-        printer.critical(f"Network error occurred: {str(e)}")
+        return f"Network error occurred: {str(e)}"
     except Exception as e:
-        printer.critical(f"Unexpected error: {str(e)}")
-
-    return False
+        return f"Unexpected error: {str(e)}"
 
 
 def validate_event_data(data: Dict[str, Any]) -> bool:
-    """
-    Validate that the fetched data contains required event fields.
-
-    Args:
-        data: Dictionary containing event data
-
-    Returns:
-        bool: True if data is valid, False otherwise
-    """
+    """Validate that the fetched data contains required event fields."""
     required_fields = {"name", "date", "tickets_available"}
 
-    # If data is a list, validate each item
     if isinstance(data, list):
         return all(validate_event_data(item) for item in data)
 
-    # If data is not a dict, reject
     if not isinstance(data, dict):
         return False
 
-    # Check required fields
     if not all(field in data for field in required_fields):
         return False
 
@@ -457,35 +421,31 @@ def validate_event_data(data: Dict[str, Any]) -> bool:
     return True
 
 
-def handle_region(region: str) -> bool:
-    """
-    Handle the region of the event.
-    Args:
-    region: The region of the event.
-    Returns:
-    bool: True if the region is valid, False otherwise.
-    """
+def handle_region(region: str) -> str:
+    """Handle the region of the event."""
     matching_events = [e for e in EVENT_DATA if region.lower() in e["location"].lower()]
-    if matching_events:
-        print(f"\nEvents in region '{region}':")
-        print("―" * 40)
-        for event in matching_events:
-            print(f"• Event: {event.get('name', 'Unnamed')}")
-            print(f"  Location: {event['location']}")
-            print(f"  Date: {event.get('date', 'N/A')}")
-            print(f"  Tickets: {event.get('tickets_available', 'N/A')}")
-            print("―" * 40)
-        return True
-    else:
-        printer.info(f"No events found in region: {region}")
-        return False
+    if not matching_events:
+        return f"No events found in region: {region}"
+
+    result = [f"\nEvents in region '{region}':", "―" * 40]
+    for event in matching_events:
+        result.extend(
+            [
+                f"• Event: {event.get('name', 'Unnamed')}",
+                f"  Location: {event['location']}",
+                f"  Date: {event.get('date', 'N/A')}",
+                f"  Tickets: {event.get('tickets_available', 'N/A')}",
+                "―" * 40,
+            ]
+        )
+
+    return "\n".join(result)
 
 
-def handle_reservation(node: List) -> bool:
+def handle_reservation(node: List) -> str:
     """Process a reservation request with comprehensive validation."""
     if len(node) < 4:
-        printer.critical("Invalid reservation data format")
-        return False
+        return "Invalid reservation data format"
 
     try:
         ticket_no, event_name, event_date_str, email = (
@@ -497,45 +457,37 @@ def handle_reservation(node: List) -> bool:
         ticket_no = int(ticket_no)
         event_date = datetime.strptime(event_date_str, "%Y-%m-%d").date()
     except (ValueError, IndexError) as e:
-        printer.critical(f"Invalid reservation data format: {str(e)}")
-        return False
+        return f"Invalid reservation data format: {str(e)}"
 
     # Validate date
     if not validate_event_date(event_date):
-        printer.critical("Event date cannot be in the past")
-        return False
+        return "Event date cannot be in the past"
 
     # Validate ticket quantity
     is_valid, message = validate_ticket_quantity(ticket_no)
     if not is_valid:
-        printer.critical(message)
-        return False
+        return message
 
     # Find and validate event
     event = find_event(event_name)
     if not event:
-        printer.critical("Event not found")
-        return False
+        return "Event not found"
 
     # Check ticket availability
     is_available, message = check_ticket_availability(event, ticket_no)
     if not is_available:
-        printer.critical(message)
-        return False
+        return message
 
     # Check user ticket limit
     can_book, message = check_user_ticket_limit(event_name, ticket_no, email)
     if not can_book:
-        printer.critical(message)
-        return False
+        return message
 
     # Process reservation
     return create_reservation(event, event_name, ticket_no, email)
 
 
-def create_reservation(
-    event: dict, event_name: str, ticket_no: int, email: str
-) -> bool:
+def create_reservation(event: dict, event_name: str, ticket_no: int, email: str) -> str:
     """Create a new reservation and update system state."""
     try:
         # Update event tickets
@@ -543,8 +495,7 @@ def create_reservation(
 
         if email not in USER_DATA:
             USER_DATA[email] = {}
-        # Initialize user data if not exists
-        if event_name not in USER_DATA:
+        if event_name not in USER_DATA[email]:
             USER_DATA[email][event_name] = {"ticketNo": 0, "reservations": []}
 
         # Create reservation
@@ -565,123 +516,93 @@ def create_reservation(
         USER_DATA[email][event_name]["reservations"].append(reservation_details)
         USER_DATA[email][event_name]["ticketNo"] += ticket_no
 
-        printer.info(f"Successfully reserved {ticket_no} tickets for {event_name}")
-        # printer.info(f"Reservation details: {USER_DATA}")
-        return True
+        return f"Successfully reserved {ticket_no} tickets for {event_name}"
     except Exception as e:
-        printer.critical(f"Failed to create reservation: {str(e)}")
-        return False
+        return f"Failed to create reservation: {str(e)}"
 
 
-def handle_listing() -> bool:
-    """Handle listing of all available events.
-
-    Returns:
-        bool: True if events were found and displayed, False if no events available
-    """
+def handle_listing() -> str:
+    """Handle listing of all available events."""
     if not EVENT_DATA:
-        printer.info("No events available")
-        return False
+        return "No events available"
 
+    result = []
     for event in EVENT_DATA:
-        printer.info(
+        result.append(
             f"Event: {event['name']}\n"
             f"Tickets available: {event['tickets_available']}\n"
             "---"
         )
-    return True
+    return "\n".join(result)
 
 
-def handle_payment(node) -> bool:
-    """Handle reservation of tickets for an event by processing payment and updating ticket status.
-
-    Args:
-        node: A tuple containing reservation data (payment_type, booking_id, ...)
-
-    Returns:
-        bool: True if reservation was successful, False otherwise
-    """
+def handle_payment(node) -> str:
+    """Handle reservation of tickets for an event by processing payment and updating ticket status."""
     VALID_PAYMENT_TYPES = {"CreditCard", "PayPal", "Crypto"}
 
     if len(node) < 4 and len(node) < 3:
-        printer.critical("Invalid node format - missing payment type or booking ID")
-        return False
+        return "Invalid node format - missing payment type or booking ID"
 
     if len(node) == 4:
         booking_id, payment_type, email = node[1], node[2], node[3]
 
-        # Validate payment type
         if payment_type not in VALID_PAYMENT_TYPES:
-            printer.critical(f"Invalid payment type: {payment_type}")
-            return False
+            return f"Invalid payment type: {payment_type}"
 
-        # Search for booking across all events
         booking_found = False
         for event_name, event_data in USER_DATA[email].items():
             for booking in event_data.get("bookings", []):
                 if booking.get("booking_id") == booking_id:
                     booking_found = True
-                    success = _process_tickets(
+                    success, message = process_tickets(
                         booking.get("tickets", []), event_name, "paid"
                     )
                     if not success:
-                        return False
+                        return message
 
         if not booking_found:
-            printer.info(f"Booking ID {booking_id} not found")
-            return False
+            return f"Booking ID {booking_id} not found"
     else:
         booking_id, email = node[1], node[2]
         for event_name, event_data in USER_DATA[email].items():
             for booking in event_data.get("bookings", []):
                 if booking.get("booking_id") == booking_id:
                     booking_found = True
-                    success = _process_tickets(
+                    success, message = process_tickets(
                         booking.get("tickets", []), event_name, "cancel"
                     )
                     if not success:
-                        return False
-    return True
+                        return message
+    return "Payment processed successfully"
 
 
-def _process_tickets(tickets: list, event_name: str, status: str) -> bool:
-    """Process individual tickets for a booking.
-
-    Args:
-        tickets: List of ticket dictionaries
-        event_name: Name of the event for logging
-
-    Returns:
-        bool: True if all tickets were processed successfully
-    """
+def process_tickets(tickets: list, event_name: str, status: str) -> Tuple[bool, str]:
+    """Process individual tickets for a booking."""
     if not tickets:
-        printer.warning(f"No tickets found for booking in event {event_name}")
-        return False
+        return False, f"No tickets found for booking in event {event_name}"
 
-    success = True
+    result = []
     for ticket in tickets:
         if ticket.get("status") != status:
             try:
                 ticket["status"] = status
-                printer.info(
+                result.append(
                     f"Ticket {ticket.get('ticket_id', 'UNKNOWN')} "
                     f"for {event_name} has been {status}"
                 )
             except Exception as e:
-                printer.error(f"Failed to process ticket: {str(e)}")
-                success = False
+                return False, f"Failed to process ticket: {str(e)}"
 
-    return success
+    return True, "\n".join(result)
 
 
 ##* AI -Semantics and Analyzer *##
 
 
-def handle_search(request: Request,node: List) -> bool:
+def handle_search(request: Request, node: List) -> str:
     """Process a search request with comprehensive validation."""
     if len(node) < 3:
-        printer.critical("Invalid search data format")
-        return False
+        return "Invalid search data format"
 
     try:
         assistant = request.app.state.llm_assistant
@@ -692,24 +613,19 @@ def handle_search(request: Request,node: List) -> bool:
         region = region.strip("\"'")
 
         if not search_term:
-            printer.critical("Search term cannot be empty")
-            return False
+            return "Search term cannot be empty"
 
         if not region:
-            printer.critical("Region cannot be empty")
-            return False
+            return "Region cannot be empty"
 
         events = assistant.get_available_events(region)
         if not events:
-            printer.info(f"No events found in region: {region}")
-            return True
+            return f"No events found in region: {region}"
 
-        # Convert to lowercase for case-insensitive search
         search_term = search_term.lower()
         matching_events = []
 
         for event in events:
-            # Check if the search term appears in the event name, category, or description
             if (
                 search_term in event["name"].lower()
                 or search_term in event["category"].lower()
@@ -717,56 +633,68 @@ def handle_search(request: Request,node: List) -> bool:
             ):
                 matching_events.append(event)
 
-        if matching_events:
-            printer.info(f"Found {len(matching_events)} matching events in {region}:")
-            for event in matching_events:
-                printer.info(f"- {event['name']}")
-                printer.info(f"  Date: {event['date']} at {event['time']}")
-                printer.info(f"  Location: {event['location']}")
-                printer.info(f"  Price: ${event['price']} {event['currency']}")
-                printer.info(f"  Available: {event['tickets_available']} tickets")
-                printer.info(f"  Status: {event['status']}")
-                printer.info(f"  Category: {event['category']}")
-                printer.info(f"  Description: {event['description']}")
-                printer.info("")
-        else:
-            printer.info(f"No events matching '{search_term}' found in {region}")
+        if not matching_events:
+            return f"No events matching '{search_term}' found in {region}"
 
-        return True
+        result = [f"Found {len(matching_events)} matching events in {region}:"]
+        for event in matching_events:
+            result.extend(
+                [
+                    f"- {event['name']}",
+                    f"  Date: {event['date']} at {event['time']}",
+                    f"  Location: {event['location']}",
+                    f"  Price: ${event['price']} {event['currency']}",
+                    f"  Available: {event['tickets_available']} tickets",
+                    f"  Status: {event['status']}",
+                    f"  Category: {event['category']}",
+                    f"  Description: {event['description']}",
+                    "",
+                ]
+            )
+
+        return "\n".join(result)
 
     except Exception as e:
-        printer.critical(f"Search failed: {str(e)}")
-        return False
+        return f"Search failed: {str(e)}"
 
 
-def handle_policy(request: Request,node: List) -> bool:
+def handle_policy(request: Request, node: List) -> str:
     """Process a policy request with comprehensive validation."""
     if len(node) < 2:
-        printer.critical("Invalid policy request format")
-        return False
+        return "Invalid policy request format"
 
     try:
         assistant = request.app.state.llm_assistant
-        event_name = node[1].strip("\"'")  # Remove quotes
+        event_name = node[1].strip("\"'")
 
         if not event_name:
-            printer.critical("Event name cannot be empty")
-            return False
+            return "Event name cannot be empty"
 
         policies = assistant.get_booking_policies(event_name)
 
-        if policies:
-            printer.info(f"Booking policies for {event_name}:")
-            printer.info(
-                f"- Cancellation: {policies.get('cancellation_policy', 'N/A')}"
-            )
-            printer.info(f"- Payment: {policies.get('payment_policy', 'N/A')}")
-            printer.info(f"- Refund: {policies.get('refund_policy', 'N/A')}")
-        else:
-            printer.info(f"No policies found for {event_name}")
+        if not policies:
+            return f"No policies found for {event_name}"
 
-        return True
+        return (
+            f"Booking policies for {event_name}:\n"
+            f"- Cancellation: {policies.get('cancellation_policy', 'N/A')}\n"
+            f"- Payment: {policies.get('payment_policy', 'N/A')}\n"
+            f"- Refund: {policies.get('refund_policy', 'N/A')}"
+        )
 
     except Exception as e:
-        printer.critical(f"Failed to retrieve policies: {str(e)}")
-        return False
+        return f"Failed to retrieve policies: {str(e)}"
+
+
+# def print_booking_status(event_name: str, booking: dict) -> None:
+#     """Print formatted booking status."""
+#     printer.info(
+#         f"\nEvent: {event_name}\n"
+#         f"Booking ID: {booking['booking_id']}\n"
+#         f"Created: {booking.get('created_at', 'N/A')}\n"
+#         f"Status: {booking.get('status', 'N/A')}\n"
+#         "Tickets:"
+#     )
+
+#     for ticket in booking["tickets"]:
+#         printer.info(f"  - {ticket['ticket_id']}: {ticket['status'].upper()}")
