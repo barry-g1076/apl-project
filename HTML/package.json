@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@xterm/addon-fit": "^0.10.0",
+    "@xterm/xterm": "^5.5.0",
+    "dotenv": "^16.4.7",
+    "openai": "^4.91.1"
+  }
+}

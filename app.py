@@ -1,8 +1,48 @@
-from fastapi import FastAPI, HTTPException
-from typing import List
+from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from typing import List, Dict
+import json  # Add JSON module for serialization
+from book_parser import parse_input
+from llm_integration import LLMBookingAssistant
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+# Load environment variables from .env file
+api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
+    raise ValueError("OPENAI_API_KEY environment variable not set")
 
 app = FastAPI()
+app.state.llm_assistant = LLMBookingAssistant(api_key=api_key)
+# Add CORS middleware to allow cross-origin requests
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
+
+# Pydantic model for event validation and documentation
+class Event(BaseModel):
+    id: int
+    name: str
+    location: str
+    date: str
+    time: str
+    tickets_available: int
+    price: float
+    currency: str
+    status: str
+    organizer: str
+    category: str
+    description: str
+
+
+# Original events data converted to a dictionary for O(1) lookups
 events_data = [
     {
         "id": 1,
@@ -216,15 +256,88 @@ events_data = [
     },
 ]
 
+events_dict: Dict[int, Event] = {event["id"]: event for event in events_data}
 
-@app.get("/api/events", response_model=List[dict])
+
+class ConnectionManager:
+    def __init__(self):
+        self.active_connections: List[WebSocket] = []
+
+    async def connect(self, websocket: WebSocket):
+        await websocket.accept()
+        self.active_connections.append(websocket)
+
+    def disconnect(self, websocket: WebSocket):
+        if websocket in self.active_connections:
+            self.active_connections.remove(websocket)
+
+    async def safe_send(self, websocket: WebSocket, message: str):
+        try:
+            parsed = parse_input(message)
+            await websocket.send_text(json.dumps(parsed))
+        except RuntimeError as e:
+            print(f"Connection closed, removing: {e}")
+            self.disconnect(websocket)
+        except Exception as e:
+            print(f"Error sending message: {e}")
+            self.disconnect(websocket)
+
+    async def broadcast(self, message: str):
+        closed_connections = []
+        for connection in self.active_connections:
+            try:
+                parsed = parse_input(message)
+                await connection.send_text(json.dumps(parsed))
+            except (RuntimeError, WebSocketDisconnect):
+                closed_connections.append(connection)
+            except Exception as e:
+                print(f"Broadcast error: {e}")
+                closed_connections.append(connection)
+
+        # Clean up closed connections
+        for connection in closed_connections:
+            self.disconnect(connection)
+
+
+manager = ConnectionManager()
+
+
+@app.get("/api/events", response_model=List[Event])
 async def get_events():
+    """
+    Retrieve a list of all upcoming events with complete details.
+    """
     return events_data
 
 
-@app.get("/api/events/{event_id}", response_model=dict)
+@app.get("/api/events/{event_id}", response_model=Event)
 async def get_event(event_id: int):
-    event = next((e for e in events_data if e["id"] == event_id), None)
+    """
+    Get detailed information about a specific event by ID.
+
+    - **event_id**: The unique identifier of the event (1-15)
+    """
+    event = events_dict.get(event_id)
     if not event:
         raise HTTPException(status_code=404, detail="Event not found")
     return event
+
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    """
+    WebSocket endpoint for real-time communication.
+
+    Clients can connect to send and receive live updates.
+    """
+    await manager.connect(websocket)
+    try:
+        while True:
+            data = await websocket.receive_text()
+            await manager.broadcast(data)
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
+        await manager.broadcast("A client disconnected")
+    except Exception as e:
+        print(f"WebSocket error: {e}")
+        manager.disconnect(websocket)

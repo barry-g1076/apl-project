@@ -7,3 +7,5 @@ __pycache__/parsetab.cpython-313.pyc
 __pycache__/semantic_analyzer.cpython-313.pyc
 __pycache__/testcode.cpython-313.pyc
 book_parser_update.py
+
+HTML/node_modules

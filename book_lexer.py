@@ -1,4 +1,5 @@
 import ply.lex as lex
+from utils.errors import error_collector
 
 # Reserved keywords
 reserved = {
@@ -27,18 +28,11 @@ reserved = {
     "booking": "BOOKING",
     "bookings": "BOOKINGS",
     "all": "ALL",
+    "statement": "statement",
+    "search":"SEARCH",
+    "policies":"POLICIES",
 }
 
-    # "my": "MY",
-    # "ticket": "TICKET",
-    # "region": "REGION",
-    # "select": "SELECT",
-    # "read": "READ",
-    # "by": "BY",
-    # "out": "OUT",
-    # "sort": "SORT",
-    # "details": "DETAILS",
-#    "event": "EVENT",
 # Token list
 tokens = [
     "NUMBER",
@@ -51,7 +45,6 @@ tokens = [
     "EMAIL"
 ] + list(reserved.values())
 
-    # "TICKET_ID",
 # Lexer rules
 
 
@@ -114,8 +107,19 @@ def t_newline(t):
 
 # Error handling for lexer
 def t_error(t):
-    print(f"Illegal character '{t.value[0]}'")
+    line = t.lexer.lineno
+    col = find_column(t.lexer.lexdata, t)
+    error_msg = (
+        f"Lexer error at (line {line}, col {col}) illegal character '{t.value[0]}'"
+    )
+    error_collector.lex_errors.append(error_msg)
     t.lexer.skip(1)
+
+def find_column(input, token):
+    last_cr = input.rfind('\n', 0, token.lexpos)
+    if last_cr < 0:
+        last_cr = 0
+    return token.lexpos - last_cr
 
 
 # Build the lexer
@@ -138,3 +142,15 @@ if __name__ == "__main__":
     lexer.input(data)
     for tok in lexer:
         print(tok)
+
+# "my": "MY",
+# "ticket": "TICKET",
+# "region": "REGION",
+# "select": "SELECT",
+# "read": "READ",
+# "by": "BY",
+# "out": "OUT",
+# "sort": "SORT",
+# "details": "DETAILS",
+#    "event": "EVENT",
+# "TICKET_ID",

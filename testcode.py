@@ -26,15 +26,15 @@ PAY FOR ALL BOOKINGS booking_59c133d1 USING CreditCard FOR
 data = """
 BOOK 3 TICKETS FOR "Jazz Festival 2025" ON 2025-06-01 FOR black@gmail.com
 PAY FOR ALL BOOKINGS booking_59c133d1 USING CreditCard FOR black@gmail.com
+RESERVE 5 TICKETS FOR "Blockchain Summit" ON 2025-06-01 FOR black@gmail.com
+SHOW RESERVATIONS FOR  black@gmail.com
+SHOW CONFIRMED BOOKINGS FOR black@gmail.com
+SHOW PAID TICKETS FOR  black@gmail.com
+SHOW CANCELED BOOKINGS FOR black@gmail.com
+PAY FOR ALL BOOKINGS booking_5c67f3e1 USING CreditCard FOR black@gmail.com
+FETCH TICKETS FROM API http://127.0.0.1:8000/api/events
+CANCEL BOOKING booking_5c67f3e1 for black@gmail.com
 """
-# RESERVE 5 TICKETS FOR "Blockchain Summit" ON 2025-06-01 FOR black@gmail.com
-# SHOW RESERVATIONS FOR  black@gmail.com
-# SHOW CONFIRMED BOOKINGS FOR black@gmail.com
-# SHOW PAID TICKETS FOR  black@gmail.com
-# SHOW CANCELED BOOKINGS FOR black@gmail.com
-# PAY FOR ALL BOOKINGS booking_5c67f3e1 USING CreditCard
-# CANCEL BOOKING booking_5c67f3e1
-# FETCH TICKETS FROM API http://127.0.0.1:8000/api/events
 # LIST ALL EVENTS
 # SHOW AVAILABLE TICKETS IN "San Francisco"
 # RESERVE 3 TICKETS FOR "Tech Conference 2025" ON 2025-07-15

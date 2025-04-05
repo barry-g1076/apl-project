@@ -7,6 +7,7 @@ import uuid
 from dataclasses import dataclass
 from enum import Enum, auto
 import requests
+from fastapi import Request
 
 # Constants
 MAX_TICKETS_PER_USER = 5
@@ -171,6 +172,10 @@ def semantic_analyzer(ast: List) -> bool:
                 results.append(handle_listing())
             elif node[0] == "payment" or node[0] == "cancel":
                 results.append(handle_payment(node))
+            elif node[0] == "search":
+                results.append(handle_search(node))
+            elif node[0] == "policy":
+                results.append(handle_policy(node))
         except Exception as e:
             printer.critical(f"Error processing command: {str(e)}")
             results.append(False)
@@ -667,3 +672,101 @@ def _process_tickets(tickets: list, event_name: str, status: str) -> bool:
                 success = False
 
     return success
+
+
+##* AI -Semantics and Analyzer *##
+
+
+def handle_search(request: Request,node: List) -> bool:
+    """Process a search request with comprehensive validation."""
+    if len(node) < 3:
+        printer.critical("Invalid search data format")
+        return False
+
+    try:
+        assistant = request.app.state.llm_assistant
+        search_term, region = node[1], node[2]
+
+        # Remove quotes if present
+        search_term = search_term.strip("\"'")
+        region = region.strip("\"'")
+
+        if not search_term:
+            printer.critical("Search term cannot be empty")
+            return False
+
+        if not region:
+            printer.critical("Region cannot be empty")
+            return False
+
+        events = assistant.get_available_events(region)
+        if not events:
+            printer.info(f"No events found in region: {region}")
+            return True
+
+        # Convert to lowercase for case-insensitive search
+        search_term = search_term.lower()
+        matching_events = []
+
+        for event in events:
+            # Check if the search term appears in the event name, category, or description
+            if (
+                search_term in event["name"].lower()
+                or search_term in event["category"].lower()
+                or search_term in event["description"].lower()
+            ):
+                matching_events.append(event)
+
+        if matching_events:
+            printer.info(f"Found {len(matching_events)} matching events in {region}:")
+            for event in matching_events:
+                printer.info(f"- {event['name']}")
+                printer.info(f"  Date: {event['date']} at {event['time']}")
+                printer.info(f"  Location: {event['location']}")
+                printer.info(f"  Price: ${event['price']} {event['currency']}")
+                printer.info(f"  Available: {event['tickets_available']} tickets")
+                printer.info(f"  Status: {event['status']}")
+                printer.info(f"  Category: {event['category']}")
+                printer.info(f"  Description: {event['description']}")
+                printer.info("")
+        else:
+            printer.info(f"No events matching '{search_term}' found in {region}")
+
+        return True
+
+    except Exception as e:
+        printer.critical(f"Search failed: {str(e)}")
+        return False
+
+
+def handle_policy(request: Request,node: List) -> bool:
+    """Process a policy request with comprehensive validation."""
+    if len(node) < 2:
+        printer.critical("Invalid policy request format")
+        return False
+
+    try:
+        assistant = request.app.state.llm_assistant
+        event_name = node[1].strip("\"'")  # Remove quotes
+
+        if not event_name:
+            printer.critical("Event name cannot be empty")
+            return False
+
+        policies = assistant.get_booking_policies(event_name)
+
+        if policies:
+            printer.info(f"Booking policies for {event_name}:")
+            printer.info(
+                f"- Cancellation: {policies.get('cancellation_policy', 'N/A')}"
+            )
+            printer.info(f"- Payment: {policies.get('payment_policy', 'N/A')}")
+            printer.info(f"- Refund: {policies.get('refund_policy', 'N/A')}")
+        else:
+            printer.info(f"No policies found for {event_name}")
+
+        return True
+
+    except Exception as e:
+        printer.critical(f"Failed to retrieve policies: {str(e)}")
+        return False
