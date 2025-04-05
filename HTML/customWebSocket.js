@@ -25,55 +25,81 @@ function createWebSocket() {
     socket.addEventListener('message', (event) => {
         try {
             const output = document.getElementById('outputArea');
-            if (!output) return;
+            const historyOutput = document.getElementById('bookingHistoryText');
+            if (!output || !historyOutput) return;
 
-            let data;
-            try {
-                data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
-            } catch (parseError) {
-                console.error('Failed to parse message data:', parseError);
-                return;
-            }
-
-
+            // Parse incoming data
+            const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
             console.log('Received WebSocket message:', data);
 
-            // Create container for all messages
-            const messageContainer = document.createElement('div');
-            messageContainer.classList.add('message-container');
+            // Process main message output
+            if (data.success || data.errors) {
+                const messageContainer = document.createElement('div');
+                messageContainer.classList.add('message-container');
 
-            if (data.success) {
-                // Handle multiple results (array or single value)
-                const results = Array.isArray(data.result) ? data.result : [data.result];
-                results.forEach(result => {
-                    if (result != null) {  // Skip null/undefined results
+                if (data.success && data.result) {
+                    // Process successful results
+                    const results = Array.isArray(data.result) ? data.result : [data.result];
+                    results.filter(result => result != null).forEach(result => {
                         const resultElement = document.createElement('p');
                         resultElement.textContent = result;
                         resultElement.classList.add('message-success');
                         messageContainer.appendChild(resultElement);
-                    }
-                });
-            } else {
-                // Handle multiple errors (array or single value)
-                const errors = Array.isArray(data.errors) ? data.errors :
-                    (data.errors ? [data.errors] : ['Unknown error']);
-                errors.forEach(error => {
-                    const errorElement = document.createElement('p');
-                    errorElement.textContent = error;
-                    errorElement.classList.add('message-error');
-                    messageContainer.appendChild(errorElement);
-                });
+                    });
+                } else if (data.errors) {
+                    // Process errors
+                    const errors = Array.isArray(data.errors) ? data.errors :
+                        (data.errors ? [data.errors] : ['Unknown error']);
+                    errors.forEach(error => {
+                        const errorElement = document.createElement('p');
+                        errorElement.textContent = error;
+                        errorElement.classList.add('message-error');
+                        messageContainer.appendChild(errorElement);
+                    });
+                }
+
+                // Append messages if we have content
+                if (messageContainer.children.length > 0) {
+                    output.appendChild(messageContainer);
+                    output.scrollTop = output.scrollHeight;
+                }
             }
 
-            // Only append if we have content
-            if (messageContainer.children.length > 0) {
-                const fragment = document.createDocumentFragment();
-                fragment.appendChild(messageContainer);
-                output.appendChild(fragment);
-                output.scrollTop = output.scrollHeight;
+            // Process booking history if present
+            if (data.booking_history && Object.keys(data.booking_history).length > 0) {
+                let historyText = '';
+
+                for (const [eventName, eventData] of Object.entries(data.booking_history)) {
+                    historyText += `Event: ${eventName}\n`;
+                    historyText += `Total Tickets: ${eventData.ticketNo}\n`;
+
+                    eventData.bookings.forEach((booking, index) => {
+                        historyText += `\nBooking ${index + 1} (ID: ${booking.booking_id}):\n`;
+
+                        booking.tickets.forEach(ticket => {
+                            historyText += `- Ticket ${ticket.ticket_id}: ${ticket.status}\n`;
+                        });
+                    });
+
+                    historyText += '\n' + '─'.repeat(40) + '\n\n';
+                }
+
+                historyOutput.value = historyText.trim();
+                historyOutput.scrollTop = historyOutput.scrollHeight;
             }
+
         } catch (error) {
             console.error('Error processing WebSocket message:', error);
+
+            // Display error to user
+            const output = document.getElementById('outputArea');
+            if (output) {
+                const errorElement = document.createElement('p');
+                errorElement.textContent = 'Error processing server response';
+                errorElement.classList.add('message-error');
+                output.appendChild(errorElement);
+                output.scrollTop = output.scrollHeight;
+            }
         }
     });
 
