@@ -1,9 +1,12 @@
-from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, HTTPException, Request, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import List, Dict
 import json  # Add JSON module for serialization
 from book_parser import parse_input
+from fastapi.templating import Jinja2Templates
 
 from llm_integration import LLMBookingAssistant
 import os
@@ -17,6 +20,12 @@ if not api_key:
 
 app = FastAPI()
 app.state.llm_assistant = LLMBookingAssistant(api_key=api_key)
+# Mount static files directory (CSS, JS, images, etc.)
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Optional: Mount node_modules if you want to serve frontend dependencies directly
+app.mount("/node_modules", StaticFiles(directory="node_modules"), name="node_modules")
+templates = Jinja2Templates(directory="templates")
 # Add CORS middleware to allow cross-origin requests
 app.add_middleware(
     CORSMiddleware,
@@ -319,6 +328,10 @@ class ChatConnectionManager:
 
 
 chat_manager = ChatConnectionManager()
+
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
+    return templates.TemplateResponse('index.html', {"request": request})
 
 @app.get("/api/events", response_model=List[Event])
 async def get_events():
