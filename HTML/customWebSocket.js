@@ -1,8 +1,10 @@
 let socket = null;
+let chatSocket = null;
 let reconnectAttempts = 0;
 const maxReconnectAttempts = 5;
 const reconnectInterval = 3000;
 const messageQueue = [];
+const chatMessageQueue = [];
 
 function createWebSocket() {
     if (socket) {
@@ -145,7 +147,93 @@ function sendMessage(data) {
     }
 }
 
+const eventListeners = {};
+
+function emit(event, data) {
+    if (eventListeners[event]) {
+        eventListeners[event].forEach(callback => callback(data));
+    }
+}
+
+function on(event, callback) {
+    if (!eventListeners[event]) {
+        eventListeners[event] = [];
+    }
+    eventListeners[event].push(callback);
+}
+
+
+function createChatWebSocket() {
+
+    const chatSocket = new WebSocket("ws://localhost:8000/chat");
+
+    chatSocket.addEventListener('open', (event) => {
+        console.log("[open] Chat Connection established");
+        reconnectAttempts = 0;
+        // Process queued messages
+        while (chatMessageQueue.length > 0) {
+            const message = chatMessageQueue.shift();
+            chatSocket.send(message);
+        }
+    });
+
+    chatSocket.addEventListener('message', (event) => {
+        console.log(`[message] ${event.data}`);
+        emit('message', event.data);
+    })
+
+    chatSocket.addEventListener('close', (event) => {
+        console.log('[close] Connection closed');
+        chatSocket = null;
+
+        if (event.wasClean) {
+            console.log(`Code: ${event.code}, Reason: ${event.reason}`);
+        } else {
+            console.error('Connection interrupted');
+            if (reconnectAttempts < maxReconnectAttempts) {
+                setTimeout(() => {
+                    reconnectAttempts++;
+                    console.log(`Reconnection attempt ${reconnectAttempts}`);
+                    createChatWebSocket();
+                }, reconnectInterval);
+            }
+        }
+    });
+
+    chatSocket.addEventListener('error', (error) => {
+        console.log(`[error] ${error.message}`);
+    });
+}
+
+function sendChatMessage(data) {
+
+    if (!chatSocket || chatSocket.readyState !== WebSocket.OPEN) {
+        console.log('Connection not ready - queuing message');
+        chatMessageQueue.push(data);
+        if (!chatSocket || chatSocket.readyState === WebSocket.CLOSED) {
+            createChatWebSocket();
+        }
+        return;
+    }
+
+    try {
+        console.log("hi",data);
+        chatSocket.send(data);
+    } catch (error) {
+        console.error('Error sending message:', error);
+        chatMessageQueue.push(data);
+    }
+}
+
+
+function getChatSocket() {
+    return chatSocket;
+}
 export {
     createWebSocket, // Make sure this matches exactly with import name
-    sendMessage
+    sendMessage,
+    createChatWebSocket,
+    sendChatMessage,
+    getChatSocket,
+    on
 };

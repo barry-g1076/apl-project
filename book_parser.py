@@ -11,9 +11,6 @@ from utils.validations import DataValidator
 tokens = book_lexer.tokens  # Import tokens from your lexer
 syntaxWarnings = []
 
-
-# Todo: add a command to save data to file
-# Todo: add a command to load data from file
 # Parser rules
 def p_command(p):
     """command : statement
@@ -353,11 +350,11 @@ def p_search(p):
     """search : SEARCH FOR STRING IN STRING"""
     if not DataValidator.is_str(p[3]):
         error_collector.parse_errors.append(
-            f"Expected quoted string for search term but got '{check_type(p[3])}'"
+            f"Expected string for search term but got '{check_type(p[3])}'"
         )
     if not DataValidator.is_str(p[5]):
         error_collector.parse_errors.append(
-            f"Expected quoted string for region but got '{check_type(p[5])}'"
+            f"Expected string for region but got '{check_type(p[5])}'"
         )
     p[0] = ("search", p[3], p[5])
 

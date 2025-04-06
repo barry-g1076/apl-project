@@ -5,18 +5,18 @@ from typing import List, Dict
 import json  # Add JSON module for serialization
 from book_parser import parse_input
 
-# from llm_integration import LLMBookingAssistant
-# import os
-# from dotenv import load_dotenv
+from llm_integration import LLMBookingAssistant
+import os
+from dotenv import load_dotenv
 
-# load_dotenv()
+load_dotenv()
 # Load environment variables from .env file
-# api_key = os.getenv("GEMINI_API_KEY")
-# if not api_key:
-#     raise ValueError("GEMINI_API_KEY environment variable not set")
-# app.state.llm_assistant = LLMBookingAssistant(api_key=api_key)
+api_key = os.getenv("GEMINI_API_KEY")
+if not api_key:
+    raise ValueError("GEMINI_API_KEY environment variable not set")
 
 app = FastAPI()
+app.state.llm_assistant = LLMBookingAssistant(api_key=api_key)
 # Add CORS middleware to allow cross-origin requests
 app.add_middleware(
     CORSMiddleware,
@@ -294,14 +294,31 @@ class ConnectionManager:
             except Exception as e:
                 print(f"Broadcast error: {e}")
                 closed_connections.append(connection)
-
         # Clean up closed connections
         for connection in closed_connections:
             self.disconnect(connection)
 
-
 manager = ConnectionManager()
 
+class ChatConnectionManager:
+    def __init__(self):
+        self.active_connections: List[WebSocket] = []
+
+    async def connect(self, websocket: WebSocket):
+        await websocket.accept()
+        self.active_connections.append(websocket)
+
+    def disconnect(self, websocket: WebSocket):
+        self.active_connections.remove(websocket)
+
+    async def broadcast(self, message: str):
+        for connection in self.active_connections:
+            print("connections")
+            response = app.state.llm_assistant.chat(message)
+            await connection.send_text(response)
+
+
+chat_manager = ChatConnectionManager()
 
 @app.get("/api/events", response_model=List[Event])
 async def get_events():
@@ -342,3 +359,18 @@ async def websocket_endpoint(websocket: WebSocket):
     except Exception as e:
         print(f"WebSocket error: {e}")
         manager.disconnect(websocket)
+
+@app.websocket("/chat")
+async def websocket_chat(websocket: WebSocket):
+    """ WebSocket endpoint for real-time chat communication."""
+    await chat_manager.connect(websocket)
+    try:
+        while True:
+            data = await websocket.receive_text()
+            await chat_manager.broadcast(data)
+    except WebSocketDisconnect:
+        chat_manager.disconnect(websocket)
+        await chat_manager.broadcast("A client disconnected")
+    except Exception as e:
+        print(f"WebSocket error: {e}")
+        chat_manager.disconnect(websocket)

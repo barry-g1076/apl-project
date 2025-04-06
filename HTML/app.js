@@ -1,11 +1,13 @@
+import { createChatWebSocket, sendChatMessage, on } from "./customWebSocket.js";
 
 
+createChatWebSocket();
 // Function to handle message sending and AI response
 async function sendMessage() {
     const chatInput = document.getElementById("chatInput");
     const chatArea = document.getElementById("chatArea");
     const message = chatInput.value.trim();
-
+    sendChatMessage(message)
     if (message) {
         // User message
         chatArea.innerHTML += `<div class="message user-message"><strong>You:</strong> ${message}</div>`;
@@ -21,19 +23,20 @@ async function sendMessage() {
         chatArea.scrollTop = chatArea.scrollHeight;
 
         // Get AI response (simulated for demo)
-        setTimeout(() => {
+        on('message', (message) => {
+            if (!thinkingMsg || !document.contains(thinkingMsg)) {
+                return; // Exit the function
+            }
             // Remove thinking message
             chatArea.removeChild(thinkingMsg);
 
-            // Generate response based on keywords
-            let aiResponse = getSimulatedResponse(message);
-
             // Add AI response
-            chatArea.innerHTML += `<div class="message ai-message"><strong>Bookify AI:</strong> ${aiResponse}</div>`;
+            chatArea.innerHTML += `<div class="message ai-message"><strong>Bookify AI:</strong> ${message}</div>`;
 
             // Scroll to bottom
             chatArea.scrollTop = chatArea.scrollHeight;
-        }, 1000);
+        });
+        
 
         // Clear the input
         chatInput.value = "";

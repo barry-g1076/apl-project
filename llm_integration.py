@@ -8,7 +8,7 @@ from typing import Dict, List, Optional
 class LLMBookingAssistant:
     def __init__(self, api_key):
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-pro')
+        self.model = genai.GenerativeModel("gemini-2.0-flash")
         self.conversation_history = []
 
     def _generate_response(self, prompt: str, system_message: str = None, json_mode: bool = False) -> str:
@@ -22,7 +22,7 @@ class LLMBookingAssistant:
                 ]
             else:
                 messages = [{"role": "user", "parts": [prompt]}]
-            
+
             response = self.model.generate_content(
                 contents=messages,
                 generation_config=genai.types.GenerationConfig(
@@ -38,15 +38,15 @@ class LLMBookingAssistant:
         try:
             system_message = "You are a helpful ticket booking assistant. Return event data in the exact JSON format specified."
             prompt = f"List available events in {region} as JSON with name, location, date, time, tickets_available, price, currency, status, organizer, category, and description. Return only the JSON."
-            
+
             response = self._generate_response(prompt, system_message, json_mode=True)
-            
+
             # Try to extract JSON if it's wrapped in markdown
             if response.startswith("```json"):
                 response = response[7:-3].strip()
             elif response.startswith("```"):
                 response = response[3:-3].strip()
-                
+
             return json.loads(response)
         except (json.JSONDecodeError, Exception):
             # Return sample data for testing without showing error
@@ -73,13 +73,13 @@ class LLMBookingAssistant:
 
         try:
             response = self._generate_response(prompt, system_message, json_mode=True)
-            
+
             # Try to extract JSON if it's wrapped in markdown
             if response.startswith("```json"):
                 response = response[7:-3].strip()
             elif response.startswith("```"):
                 response = response[3:-3].strip()
-                
+
             try:
                 details = json.loads(response)
             except json.JSONDecodeError:
@@ -129,15 +129,15 @@ class LLMBookingAssistant:
         try:
             system_message = "You are a helpful ticket booking assistant."
             prompt = f"Get booking policies for {event_name} as JSON with cancellation_policy, payment_policy, and refund_policy. Return only the JSON."
-            
+
             response = self._generate_response(prompt, system_message, json_mode=True)
-            
+
             # Try to extract JSON if it's wrapped in markdown
             if response.startswith("```json"):
                 response = response[7:-3].strip()
             elif response.startswith("```"):
                 response = response[3:-3].strip()
-                
+
             return json.loads(response)
         except (json.JSONDecodeError, Exception):
             # Return sample data for testing without showing error
@@ -146,3 +146,80 @@ class LLMBookingAssistant:
                 "payment_policy": "Full payment required at booking",
                 "refund_policy": "Full refund available for cancellations within 24 hours",
             }
+
+    def chat(self, message):
+        system_message = """Role:
+You are an expert assistant for the Bookify programming language, a specialized DSL for ticket/event management. Your role is to:
+
+Explain Bookify's syntax, commands, and capabilities
+
+Help users write correct Bookify statements
+
+Provide examples and troubleshoot errors
+
+Answer both technical and non-technical questions about the language
+
+Instructions:
+
+Always begin by welcoming users to Bookify
+
+Use the exact grammar rules and sample code provided when answering
+
+For technical queries, first show the correct syntax, then provide 1-2 examples
+
+For conceptual questions, explain simply but thoroughly
+
+When users show incorrect code, politely point out the error and show the corrected version
+
+Maintain a helpful, professional tone
+
+Sample Interactions:
+
+Syntax Help:
+User: "How do I check ticket status?"
+AI: "To check booking status, use:
+STATUS OF BOOKING [booking_id] FOR [email]
+Example:
+STATUS OF BOOKING booking_12345 FOR alice@example.com"
+
+Error Correction:
+User: "I wrote: BOOK 3 tickets Ed Sheeran on 2025-09-10"
+AI: "Almost there! The correct syntax requires FOR and quotation marks:
+BOOK 3 TICKETS FOR "Ed Sheeran" ON "2025-09-10" FOR email@domain.com"
+
+Conceptual Question:
+User: "What's the difference between RESERVE and BOOK?"
+AI: "RESERVE holds tickets temporarily without payment, while BOOK creates a confirmed booking. Example:
+RESERVE 5 TICKETS FOR "Conference" ON "2025-07-20" FOR user@email.com
+Later you can pay with:
+PAY FOR ALL BOOKINGS [booking_id] USING CreditCard FOR user@email.com"
+
+Key Information to Include:
+
+Supported commands: BOOK, SHOW, STATUS, PAY, RESERVE, FETCH, CANCEL, etc.
+
+Required formatting: Dates in "YYYY-MM-DD", strings in quotes, email validation
+
+Procedural execution model (statements execute in order)
+
+How to integrate with external APIs using FETCH
+
+Welcome Message:
+"Welcome to Bookify Assistant! I can help you:
+✓ Write ticket management scripts
+✓ Explain any Bookify command
+✓ Debug your existing code
+✓ Learn best practices
+
+Try asking things like:
+
+'How do I find available events in New York?'
+
+'Show me how to pay for a booking'
+
+'Why is this RESERVE command failing?'
+
+What would you like to do with Bookify today?"""
+        prompt = message
+        response = self._generate_response(prompt, system_message)
+        return response
