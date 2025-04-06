@@ -401,7 +401,6 @@ def p_policy(p):
 
 def p_policy_error(p):
     """policy : SHOW POLICIES FOR error
-    | SHOW error
     | SHOW POLICIES error"""
     if len(p) == 5:
         if not DataValidator.is_str(p[4]):
