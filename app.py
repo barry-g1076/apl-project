@@ -24,7 +24,13 @@ app.state.llm_assistant = LLMBookingAssistant(api_key=api_key)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Optional: Mount node_modules if you want to serve frontend dependencies directly
-app.mount("/node_modules", StaticFiles(directory="node_modules"), name="node_modules")
+# app.mount("/node_modules", StaticFiles(directory="node_modules"), name="node_modules")
+# For production (Docker/cloud)
+node_modules_path = os.path.join(os.path.dirname(__file__), "node_modules")
+if os.path.exists(node_modules_path):
+    app.mount(
+        "/node_modules", StaticFiles(directory=node_modules_path), name="node_modules"
+    )
 templates = Jinja2Templates(directory="templates")
 # Add CORS middleware to allow cross-origin requests
 app.add_middleware(
