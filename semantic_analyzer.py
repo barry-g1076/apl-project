@@ -10,7 +10,7 @@ import requests
 from fastapi import Request
 
 # Constants
-MAX_TICKETS_PER_USER = 5
+MAX_TICKETS_PER_USER = 10
 VALID_TICKET_STATUSES = {
     "booked",
     "confirmed",
