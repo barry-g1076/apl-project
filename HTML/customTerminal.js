@@ -48,9 +48,8 @@ class TerminalManager {
             'Welcome to \x1b[94mBookify\x1B[0m',
             'Enter Bookify commands below:',
             'Examples:',
-            '  listEvents()',
-            '  reserveTicket(\'Event Name\', \'Seat\', Date);',
-            '  help() for command list',
+            '  list All Events',
+            '  help for command list',
             ''
         ].join('\r\n');
 

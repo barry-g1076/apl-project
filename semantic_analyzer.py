@@ -47,41 +47,7 @@ printer = ColorErrorPrinter()
 
 # Sample data - would normally come from a database
 EVENT_DATA = jsonEvent
-USER_DATA = {
-    "Jazz Festival 2025": {
-        "ticketNo": 5,
-        "bookings": [
-            {
-                "booking_id": "booking_59c133d1",
-                "tickets": [
-                    {"ticket_id": "ticket_3b353612", "status": "booked"},
-                    {"ticket_id": "ticket_20350e02", "status": "booked"},
-                ],
-            },
-            {
-                "booking_id": "booking_a7d829f4",
-                "tickets": [
-                    {"ticket_id": "ticket_89e021bb", "status": "pending"},
-                    {"ticket_id": "ticket_63fce910", "status": "pending"},
-                    {"ticket_id": "ticket_1a2b3c4d", "status": "pending"},
-                ],
-            },
-        ],
-    },
-    "Rock Night 2025": {
-        "ticketNo": 3,
-        "bookings": [
-            {
-                "booking_id": "booking_5c67f3e1",
-                "tickets": [
-                    {"ticket_id": "ticket_9d8e7f6a", "status": "confirmed"},
-                    {"ticket_id": "ticket_11223344", "status": "confirmed"},
-                    {"ticket_id": "ticket_abcd1234", "status": "confirmed"},
-                ],
-            }
-        ],
-    },
-}
+USER_DATA = {}
 
 
 def generate_id(prefix: str) -> str:

@@ -43,25 +43,6 @@ async function sendMessage() {
     }
 }
 
-// Function to get a simulated AI response based on keywords
-function getSimulatedResponse(message) {
-    const lowerMsg = message.toLowerCase();
-
-    if (lowerMsg.includes('book') || lowerMsg.includes('ticket') || lowerMsg.includes('reserve')) {
-        return "I can help you book tickets! Just type your destination, date, and number of passengers in the Bookify Compiler, or ask me for available routes.";
-    } else if (lowerMsg.includes('schedule') || lowerMsg.includes('time') || lowerMsg.includes('when')) {
-        return "Our schedules are updated daily. You can check availability by running 'listEvents()' in the compiler, or tell me your travel date and I'll assist you.";
-    } else if (lowerMsg.includes('cancel') || lowerMsg.includes('refund')) {
-        return "To cancel a booking, use 'cancelBooking(bookingId)' in the compiler. Refunds are processed within 3-5 business days.";
-    } else if (lowerMsg.includes('hello') || lowerMsg.includes('hi') || lowerMsg.includes('hey')) {
-        return "Hello! How can I assist with your travel plans today?";
-    } else if (lowerMsg.includes('help')) {
-        return "I can help with bookings, schedules, cancellations, and travel information. Type what you need or use the Bookify Compiler for direct commands.";
-    } else {
-        return "I'm here to help with your booking needs. Would you like to check availability, make a reservation, or learn about our services?";
-    }
-}
-
 // Function to insert emoji into chat input
 function insertEmoji(emoji) {
     const chatInput = document.getElementById("chatInput");

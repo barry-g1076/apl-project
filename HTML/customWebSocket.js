@@ -71,23 +71,51 @@ function createWebSocket() {
             if (data.booking_history && Object.keys(data.booking_history).length > 0) {
                 let historyText = '';
 
-                for (const [eventName, eventData] of Object.entries(data.booking_history)) {
-                    historyText += `Event: ${eventName}\n`;
-                    historyText += `Total Tickets: ${eventData.ticketNo}\n`;
+                // Loop through each user's bookings
+                for (const [userEmail, userBookings] of Object.entries(data.booking_history)) {
+                    historyText += `User: ${userEmail}\n\n`;
 
-                    eventData.bookings.forEach((booking, index) => {
-                        historyText += `\nBooking ${index + 1} (ID: ${booking.booking_id}):\n`;
+                    // Loop through each event for this user
+                    for (const [eventName, eventData] of Object.entries(userBookings)) {
+                        historyText += `Event: ${eventName}\n`;
+                        historyText += `Total Tickets: ${eventData.ticketNo}\n`;
 
-                        booking.tickets.forEach(ticket => {
-                            historyText += `- Ticket ${ticket.ticket_id}: ${ticket.status}\n`;
-                        });
-                    });
+                        // Loop through each reservation
+                        if (eventData.reservations) { 
 
-                    historyText += '\n' + '─'.repeat(40) + '\n\n';
+                            eventData.reservations.forEach((reservation, index) => {
+                                historyText += `\nReservation ${index + 1} (ID: ${reservation.reservation_id}):\n`;
+                                historyText += `Created at: ${reservation.created_at}\n`;
+                                historyText += `Status: ${reservation.status}\n`;
+    
+                                // List all tickets
+                                reservation.tickets.forEach(ticket => {
+                                    historyText += `- Ticket ${ticket.ticket_id}: ${ticket.status}\n`;
+                                });
+                            });
+                        } else {
+                            eventData.bookings.forEach((booking, index) => {
+                                historyText += `\nBooking ${index + 1} (ID: ${booking.booking_id}):\n`;
+                                historyText += `Created at: ${booking.created_at}\n`;
+                                historyText += `Status: ${booking.status}\n`;
+
+                                // List all tickets
+                                booking.tickets.forEach(ticket => {
+                                    historyText += `- Ticket ${ticket.ticket_id}: ${ticket.status}\n`;
+                                });
+                            });
+                        }
+
+                        historyText += '\n' + '─'.repeat(40) + '\n\n';
+                    }
                 }
 
-                historyOutput.value = historyText.trim();
-                historyOutput.scrollTop = historyOutput.scrollHeight;
+                localStorage.setItem("bookingHistory", historyText.trim());
+
+                if (historyOutput) {
+                    historyOutput.value = historyText.trim();
+                    historyOutput.scrollTop = historyOutput.scrollHeight;
+                }
             }
 
         } catch (error) {
