@@ -1,3 +1,5 @@
+import {CONFIG} from './config.js'
+
 let socket = null;
 let chatSocket = null;
 let reconnectAttempts = 0;
@@ -11,7 +13,7 @@ function createWebSocket() {
         console.warn('WebSocket already exists');
         return;
     }
-    socket = new WebSocket("ws://localhost:8000/ws");
+    socket = new WebSocket(`${CONFIG.WS_URL}/ws`);
     // console.log("hi")
 
     socket.addEventListener('open', (event) => {
@@ -193,7 +195,7 @@ function on(event, callback) {
 
 function createChatWebSocket() {
 
-    const chatSocket = new WebSocket("ws://localhost:8000/chat");
+    const chatSocket = new WebSocket(`${CONFIG.WS_URL}/chat`);
 
     chatSocket.addEventListener('open', (event) => {
         console.log("[open] Chat Connection established");
